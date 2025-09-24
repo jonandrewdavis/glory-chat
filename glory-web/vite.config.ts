@@ -10,7 +10,7 @@ export default defineConfig({
     viteStaticCopy({
       targets: [
         {
-          src: path.resolve(__dirname, "./game") + "/[!.]*", // 1️⃣
+          src: path.resolve(__dirname, "./game"),
           dest: "./game", // 2️⃣
         },
       ],
