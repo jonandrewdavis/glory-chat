@@ -27,7 +27,7 @@ window/per_pixel_transparency/allowed=true
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/gut/plugin.cfg", "res://addons/very-simple-twitch/plugin.cfg")
+enabled=PackedStringArray("res://addons/very-simple-twitch/plugin.cfg")
 
 [file_customization]
 
@@ -65,3 +65,7 @@ down={
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
 viewport/transparent_background=true
+
+[very_simple_twitch]
+
+config/client_id="8prmjw9vtfk3vfrsb4ar9y7em7ex6o"

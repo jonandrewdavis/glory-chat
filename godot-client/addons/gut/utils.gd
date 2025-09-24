@@ -167,7 +167,7 @@ static func get_scene_script_object(scene):
 # ##############################################################################
 # Start Class
 # ##############################################################################
-var Logger = load('res://addons/gut/logger.gd') # everything should use get_logger
+#var Logger = load('res://addons/gut/logger.gd') # everything should use get_logger
 var _lgr = null
 var json = JSON.new()
 
@@ -559,4 +559,3 @@ func get_display_size():
 # THE SOFTWARE.
 #
 # ##############################################################################
-
