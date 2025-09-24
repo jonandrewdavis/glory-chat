@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://5yd5avbt86oq"]
+
+[sub_resource type="Environment" id="Environment_g312j"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g312j"]
+albedo_color = Color(0.5176471, 1, 0.4392157, 1)
+metallic_specular = 0.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_g312j"]
+material = SubResource("StandardMaterial3D_g312j")
+size = Vector3(2000, 10, 1)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_6xmxd"]
+
+[node name="World" type="Node2D"]
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_g312j")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="StaticBody2D"]
+position = Vector2(0, 4)
+mesh = SubResource("BoxMesh_g312j")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("WorldBoundaryShape2D_6xmxd")

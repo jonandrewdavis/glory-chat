@@ -1,0 +1,9 @@
+VideoStreamPlayer
+DirectionalLight2D
+CollisionShape2D
+MeshInstance2D
+StaticBody2D
+WorldEnvironment
+RigidBody2D
+AnimatedSprite2D
+CharacterBody2D
