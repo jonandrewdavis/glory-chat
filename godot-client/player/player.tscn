@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://bwpreeakt421"]
+[gd_scene load_steps=34 format=3 uid="uid://bwpreeakt421"]
 
 [ext_resource type="Script" uid="uid://2y57aq7adm8x" path="res://player/player.gd" id="1_rkbax"]
 [ext_resource type="Texture2D" uid="uid://vutnujjptgr8" path="res://assets/Archer.png" id="2_g1dw6"]
@@ -219,6 +219,22 @@ animations = [{
 radius = 6.0
 height = 16.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rkbax"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0.76845694, 0.76845694, 0.76845694, 0.63529414)
+corner_detail = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g1dw6"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(1, 0.29411766, 1, 0.4)
+corner_detail = 6
+
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_rkbax")
 
@@ -228,3 +244,28 @@ animation = &"attack"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_rkbax")
+
+[node name="TimerPerfectLow" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 2.1
+one_shot = true
+
+[node name="TimerPerfectHigh" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 2.8
+one_shot = true
+
+[node name="Bar" type="Node2D" parent="."]
+
+[node name="StrengthBar" type="ProgressBar" parent="Bar"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 4)
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = -16.0
+theme_override_styles/background = SubResource("StyleBoxFlat_rkbax")
+theme_override_styles/fill = SubResource("StyleBoxFlat_g1dw6")
+max_value = 1000.0
+fill_mode = 1
+show_percentage = false

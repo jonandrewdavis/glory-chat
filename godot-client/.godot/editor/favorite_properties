@@ -1,0 +1,3 @@
+[ProgressBar]
+
+properties=PackedStringArray("fill_mode")

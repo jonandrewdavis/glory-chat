@@ -5,7 +5,9 @@
 
 [node name="Main" type="Node2D"]
 
-[node name="Player" parent="." instance=ExtResource("1_0xm2m")]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Player" parent="CanvasLayer" instance=ExtResource("1_0xm2m")]
 position = Vector2(607, 366)
 
-[node name="World" parent="." instance=ExtResource("1_ig7tw")]
+[node name="World" parent="CanvasLayer" instance=ExtResource("1_ig7tw")]

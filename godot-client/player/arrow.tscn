@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://dmxqqk14jck7n"]
+
+[ext_resource type="Script" uid="uid://dnj7sn0xdhabx" path="res://player/arrow.gd" id="1_buulu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jx1i0"]
+size = Vector2(24, 4)
+
+[node name="Arrow" type="RigidBody2D"]
+script = ExtResource("1_buulu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_jx1i0")
+disabled = true
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+position = Vector2(-9, 3.5527137e-15)
+scale = Vector2(0.1, 0.1)
+polygon = PackedVector2Array(-49.000835, -8.383104, 175.99998, -8, 159.99998, -24, 215.99998, 0, 159.99998, 24.000004, 175.99998, 7.999996, -47.71962, 7.803403, -56.350563, 16.989393, -103.79989, 24.344969, -89.34042, 0.36597383, -104.00384, -23.53025, -55.533623, -16.11337)
+uv = PackedVector2Array(-31.999985, -8, 175.99998, -8, 159.99998, -24, 215.99998, 0, 159.99998, 24.000004, 175.99998, 7.999996, -31.999985, 7.999996, -56, 24.000004, -120, 24.000004, -104, 0, -120, -24.000002, -56, -24.000002)
