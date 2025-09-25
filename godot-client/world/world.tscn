@@ -1,29 +1,98 @@
-[gd_scene load_steps=5 format=3 uid="uid://5yd5avbt86oq"]
-
-[sub_resource type="Environment" id="Environment_g312j"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g312j"]
-albedo_color = Color(0.5176471, 1, 0.4392157, 1)
-metallic_specular = 0.0
-
-[sub_resource type="BoxMesh" id="BoxMesh_g312j"]
-material = SubResource("StandardMaterial3D_g312j")
-size = Vector3(2000, 10, 1)
+[gd_scene load_steps=7 format=3 uid="uid://5yd5avbt86oq"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_6xmxd"]
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_6xmxd"]
+load_path = "res://.godot/imported/texture_08.png-55422b6c9181f85f6ecd7904cb7603ac.ctex"
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_tcf2h"]
+normal = Vector2(1, 0)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_4717r"]
+normal = Vector2(-1, 0)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g312j"]
+size = Vector2(50, 10)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_g312j"]
+load_path = "res://.godot/imported/texture_08.png-55422b6c9181f85f6ecd7904cb7603ac.ctex"
+
 [node name="World" type="Node2D"]
 
-[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+[node name="LimitFloor" type="StaticBody2D" parent="."]
+position = Vector2(540, 520)
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_g312j")
-
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-
-[node name="MeshInstance2D" type="MeshInstance2D" parent="StaticBody2D"]
-position = Vector2(0, 4)
-mesh = SubResource("BoxMesh_g312j")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LimitFloor"]
 shape = SubResource("WorldBoundaryShape2D_6xmxd")
+
+[node name="Sprite2D" type="Sprite2D" parent="LimitFloor"]
+texture_filter = 3
+texture_repeat = 2
+scale = Vector2(0.08, 0.08)
+texture = SubResource("CompressedTexture2D_6xmxd")
+offset = Vector2(0, 125)
+region_enabled = true
+region_rect = Rect2(0, 0, 20000, 250)
+
+[node name="LimitRight" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LimitRight"]
+shape = SubResource("WorldBoundaryShape2D_tcf2h")
+
+[node name="LimitLeft" type="StaticBody2D" parent="."]
+position = Vector2(960, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LimitLeft"]
+shape = SubResource("WorldBoundaryShape2D_4717r")
+
+[node name="Platform" type="StaticBody2D" parent="."]
+position = Vector2(116, 448)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform"]
+shape = SubResource("RectangleShape2D_g312j")
+
+[node name="Sprite2D" type="Sprite2D" parent="Platform"]
+texture_repeat = 2
+scale = Vector2(0.1, 0.1)
+texture = SubResource("CompressedTexture2D_g312j")
+region_enabled = true
+region_rect = Rect2(0, 0, 500, 100)
+
+[node name="Platform2" type="StaticBody2D" parent="."]
+position = Vector2(862, 460)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform2"]
+shape = SubResource("RectangleShape2D_g312j")
+
+[node name="Sprite2D" type="Sprite2D" parent="Platform2"]
+texture_repeat = 2
+scale = Vector2(0.1, 0.1)
+texture = SubResource("CompressedTexture2D_g312j")
+region_enabled = true
+region_rect = Rect2(0, 0, 500, 100)
+
+[node name="Platform3" type="StaticBody2D" parent="."]
+position = Vector2(219, 370)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform3"]
+shape = SubResource("RectangleShape2D_g312j")
+
+[node name="Sprite2D" type="Sprite2D" parent="Platform3"]
+texture_repeat = 2
+scale = Vector2(0.1, 0.1)
+texture = SubResource("CompressedTexture2D_g312j")
+region_enabled = true
+region_rect = Rect2(0, 0, 500, 100)
+
+[node name="Platform4" type="StaticBody2D" parent="."]
+position = Vector2(927, 380)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform4"]
+shape = SubResource("RectangleShape2D_g312j")
+
+[node name="Sprite2D" type="Sprite2D" parent="Platform4"]
+texture_repeat = 2
+scale = Vector2(0.1, 0.1)
+texture = SubResource("CompressedTexture2D_g312j")
+region_enabled = true
+region_rect = Rect2(0, 0, 500, 100)
