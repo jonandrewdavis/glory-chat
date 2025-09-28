@@ -13,22 +13,25 @@ config_version=5
 config/name="GloryChat"
 run/main_scene="uid://dn8rotsa0yj5o"
 config/features=PackedStringArray("4.5", "GL Compatibility")
-boot_splash/bg_color=Color(0.2810093, 0.03188224, 0.45420682, 1)
-boot_splash/image="uid://b6y7d0cs35a2d"
-config/icon="uid://crlj3pf7hsk12"
+boot_splash/bg_color=Color(0.14117648, 0.14117648, 0.14117648, 0)
+boot_splash/fullsize=false
+boot_splash/use_filter=false
+boot_splash/image="uid://tqpu68t76uyk"
+config/icon="uid://tqpu68t76uyk"
+config/macos_native_icon="res://glorylogo.icns"
 
 [autoload]
 
 VerySimpleTwitch="*res://addons/very-simple-twitch/twitch_node.gd"
+LobbySystem="*res://lobby/lobby_system.gd"
 
 [display]
 
 window/size/viewport_width=960
 window/size/viewport_height=540
-window/size/mode=2
-window/size/borderless=true
 window/size/transparent=true
-window/stretch/mode="viewport"
+window/subwindows/embed_subwindows=false
+window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 window/per_pixel_transparency/allowed=true
 
@@ -40,6 +43,8 @@ enabled=PackedStringArray("res://addons/very-simple-twitch/plugin.cfg")
 
 folder_colors={
 "res://assets/": "green",
+"res://dist/": "gray",
+"res://lobby/": "yellow",
 "res://player/": "pink",
 "res://world/": "purple"
 }
@@ -71,11 +76,27 @@ fire={
 "events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":1,"position":Vector2(909, 52),"global_position":Vector2(930, 155),"factor":1.0,"button_index":1,"canceled":false,"pressed":true,"double_click":false,"script":null)
 ]
 }
+menu={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194306,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
+}
+toggle_game={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":71,"key_label":0,"unicode":103,"location":0,"echo":false,"script":null)
+]
+}
+jump={
+"deadzone": 0.2,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":32,"key_label":0,"unicode":32,"location":0,"echo":false,"script":null)
+]
+}
 
 [rendering]
 
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+textures/vram_compression/import_etc2_astc=true
 viewport/transparent_background=true
 
 [very_simple_twitch]

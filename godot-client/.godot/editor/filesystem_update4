@@ -1,6 +1,8 @@
-res://world/world.tscn
-res://main.tscn
-res://player/arrow.tscn
 res://player/player.tscn
-res://player/player.gd
+res://lobby/theme/MinimalUI.tres
+res://player/circle.gdshader
+res://player/UI/instantiate.gd
+res://player/UI/player_ui.gd
+res://player/player_admin.tscn
+res://player/player_admin.gd
 res://player/arrow.gd

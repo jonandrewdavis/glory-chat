@@ -1,0 +1,298 @@
+[gd_scene load_steps=7 format=3 uid="uid://bodmr74jwgi5g"]
+
+[ext_resource type="Script" uid="uid://dbkd33tkoa5no" path="res://player/UI/player_ui.gd" id="1_721h2"]
+[ext_resource type="FontFile" uid="uid://bnudr3myap7vs" path="res://lobby/theme/Strait-Regular.ttf" id="8_4trht"]
+[ext_resource type="Theme" uid="uid://b3kq74llqlv3x" path="res://lobby/theme/MinimalUI.tres" id="9_xyb3v"]
+[ext_resource type="PackedScene" uid="uid://b5bs8xlgxmi3q" path="res://lobby/lobby_chat/lobby_chat.tscn" id="12_2lepv"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7ixe1"]
+content_margin_left = 15.0
+content_margin_top = 15.0
+content_margin_right = 15.0
+content_margin_bottom = 15.0
+bg_color = Color(0.0706742, 0.07067422, 0.07067417, 0.47058824)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 0.23529412)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4trht"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.101960786, 0.101960786, 0.101960786, 0.7137255)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[node name="PlayerUI" type="CanvasLayer"]
+script = ExtResource("1_721h2")
+
+[node name="TopLevelControl" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("9_xyb3v")
+
+[node name="TopLeft" type="MarginContainer" parent="TopLevelControl"]
+layout_mode = 1
+anchors_preset = -1
+offset_right = 196.0
+offset_bottom = 245.0
+mouse_filter = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="TopRight" type="MarginContainer" parent="TopLevelControl"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -156.0
+offset_bottom = 205.0
+grow_horizontal = 0
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TopLevelControl/TopRight"]
+layout_mode = 2
+
+[node name="LabelFPSCounter" type="Label" parent="TopLevelControl/TopRight/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 0.09019608, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5411765)
+theme_override_font_sizes/font_size = 12
+text = "FPS: 111"
+horizontal_alignment = 2
+
+[node name="Vbox" type="VBoxContainer" parent="TopLevelControl/TopRight/VBoxContainer"]
+layout_mode = 2
+
+[node name="LobbyChatVisible" type="RichTextLabel" parent="TopLevelControl/TopRight/VBoxContainer/Vbox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("8_4trht")
+theme_override_styles/normal = SubResource("StyleBoxFlat_7ixe1")
+fit_content = true
+scroll_active = false
+scroll_following = true
+vertical_alignment = 2
+
+[node name="LobbyChatFadeTimer" type="Timer" parent="TopLevelControl/TopRight/VBoxContainer/Vbox"]
+unique_name_in_owner = true
+wait_time = 3.0
+one_shot = true
+autostart = true
+
+[node name="BottomLeft" type="MarginContainer" parent="TopLevelControl"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -90.0
+offset_right = 400.0
+grow_vertical = 0
+mouse_filter = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="BottomRight" type="MarginContainer" parent="TopLevelControl"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -460.0
+offset_top = -134.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="Menu" type="PanelContainer" parent="MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("9_xyb3v")
+theme_override_styles/panel = SubResource("StyleBoxFlat_4trht")
+
+[node name="InGameMenuMargin" type="MarginContainer" parent="MarginContainer/Menu"]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Menu/InGameMenuMargin"]
+layout_mode = 2
+
+[node name="Closeinstructions" type="HBoxContainer" parent="MarginContainer/Menu/InGameMenuMargin/VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 8
+alignment = 2
+
+[node name="LabelClosemenu" type="Label" parent="MarginContainer/Menu/InGameMenuMargin/VBoxContainer/Closeinstructions"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Close Menu:"
+
+[node name="ColorRect" type="TextureRect" parent="MarginContainer/Menu/InGameMenuMargin/VBoxContainer/Closeinstructions"]
+texture_filter = 3
+custom_minimum_size = Vector2(55, 40)
+layout_mode = 2
+size_flags_vertical = 4
+stretch_mode = 5
+
+[node name="LobbyScoreLabels" type="HBoxContainer" parent="MarginContainer/Menu/InGameMenuMargin/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 24
+
+[node name="Label" type="Label" parent="MarginContainer/Menu/InGameMenuMargin/VBoxContainer/LobbyScoreLabels"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label2" type="Label" parent="MarginContainer/Menu/InGameMenuMargin/VBoxContainer/LobbyScoreLabels"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "K"
+
+[node name="Label3" type="Label" parent="MarginContainer/Menu/InGameMenuMargin/VBoxContainer/LobbyScoreLabels"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "D"
+
+[node name="Label4" type="Label" parent="MarginContainer/Menu/InGameMenuMargin/VBoxContainer/LobbyScoreLabels"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+
+[node name="LobbyScoreboard" type="VBoxContainer" parent="MarginContainer/Menu/InGameMenuMargin/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/Menu/InGameMenuMargin/VBoxContainer"]
+visible = false
+layout_mode = 2
+columns = 2
+
+[node name="SensLabel" type="HBoxContainer" parent="MarginContainer/Menu/InGameMenuMargin/VBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/Menu/InGameMenuMargin/VBoxContainer/GridContainer/SensLabel"]
+layout_mode = 2
+text = "Look Sensitivity"
+
+[node name="SenVal" type="Label" parent="MarginContainer/Menu/InGameMenuMargin/VBoxContainer/GridContainer/SensLabel"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="SenSlider" type="HSlider" parent="MarginContainer/Menu/InGameMenuMargin/VBoxContainer/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 0.01000000000931322
+max_value = 1.0
+step = 0.01000000000931322
+value = 0.01000000000931322
+tick_count = 10
+ticks_on_borders = true
+ticks_position = 3
+
+[node name="AimSensLabel" type="HBoxContainer" parent="MarginContainer/Menu/InGameMenuMargin/VBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/Menu/InGameMenuMargin/VBoxContainer/GridContainer/AimSensLabel"]
+layout_mode = 2
+text = "Aim Slow Intensity"
+
+[node name="AimVal" type="Label" parent="MarginContainer/Menu/InGameMenuMargin/VBoxContainer/GridContainer/AimSensLabel"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="AimSlider" type="HSlider" parent="MarginContainer/Menu/InGameMenuMargin/VBoxContainer/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 0.01000000000931322
+max_value = 1.0
+step = 0.01000000000931322
+value = 0.01000000000931322
+tick_count = 10
+ticks_on_borders = true
+ticks_position = 3
+
+[node name="SoundLabel" type="HBoxContainer" parent="MarginContainer/Menu/InGameMenuMargin/VBoxContainer/GridContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/Menu/InGameMenuMargin/VBoxContainer/GridContainer/SoundLabel"]
+layout_mode = 2
+text = "Volume"
+
+[node name="SoundSlider" type="HSlider" parent="MarginContainer/Menu/InGameMenuMargin/VBoxContainer/GridContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.01000000000931322
+value = 0.0100000000093132
+tick_count = 10
+ticks_on_borders = true
+ticks_position = 3
+
+[node name="HSeparator2" type="HSeparator" parent="MarginContainer/Menu/InGameMenuMargin/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/Menu/InGameMenuMargin/VBoxContainer"]
+visible = false
+layout_mode = 2
+alignment = 2
+
+[node name="Respawn" type="Button" parent="MarginContainer/Menu/InGameMenuMargin/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Respawn"
+
+[node name="Disconnect" type="Button" parent="MarginContainer/Menu/InGameMenuMargin/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+text = "Disconnect"
+
+[node name="Quit" type="Button" parent="MarginContainer/Menu/InGameMenuMargin/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Quit"
+
+[node name="LobbyChat" parent="MarginContainer/Menu/InGameMenuMargin/VBoxContainer" instance=ExtResource("12_2lepv")]
+layout_mode = 2

@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://c1ms5qh1e78o2"]
+
+[ext_resource type="Script" uid="uid://bo8ghv62a72yx" path="res://player/player_admin.gd" id="1_8oe48"]
+[ext_resource type="Texture2D" uid="uid://ik1f884mp351" path="res://assets/pointer_green.png" id="3_3q8dd"]
+[ext_resource type="PackedScene" uid="uid://bodmr74jwgi5g" path="res://player/UI/player_ui.tscn" id="3_8oe48"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wok4r"]
+radius = 5.0
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_8oe48"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[node name="PlayerAdmin" type="AnimatableBody2D"]
+z_index = -1
+script = ExtResource("1_8oe48")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_wok4r")
+disabled = true
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_8oe48")
+
+[node name="PointerHitbox" type="Area2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(14, 22)
+collision_layer = 2
+collision_mask = 2
+
+[node name="Pointer" type="Sprite2D" parent="PointerHitbox"]
+scale = Vector2(0.14, 0.14)
+texture = ExtResource("3_3q8dd")
+region_rect = Rect2(0, 0, 392, 352)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="PointerHitbox"]
+polygon = PackedVector2Array(-12, -22, -12, 17, -4, 9, 3, 22, 11, 18, 5, 6, 16, 6)
+
+[node name="PlayerUI" parent="." instance=ExtResource("3_8oe48")]
