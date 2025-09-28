@@ -42,8 +42,10 @@ func _ready() -> void:
 
 	%ButtonCopy.pressed.connect(func(): DisplayServer.clipboard_set(current_lobby_code))
 	%ButtonPaste.pressed.connect(func(): %InputCode.text = DisplayServer.clipboard_get(); %InputCode.text_changed.emit(str(%InputCode.text)))
-
-	LobbySystem.signal_lobby_changed.connect(_render_current_lobby_view)
+	
+	if OS.has_feature('admin'):
+		LobbySystem.signal_lobby_changed.connect(_render_current_lobby_view)
+	
 	LobbySystem.signal_client_disconnected.connect(func(): _render_connection_light(false))
 	LobbySystem.signal_packet_parsed.connect(func(_packet): _render_connection_light(true))
 	# DEBUG:

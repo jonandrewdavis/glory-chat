@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://bwpreeakt421"]
+[gd_scene load_steps=38 format=3 uid="uid://bwpreeakt421"]
 
 [ext_resource type="Script" uid="uid://2y57aq7adm8x" path="res://player/player.gd" id="1_rkbax"]
 [ext_resource type="Texture2D" uid="uid://vutnujjptgr8" path="res://assets/Archer.png" id="2_g1dw6"]
@@ -237,6 +237,12 @@ properties/3/replication_mode = 1
 properties/4/path = NodePath("LabelUsername:text")
 properties/4/spawn = true
 properties/4/replication_mode = 2
+properties/5/path = NodePath("ArrowContainer:visible")
+properties/5/spawn = true
+properties/5/replication_mode = 2
+properties/6/path = NodePath("ArrowContainer:rotation")
+properties/6/spawn = true
+properties/6/replication_mode = 1
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rkbax"]
 content_margin_left = 2.0
@@ -254,12 +260,17 @@ content_margin_bottom = 2.0
 bg_color = Color(1, 0.29411766, 1, 0.4)
 corner_detail = 6
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yw30f"]
+radius = 6.0
+height = 16.0
+
 [node name="Player" type="CharacterBody2D"]
 z_index = 1
 collision_layer = 0
 script = ExtResource("1_rkbax")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 3
 sprite_frames = SubResource("SpriteFrames_2uvqg")
 animation = &"attack"
 
@@ -274,6 +285,11 @@ one_shot = true
 [node name="TimerPerfectHigh" type="Timer" parent="."]
 unique_name_in_owner = true
 wait_time = 2.8
+one_shot = true
+
+[node name="TimerCooldown" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.4
 one_shot = true
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
@@ -319,3 +335,12 @@ text = "Test efefefaefa"
 horizontal_alignment = 1
 
 [node name="PlayerUI" parent="." instance=ExtResource("4_qjkh3")]
+
+[node name="ArrowArea" type="Area2D" parent="."]
+unique_name_in_owner = true
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ArrowArea"]
+shape = SubResource("CapsuleShape2D_yw30f")
+debug_color = Color(0.79463774, 0.27521873, 0.81019086, 0.41960785)

@@ -295,4 +295,5 @@ layout_mode = 2
 text = "Quit"
 
 [node name="LobbyChat" parent="MarginContainer/Menu/InGameMenuMargin/VBoxContainer" instance=ExtResource("12_2lepv")]
+unique_name_in_owner = true
 layout_mode = 2

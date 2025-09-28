@@ -54,6 +54,7 @@ theme = ExtResource("1_42wu0")
 script = ExtResource("2_5djwk")
 
 [node name="Color" type="ColorRect" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -64,6 +65,7 @@ mouse_filter = 2
 color = Color(6.136671e-06, 0.11346211, 0.37426347, 1)
 
 [node name="Shader" type="ColorRect" parent="."]
+visible = false
 material = SubResource("ShaderMaterial_kaq8o")
 layout_mode = 1
 anchors_preset = 15

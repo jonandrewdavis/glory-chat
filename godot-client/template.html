@@ -92,7 +92,8 @@ body {
 
 #go { 
 	position: absolute;
-	top: 1081;
+	top: 2000px;
+	left: 0;
 	display: none;
 	visibility: hidden;
 }
@@ -100,6 +101,7 @@ body {
 #go.show { 
 	position: absolute;
 	top: 0;
+	left:0;
 	display: block;
 	visibility:visible;
 }
@@ -246,21 +248,26 @@ const engine = new Engine(GODOT_CONFIG);
 
     <!-- Create a Twitch.Embed object that will render within the "twitch-embed" element -->
     <script type="text/javascript">
-      var embed = new Twitch.Embed("twitch-embed", {
-        width: 960,
-        height: 540,
-        channel: "andoodev",
-        layout: "video",
-        autoplay: true,
-        // Only needed if this page is going to be embedded on other websites
-        parent: ["jonandrewitchio.itch.io"]
-      });
+		var embed = new Twitch.Embed("twitch-embed", {
+			width: 960,
+			height: 540,
+			channel: "andoodev",
+			layout: "video",
+			autoplay: true,
+			// Only needed if this page is going to be embedded on other websites
+			parent: ["jonandrewitchio.itch.io"]
+		});
 
-      embed.addEventListener(Twitch.Embed.VIDEO_READY, () => {
-        var player = embed.getPlayer();
-        player.play();
+		embed.addEventListener(Twitch.Embed.VIDEO_READY, () => {
+			var player = embed.getPlayer();
+			player.play();
+			setTimeout(() => document.getElementById('go').classList.add('show'), 1000)
+		});
 
-		document.getElementById('go').classList.add('show');
-	});
+		embed.addEventListener(Twitch.Player.PLAYING, () => {
+			// var player = embed.getPlayer();
+			// player.play();
+			setTimeout(() => document.getElementById('go').classList.add('show'), 1000)
+		});		
     </script></body>
 </html>

@@ -28,6 +28,11 @@ func _ready() -> void:
 	world = get_tree().get_first_node_in_group("World")
 	world.signal_player_death.connect(add_death_to_player)
 	world.signal_player_kill.connect(add_kill_to_player)
+	
+	if OS.has_feature('admin'):
+		%LabelFPSCounter.hide()
+	else:
+		%LobbyChatVisible.hide()
 
 func _process(_delta: float) -> void:
 	#if Input.is_action_just_pressed('menu') and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
@@ -36,9 +41,13 @@ func _process(_delta: float) -> void:
 		#Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 	if Input.is_action_just_pressed('menu') and %Menu.visible:
+		%LobbyChat.lobby_chat_should_focus(false)
 		%Menu.hide()
+		player.immobile = false
 	elif Input.is_action_just_pressed('menu') and not %Menu.visible:
+		player.immobile = true
 		%Menu.show()
+		%LobbyChat.lobby_chat_should_focus(true)
 
 	%LabelFPSCounter.text = 'FPS: ' + str(Engine.get_frames_per_second())
 

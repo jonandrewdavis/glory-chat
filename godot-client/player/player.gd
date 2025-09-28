@@ -21,6 +21,12 @@ var arrow = preload('res://player/arrow.tscn')
 @onready var arrow_progress_bar: ProgressBar = %ArrowProgressBar
 
 var is_picked_up := false
+var immobile := false
+
+var input_jump := false
+var input_primary := false
+var input_dir := 0.0
+
 
 func _enter_tree() -> void:
 	set_multiplayer_authority(name.to_int())
@@ -40,6 +46,8 @@ func _ready():
 	if not is_multiplayer_authority():
 		hide_client_elements()
 
+	%ArrowArea.body_entered.connect(proj_hit)
+
 func _physics_process(delta: float) -> void:
 	if is_picked_up:
 		var admin_pos = get_tree().get_first_node_in_group('PlayerAdmin').position
@@ -57,17 +65,29 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 
+	# Input to allow easy disable if menu is open
+	if not immobile:
+		input_jump = Input.is_action_just_pressed("jump") and is_on_floor()
+		input_primary = Input.is_action_pressed('fire')
+		input_dir = Input.get_axis("left", "right")	
+	else:
+		input_jump = false	
+		input_primary = false
+		input_dir = 0.0
+	
 	# Handle jump.
-	if Input.is_action_just_pressed("jump") and is_on_floor():
-		if not Input.is_action_pressed('fire'):
+	if input_jump:
+		if not input_primary:
 			velocity.y = JUMP_VELOCITY
 		else: 
-			velocity.y = JUMP_VELOCITY * 0.4
+			velocity.y = JUMP_VELOCITY * 0.55
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
-	var direction := Input.get_axis("left", "right")
-	if Input.is_action_pressed('fire') and is_on_floor():
+	#var direction := Input.get_axis("left", "right")
+	var direction = input_dir
+
+	if input_primary and is_on_floor():
 		SPEED_CURRENT = SPEED_MAX * 0.5
 	else:
 		SPEED_CURRENT = SPEED_MAX
@@ -99,7 +119,7 @@ func _process(_delta: float) -> void:
 	else:
 		animated_sprite.play('idle')
 
-	if Input.is_action_pressed('fire'):
+	if Input.is_action_pressed('fire') and can_shoot():
 		if timer_perfect_high.is_stopped() and strength == 0.0:
 			timer_perfect_low.start()
 			timer_perfect_high.start()
@@ -112,8 +132,11 @@ func _process(_delta: float) -> void:
 		%ArrowProgressBar.hide()
 		%ArrowContainer.hide()
 	
-	if Input.is_action_just_released('fire'):
+	if Input.is_action_just_released('fire') and can_shoot():
 		fire_arrow()
+
+func can_shoot():
+	return not immobile and %TimerCooldown.is_stopped()
 
 func fire_arrow():
 	var target : Vector2 = get_viewport().get_mouse_position()
@@ -147,14 +170,17 @@ func spawn_arrow_reset():
 	timer_perfect_high.stop()
 	strength = 0.0
 	arrow_progress_bar.value = strength
+	%TimerCooldown.start()
 
-@rpc("any_peer")
+@rpc("any_peer", "reliable")
 func get_picked_up():
 	is_picked_up = true
+	immobile = true
 
-@rpc("any_peer")
+@rpc("any_peer", "reliable")
 func get_dropped():
 	is_picked_up = false
+	immobile = false
 
 func hide_client_elements():
 	z_index = 0
@@ -168,3 +194,11 @@ func set_lobby_info(lobby):
 		# player id matches the node name (peer id)
 		if _player.id == name:
 			%LabelUsername.text = _player.username
+
+func proj_hit(body):
+	# only perform a hit on the player
+	# only perform if not owned by the player
+	if is_multiplayer_authority() and body.source != name:
+		var get_hit_location = body.position - position
+		body.freeze_arrow.rpc(get_hit_location, name)
+		#world.broadcast_player_kill.rpc(body.source)

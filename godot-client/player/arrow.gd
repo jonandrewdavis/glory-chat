@@ -3,10 +3,11 @@ extends RigidBody2D
 var source: String
 var hit_location: Vector2
 var frozen := false
-var admin: PlayerAdmin
+var hit_node: Node2D
 var hit_rotation: float
 
 func _ready() -> void:
+	%Polygon2D.scale = Vector2(0.1, 0.1)
 	gravity_scale = 0.5
 	set_collision_layer_value(2, true)
 	set_collision_mask_value(2, true)
@@ -14,15 +15,26 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	if frozen:
-		position = admin.position + hit_location
+		position = hit_node.position + hit_location
 		rotation = hit_rotation
 	else:
 		rotation = linear_velocity.angle()
 		hit_rotation = rotation
+
+func find_node_in_group(group: String, name_to_find: String) -> Node2D:
+	for node in get_tree().get_nodes_in_group(group):
+		if node.name == name_to_find:
+			return node
+	return null
 	
-@rpc('call_local', "any_peer")
-func freeze_arrow(hit_location_: Vector2):
-	admin = get_tree().get_first_node_in_group('PlayerAdmin')
+@rpc('call_local', 'any_peer', 'reliable')
+func freeze_arrow(hit_location_: Vector2, node_name: String):
+	if node_name == 'admin':
+		hit_node = get_tree().get_first_node_in_group('PlayerAdmin')
+	else:
+		hit_node = find_node_in_group('Players', node_name)
+		%Polygon2D.scale = Vector2(0.04, 0.04)
+
 	hit_location = hit_location_
 	frozen = true
 	call_deferred('freeze_arrow_defer')
