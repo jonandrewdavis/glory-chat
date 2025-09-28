@@ -31,7 +31,9 @@ func _ready():
 func _physics_process(_delta: float) -> void:
 	var target : Vector2 = get_viewport().get_mouse_position()
 	global_position = target
-#
+
+var game_visible := true
+
 func _process(_delta):
 	if immobile: 
 		return 
@@ -50,10 +52,16 @@ func _process(_delta):
 	elif Input.is_action_just_pressed("toggle_game") and not window.mouse_passthrough: 
 		window.mouse_passthrough = true
 
-	if Input.is_action_just_pressed("debug1"):
+	if Input.is_action_just_pressed("debug1") and world.platforms.visible:
 		world.platforms.hide()
-	else:
+		world.hide_all_players()
+		show()
+		%PointerHitbox.hide()
+	elif Input.is_action_just_pressed("debug1") and not world.platforms.visible:
 		world.platforms.show()
+		world.show_all_players()
+		show()
+		%PointerHitbox.show()
 
 func _get_closest_player() -> PlayerSimple:
 	var players = get_tree().get_nodes_in_group('Players')

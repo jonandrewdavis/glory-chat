@@ -2,6 +2,12 @@
 
 [ext_resource type="Script" uid="uid://bqqlylp67u2ad" path="res://world/world.gd" id="1_6xmxd"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g312j"]
+size = Vector2(50, 10)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_g312j"]
+load_path = "res://.godot/imported/texture_08.png-55422b6c9181f85f6ecd7904cb7603ac.ctex"
+
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_6xmxd"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_6xmxd"]
@@ -13,43 +19,13 @@ normal = Vector2(1, 0)
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_4717r"]
 normal = Vector2(-1, 0)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_g312j"]
-size = Vector2(50, 10)
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_g312j"]
-load_path = "res://.godot/imported/texture_08.png-55422b6c9181f85f6ecd7904cb7603ac.ctex"
-
 [node name="World" type="Node2D" node_paths=PackedStringArray("player_container")]
 script = ExtResource("1_6xmxd")
 player_container = NodePath("PlayerContainer")
 
 [node name="Platforms" type="Node2D" parent="."]
-
-[node name="LimitFloor" type="StaticBody2D" parent="Platforms"]
-position = Vector2(540, 520)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/LimitFloor"]
-shape = SubResource("WorldBoundaryShape2D_6xmxd")
-
-[node name="Sprite2D" type="Sprite2D" parent="Platforms/LimitFloor"]
-texture_filter = 3
-texture_repeat = 2
-scale = Vector2(0.08, 0.08)
-texture = SubResource("CompressedTexture2D_6xmxd")
-offset = Vector2(0, 125)
-region_enabled = true
-region_rect = Rect2(0, 0, 20000, 250)
-
-[node name="LimitRight" type="StaticBody2D" parent="Platforms"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/LimitRight"]
-shape = SubResource("WorldBoundaryShape2D_tcf2h")
-
-[node name="LimitLeft" type="StaticBody2D" parent="Platforms"]
-position = Vector2(960, 0)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/LimitLeft"]
-shape = SubResource("WorldBoundaryShape2D_4717r")
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0.5882353)
 
 [node name="Platform" type="StaticBody2D" parent="Platforms"]
 position = Vector2(116, 448)
@@ -90,6 +66,32 @@ texture = SubResource("CompressedTexture2D_g312j")
 region_enabled = true
 region_rect = Rect2(0, 0, 500, 100)
 
+[node name="Platform5" type="StaticBody2D" parent="Platforms"]
+position = Vector2(139, 318)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform5"]
+shape = SubResource("RectangleShape2D_g312j")
+
+[node name="Sprite2D" type="Sprite2D" parent="Platforms/Platform5"]
+texture_repeat = 2
+scale = Vector2(0.1, 0.1)
+texture = SubResource("CompressedTexture2D_g312j")
+region_enabled = true
+region_rect = Rect2(0, 0, 500, 100)
+
+[node name="Platform6" type="StaticBody2D" parent="Platforms"]
+position = Vector2(89.519, 252.33899)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform6"]
+shape = SubResource("RectangleShape2D_g312j")
+
+[node name="Sprite2D" type="Sprite2D" parent="Platforms/Platform6"]
+texture_repeat = 2
+scale = Vector2(0.1, 0.1)
+texture = SubResource("CompressedTexture2D_g312j")
+region_enabled = true
+region_rect = Rect2(0, 0, 500, 100)
+
 [node name="Platform4" type="StaticBody2D" parent="Platforms"]
 position = Vector2(927, 380)
 
@@ -103,8 +105,50 @@ texture = SubResource("CompressedTexture2D_g312j")
 region_enabled = true
 region_rect = Rect2(0, 0, 500, 100)
 
+[node name="Platform7" type="StaticBody2D" parent="Platforms"]
+position = Vector2(802.93506, 349.1465)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform7"]
+shape = SubResource("RectangleShape2D_g312j")
+
+[node name="Sprite2D" type="Sprite2D" parent="Platforms/Platform7"]
+texture_repeat = 2
+scale = Vector2(0.1, 0.1)
+texture = SubResource("CompressedTexture2D_g312j")
+region_enabled = true
+region_rect = Rect2(0, 0, 500, 100)
+
 [node name="PlayerContainer" type="Node2D" parent="."]
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("uid://bwpreeakt421", "uid://c1ms5qh1e78o2", "uid://dmxqqk14jck7n")
 spawn_path = NodePath("../PlayerContainer")
+
+[node name="PlatfomLimits" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="LimitFloor" type="StaticBody2D" parent="PlatfomLimits"]
+position = Vector2(540, 520)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlatfomLimits/LimitFloor"]
+shape = SubResource("WorldBoundaryShape2D_6xmxd")
+
+[node name="Sprite2D" type="Sprite2D" parent="PlatfomLimits/LimitFloor"]
+texture_filter = 3
+texture_repeat = 2
+scale = Vector2(0.08, 0.08)
+texture = SubResource("CompressedTexture2D_6xmxd")
+offset = Vector2(0, 125)
+region_enabled = true
+region_rect = Rect2(0, 0, 20000, 250)
+
+[node name="LimitRight" type="StaticBody2D" parent="PlatfomLimits"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlatfomLimits/LimitRight"]
+shape = SubResource("WorldBoundaryShape2D_tcf2h")
+
+[node name="LimitLeft" type="StaticBody2D" parent="PlatfomLimits"]
+position = Vector2(960, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlatfomLimits/LimitLeft"]
+shape = SubResource("WorldBoundaryShape2D_4717r")

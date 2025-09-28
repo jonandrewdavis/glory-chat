@@ -304,11 +304,14 @@ polygon = PackedVector2Array(-49.000835, -8.383104, 175.99998, -8, 159.99998, -2
 
 [node name="ArrowProgressBar" type="ProgressBar" parent="."]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(40, 4)
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
 offset_left = -20.0
 offset_top = -20.0
 offset_right = 20.0
 offset_bottom = -16.0
+grow_horizontal = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_rkbax")
 theme_override_styles/fill = SubResource("StyleBoxFlat_g1dw6")
 max_value = 1000.0
@@ -323,7 +326,7 @@ anchor_right = 0.5
 offset_left = -58.0
 offset_top = -35.0
 offset_right = 58.0
-offset_bottom = -12.0
+offset_bottom = -24.875
 grow_horizontal = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.54509807)
 theme_override_constants/shadow_offset_x = 0

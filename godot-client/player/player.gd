@@ -16,9 +16,10 @@ var SPEED_CURRENT = SPEED_MAX
 
 var arrow = preload('res://player/arrow.tscn')
 
-@onready var timer_perfect_low = %TimerPerfectLow
-@onready var timer_perfect_high = %TimerPerfectHigh
+@onready var timer_perfect_low: Timer = %TimerPerfectLow
+@onready var timer_perfect_high: Timer = %TimerPerfectHigh
 @onready var arrow_progress_bar: ProgressBar = %ArrowProgressBar
+var temp_bar_flashing_timer = Timer.new()
 
 var is_picked_up := false
 var immobile := false
@@ -26,6 +27,7 @@ var immobile := false
 var input_jump := false
 var input_primary := false
 var input_dir := 0.0
+var input_sprint := false
 
 
 func _enter_tree() -> void:
@@ -37,7 +39,15 @@ func _ready():
 	set_physics_process(is_multiplayer_authority())
 	
 	timer_perfect_low.wait_time = 2.1
-	timer_perfect_high.wait_time = 2.8
+	timer_perfect_high.wait_time = 2.9
+	
+	timer_perfect_low.timeout.connect(flash_strength)
+	timer_perfect_high.timeout.connect(func(): flash_strength(false))
+	
+	add_child(temp_bar_flashing_timer)
+	temp_bar_flashing_timer.wait_time = 0.2
+	temp_bar_flashing_timer.one_shot = false
+	temp_bar_flashing_timer.timeout.connect(on_temp_flash_timeout)
 	
 	LobbySystem.signal_lobby_own_info.connect(set_lobby_info)
 	LobbySystem.lobby_get_own()
@@ -70,11 +80,13 @@ func _physics_process(delta: float) -> void:
 		input_jump = Input.is_action_just_pressed("jump") and is_on_floor()
 		input_primary = Input.is_action_pressed('fire')
 		input_dir = Input.get_axis("left", "right")	
+		input_sprint = Input.is_action_pressed('sprint')
 	else:
 		input_jump = false	
 		input_primary = false
 		input_dir = 0.0
-	
+		input_sprint = false
+
 	# Handle jump.
 	if input_jump:
 		if not input_primary:
@@ -90,7 +102,9 @@ func _physics_process(delta: float) -> void:
 	if input_primary and is_on_floor():
 		SPEED_CURRENT = SPEED_MAX * 0.5
 	else:
-		SPEED_CURRENT = SPEED_MAX
+		var modifier = 1.0
+		if input_sprint: modifier = 1.5
+		SPEED_CURRENT = SPEED_MAX  * modifier
 	
 	if direction:
 		velocity.x = direction * SPEED_CURRENT
@@ -114,7 +128,7 @@ func _process(_delta: float) -> void:
 		animated_sprite.flip_h = true
 		arrow_progress_bar.fill_mode = arrow_progress_bar.FILL_BEGIN_TO_END
 
-	if velocity.x > 0:
+	if velocity.x != 0.0:
 		animated_sprite.play('walk')
 	else:
 		animated_sprite.play('idle')
@@ -171,6 +185,7 @@ func spawn_arrow_reset():
 	strength = 0.0
 	arrow_progress_bar.value = strength
 	%TimerCooldown.start()
+	flash_strength(false)
 
 @rpc("any_peer", "reliable")
 func get_picked_up():
@@ -202,3 +217,23 @@ func proj_hit(body):
 		var get_hit_location = body.position - position
 		body.freeze_arrow.rpc(get_hit_location, name)
 		#world.broadcast_player_kill.rpc(body.source)
+
+var flash = true
+
+func flash_strength(is_flashing: bool = true):
+	if is_flashing:
+		flash = true
+		temp_bar_flashing_timer.start()
+		%ArrowProgressBar.modulate.a = 1.0
+	else:
+		flash = false
+		temp_bar_flashing_timer.stop()
+		%ArrowProgressBar.modulate.a = 1.0	
+
+func on_temp_flash_timeout():
+	#tween module
+	var tween = create_tween()
+	if (flash):
+		tween.tween_property(%ArrowProgressBar, "modulate:a", 1.0, 0.2).from(0.0)
+	else:
+		tween.tween_property(%ArrowProgressBar, "modulate:a", 0.0, 0.2).from(1.0)

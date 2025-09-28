@@ -6,13 +6,15 @@ var player_scene_new = preload("res://player/player.tscn")
 var player_admin_new = preload('res://player/player_admin.tscn')
 
 @export var player_container: Node2D
-@onready var platforms = $Platforms
+@onready var platforms: Node2D = $Platforms
 
 signal signal_player_death(id)
 signal signal_player_kill(id)
 
 func _ready() -> void:
 	add_to_group('World')
+	get_window().borderless = true
+	#if not OS.is_debug_build():
 	get_window().mode = Window.MODE_MAXIMIZED
 
 	multiplayer.connected_to_server.connect(RTCServerConnected)
@@ -61,4 +63,15 @@ func broadcast_player_kill(id: String):
 
 func remove_player_from_game(id):
 	player_container.get_node(str(id)).queue_free()
+
+func hide_all():
+	%Platforms.hide()
+	%PlatfomLimits.hide()
+	for item in player_container.get_children():
+		item.hide()
 	
+func show_all():
+	%Platforms.show()
+	%PlatfomLimits.show()
+	for item in player_container.get_children():
+		item.show()

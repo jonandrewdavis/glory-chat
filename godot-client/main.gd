@@ -19,3 +19,4 @@ func new_game_connection(_id):
 		if get_node_or_null("LobbyQuickConnect"): get_node("LobbyQuickConnect").hide()
 		var new_world = game_world.instantiate()
 		add_child(new_world)
+		
