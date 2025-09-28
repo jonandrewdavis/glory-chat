@@ -258,11 +258,11 @@ const engine = new Engine(GODOT_CONFIG);
 			parent: ["jonandrewitchio.itch.io"]
 		});
 
-		embed.addEventListener(Twitch.Embed.VIDEO_READY, () => {
-			var player = embed.getPlayer();
-			player.play();
-			setTimeout(() => document.getElementById('go').classList.add('show'), 1000)
-		});
+		// embed.addEventListener(Twitch.Embed.VIDEO_READY, () => {
+		// 	var player = embed.getPlayer();
+		// 	player.play();
+		// 	setTimeout(() => document.getElementById('go').classList.add('show'), 1000)
+		// });
 
 		embed.addEventListener(Twitch.Player.PLAYING, () => {
 			// var player = embed.getPlayer();
