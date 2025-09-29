@@ -21,14 +21,15 @@ var arrow = preload('res://player/arrow.tscn')
 @onready var arrow_progress_bar: ProgressBar = %ArrowProgressBar
 var temp_bar_flashing_timer = Timer.new()
 
+var player_color := Color.WHITE
 var is_picked_up := false
 var immobile := false
 
 var input_jump := false
 var input_primary := false
+var input_secondary := false
 var input_dir := 0.0
 var input_sprint := false
-
 
 func _enter_tree() -> void:
 	set_multiplayer_authority(name.to_int())
@@ -78,12 +79,14 @@ func _physics_process(delta: float) -> void:
 	# Input to allow easy disable if menu is open
 	if not immobile:
 		input_jump = Input.is_action_just_pressed("jump") and is_on_floor()
-		input_primary = Input.is_action_pressed('fire')
+		input_primary = Input.is_action_pressed('primary')
+		input_secondary = Input.is_action_pressed('secondary')
 		input_dir = Input.get_axis("left", "right")	
 		input_sprint = Input.is_action_pressed('sprint')
 	else:
 		input_jump = false	
 		input_primary = false
+		input_secondary = false
 		input_dir = 0.0
 		input_sprint = false
 
@@ -133,7 +136,7 @@ func _process(_delta: float) -> void:
 	else:
 		animated_sprite.play('idle')
 
-	if Input.is_action_pressed('fire') and can_shoot():
+	if Input.is_action_pressed('primary') and can_shoot():
 		if timer_perfect_high.is_stopped() and strength == 0.0:
 			timer_perfect_low.start()
 			timer_perfect_high.start()
@@ -146,7 +149,7 @@ func _process(_delta: float) -> void:
 		%ArrowProgressBar.hide()
 		%ArrowContainer.hide()
 	
-	if Input.is_action_just_released('fire') and can_shoot():
+	if Input.is_action_just_released('primary') and can_shoot():
 		fire_arrow()
 
 func can_shoot():
@@ -163,16 +166,17 @@ func fire_arrow():
 		proj_speed = clampf(strength, 0, strength_max)
 
 	# TODO: PackedByteArray to make this RPC super small
-	spawn_proj.rpc(position, target, proj_speed, name)
+	spawn_proj.rpc(position, target, proj_speed, name, player_color)
 	spawn_arrow_reset()
 
 @rpc('call_local')
-func spawn_proj(pos_start: Vector2, pos_target: Vector2, proj_speed: float, source: String):
+func spawn_proj(pos_start: Vector2, pos_target: Vector2, proj_speed: float, source: String, player_color: Color):
 	# new_arrow.linear_velocity
 	# new_arrow.look_at(target)
 	# new_arrow.position
 	var new_proj: RigidBody2D = arrow.instantiate()
 	var direction = pos_start.direction_to(pos_target).normalized()
+	new_proj.color = player_color
 	new_proj.position = pos_start + Vector2(1.0, 0.0)
 	new_proj.look_at(pos_target)
 	new_proj.linear_velocity = Vector2(direction * proj_speed)
@@ -209,6 +213,11 @@ func set_lobby_info(lobby):
 		# player id matches the node name (peer id)
 		if _player.id == name:
 			%LabelUsername.text = _player.username
+			# players set their own data only, the synchronizer broadcasts it on spawn 
+			if _player.metadata:
+				player_color = _player.metadata.color
+				%AnimatedSprite2D.modulate = Color(player_color)
+				%ArrowContainer.get_node('Polygon2D').modulate = Color(player_color)
 
 func proj_hit(body):
 	# only perform a hit on the player

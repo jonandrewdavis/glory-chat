@@ -37,30 +37,28 @@ var game_visible := true
 func _process(_delta):
 	if immobile: 
 		return 
-		
-	if Input.is_action_just_pressed("fire") and not current_player_picked_up:
+
+	if Input.is_action_just_pressed('primary') and not current_player_picked_up:
 		current_player_picked_up = _get_closest_player()
 		if current_player_picked_up: current_player_picked_up.get_picked_up.rpc()
-		
-	if Input.is_action_just_released('fire'):
+	elif Input.is_action_just_released('primary'):
 		if current_player_picked_up: 
 			current_player_picked_up.get_dropped.rpc()
 			current_player_picked_up = null
-
-	if Input.is_action_just_pressed("toggle_game") and window.mouse_passthrough:
+	elif Input.is_action_just_pressed('secondary'):
+		print(_get_closest_platform())
+		pass
+	elif Input.is_action_just_pressed("toggle_game") and window.mouse_passthrough:
 		window.mouse_passthrough = false
 	elif Input.is_action_just_pressed("toggle_game") and not window.mouse_passthrough: 
 		window.mouse_passthrough = true
-
-	if Input.is_action_just_pressed("debug1") and world.platforms.visible:
-		world.platforms.hide()
-		world.hide_all_players()
-		show()
+	elif Input.is_action_just_pressed("debug1") and world.platforms.visible:
+		world.hide_all()
+		show() #Shows PlayerUI
 		%PointerHitbox.hide()
 	elif Input.is_action_just_pressed("debug1") and not world.platforms.visible:
-		world.platforms.show()
-		world.show_all_players()
-		show()
+		world.hide_all()
+		show() #Shows PlayerUI
 		%PointerHitbox.show()
 
 func _get_closest_player() -> PlayerSimple:
@@ -73,7 +71,7 @@ func _get_closest_player() -> PlayerSimple:
 			dist = get_dist
 			closest_player = single
 
-	return closest_player	
+	return closest_player
 
 func proj_hit(body):
 	# only perform a hit if the admin gets hit
@@ -81,3 +79,14 @@ func proj_hit(body):
 		var get_hit_location = body.position - position
 		body.freeze_arrow.rpc(get_hit_location, 'admin')
 		world.broadcast_player_kill.rpc(body.source)
+		
+func _get_closest_platform():
+	var dist = INF
+	var platform_closest: Node2D 
+	for platform in world.platforms.get_children():
+		var get_dist = position.distance_to(platform.position)
+		if get_dist < dist:
+			dist = get_dist
+			platform_closest = platform
+
+	return platform_closest

@@ -66,12 +66,10 @@ func remove_player_from_game(id):
 
 func hide_all():
 	%Platforms.hide()
-	%PlatfomLimits.hide()
 	for item in player_container.get_children():
 		item.hide()
 	
 func show_all():
 	%Platforms.show()
-	%PlatfomLimits.show()
 	for item in player_container.get_children():
 		item.show()

@@ -1,12 +1,12 @@
 extends Control
 
 var colors = [Color.WHITE, Color.DEEP_PINK, Color.CYAN, Color.BLUE_VIOLET, Color.ROYAL_BLUE, Color.CORAL, Color.FOREST_GREEN, Color.CRIMSON, Color.GOLD]
+var new_toggle_group = ButtonGroup.new()
 
 func _ready() -> void:
 	if LobbySystem:
-		LobbySystem.signal_client_connection_confirmed.connect(func(_lobbyId): choose_random_color())
+		LobbySystem.signal_client_connection_confirmed.connect(func(_id): choose_color(true, new_toggle_group.get_pressed_button().get_theme_stylebox('pressed').bg_color))
 	
-	var new_toggle_group = ButtonGroup.new()
 	for color_string: Color in colors:
 		var new_button = Button.new()
 		new_button.custom_minimum_size = Vector2(30.0, 30.0)
@@ -27,11 +27,15 @@ func _ready() -> void:
 		new_button.mouse_default_cursor_shape = 2
 		%ColorGrid.add_child(new_button)
 		
+	choose_random_color()
+	
+	
 func choose_random_color():
 	var random_color = randi_range(0, colors.size() - 1)
 	var button_to_press: Button = %ColorGrid.get_child(random_color)
 	button_to_press.set_pressed_no_signal(true)
-	choose_color(true, colors[random_color])
+	%ColorRect.color = button_to_press.get_theme_stylebox('pressed').bg_color
+	#choose_color(true, colors[random_color])
 	
 func choose_color(toggled_on, color_string: Color):
 	if toggled_on and LobbySystem:

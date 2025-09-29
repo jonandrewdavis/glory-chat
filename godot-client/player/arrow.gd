@@ -5,9 +5,11 @@ var hit_location: Vector2
 var frozen := false
 var hit_node: Node2D
 var hit_rotation: float
+var color := Color.WHITE
 
 func _ready() -> void:
 	%Polygon2D.scale = Vector2(0.1, 0.1)
+	%Polygon2D.modulate = color
 	gravity_scale = 0.5
 	set_collision_layer_value(2, true)
 	set_collision_mask_value(2, true)

@@ -82,14 +82,13 @@ layout_mode = 2
 
 [node name="LobbyChatVisible" type="RichTextLabel" parent="TopLevelControl/TopRight/VBoxContainer/Vbox"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(200, 0)
+custom_minimum_size = Vector2(250, 200)
 layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("8_4trht")
+theme_override_font_sizes/normal_font_size = 12
 theme_override_styles/normal = SubResource("StyleBoxFlat_7ixe1")
-fit_content = true
 scroll_active = false
 scroll_following = true
-vertical_alignment = 2
 
 [node name="LobbyChatFadeTimer" type="Timer" parent="TopLevelControl/TopRight/VBoxContainer/Vbox"]
 unique_name_in_owner = true

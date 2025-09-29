@@ -129,6 +129,9 @@ size_flags_horizontal = 3
 size_flags_vertical = 0
 placeholder_text = "Username"
 
+[node name="ColorGridPicker" parent="Margin/HBoxContainer/ColumnQuickConnect/MarginContainer/HBoxContainer2" instance=ExtResource("5_kaq8o")]
+layout_mode = 2
+
 [node name="VBoxContainer" type="HBoxContainer" parent="Margin/HBoxContainer/ColumnQuickConnect/MarginContainer/HBoxContainer2"]
 layout_mode = 2
 
@@ -244,11 +247,6 @@ size_flags_vertical = 3
 [node name="VBoxContainer" type="VBoxContainer" parent="Margin/HBoxContainer/ColumnLobby/LobbyVBox/LobbyTop/Vbox/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-
-[node name="ColorGrid" parent="Margin/HBoxContainer/ColumnLobby/LobbyVBox/LobbyTop/Vbox/HBoxContainer/VBoxContainer" instance=ExtResource("5_kaq8o")]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 0
 
 [node name="Label" type="Label" parent="Margin/HBoxContainer/ColumnLobby/LobbyVBox/LobbyTop/Vbox/HBoxContainer/VBoxContainer"]
 layout_mode = 2
