@@ -92,7 +92,7 @@ scroll_following = true
 
 [node name="LobbyChatFadeTimer" type="Timer" parent="TopLevelControl/TopRight/VBoxContainer/Vbox"]
 unique_name_in_owner = true
-wait_time = 3.0
+wait_time = 5.5
 one_shot = true
 autostart = true
 

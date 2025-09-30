@@ -1,9 +1,10 @@
-[gd_scene load_steps=38 format=3 uid="uid://bwpreeakt421"]
+[gd_scene load_steps=43 format=3 uid="uid://bwpreeakt421"]
 
 [ext_resource type="Script" uid="uid://2y57aq7adm8x" path="res://player/player.gd" id="1_rkbax"]
 [ext_resource type="Texture2D" uid="uid://vutnujjptgr8" path="res://assets/Archer.png" id="2_g1dw6"]
 [ext_resource type="PackedScene" uid="uid://bodmr74jwgi5g" path="res://player/UI/player_ui.tscn" id="4_qjkh3"]
 [ext_resource type="FontFile" uid="uid://bnudr3myap7vs" path="res://lobby/theme/Strait-Regular.ttf" id="4_yw30f"]
+[ext_resource type="PackedScene" uid="uid://qsh5m8pulul5" path="res://systems/health_system.tscn" id="5_g6k8r"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yw30f"]
 atlas = ExtResource("2_g1dw6")
@@ -40,6 +41,22 @@ region = Rect2(700, 300, 100, 100)
 [sub_resource type="AtlasTexture" id="AtlasTexture_ebec5"]
 atlas = ExtResource("2_g1dw6")
 region = Rect2(800, 300, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2uvqg"]
+atlas = ExtResource("2_g1dw6")
+region = Rect2(0, 500, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1s1yo"]
+atlas = ExtResource("2_g1dw6")
+region = Rect2(100, 500, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ejfk"]
+atlas = ExtResource("2_g1dw6")
+region = Rect2(200, 500, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jd2rm"]
+atlas = ExtResource("2_g1dw6")
+region = Rect2(300, 500, 100, 100)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yllr7"]
 atlas = ExtResource("2_g1dw6")
@@ -149,6 +166,23 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_2uvqg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1s1yo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ejfk")
+}, {
+"duration": 5.0,
+"texture": SubResource("AtlasTexture_jd2rm")
+}],
+"loop": false,
+"name": &"death",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_yllr7")
 }, {
 "duration": 1.0,
@@ -249,6 +283,9 @@ properties/7/replication_mode = 0
 properties/8/path = NodePath("ArrowContainer/Polygon2D:modulate")
 properties/8/spawn = true
 properties/8/replication_mode = 0
+properties/9/path = NodePath(".:modulate")
+properties/9/spawn = true
+properties/9/replication_mode = 1
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rkbax"]
 content_margin_left = 2.0
@@ -279,7 +316,7 @@ script = ExtResource("1_rkbax")
 unique_name_in_owner = true
 texture_filter = 3
 sprite_frames = SubResource("SpriteFrames_2uvqg")
-animation = &"attack"
+animation = &"death"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_rkbax")
@@ -299,6 +336,11 @@ unique_name_in_owner = true
 wait_time = 0.4
 one_shot = true
 
+[node name="TimerPreventDamage" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.4
+one_shot = true
+
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_rkbax")
 
@@ -314,14 +356,14 @@ unique_name_in_owner = true
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -20.0
+offset_left = -15.0
 offset_top = -20.0
-offset_right = 20.0
+offset_right = 15.0
 offset_bottom = -16.0
 grow_horizontal = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_rkbax")
 theme_override_styles/fill = SubResource("StyleBoxFlat_g1dw6")
-max_value = 1000.0
+max_value = 600.0
 fill_mode = 1
 show_percentage = false
 
@@ -344,6 +386,20 @@ theme_override_font_sizes/font_size = 9
 text = "Username"
 horizontal_alignment = 1
 
+[node name="LabelDisconnected" type="Label" parent="."]
+unique_name_in_owner = true
+visible = false
+offset_left = -80.0
+offset_top = -62.0
+offset_right = 87.0
+offset_bottom = -39.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.5568628)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 3
+theme_override_fonts/font = ExtResource("4_yw30f")
+text = "WARNING: DISCONNECTED"
+
 [node name="PlayerUI" parent="." instance=ExtResource("4_qjkh3")]
 
 [node name="ArrowArea" type="Area2D" parent="."]
@@ -354,3 +410,16 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ArrowArea"]
 shape = SubResource("CapsuleShape2D_yw30f")
 debug_color = Color(0.79463774, 0.27521873, 0.81019086, 0.41960785)
+
+[node name="TimerCheckServer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 10.0
+autostart = true
+
+[node name="TimerJump" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.2
+one_shot = true
+
+[node name="HealthSystem" parent="." instance=ExtResource("5_g6k8r")]
+unique_name_in_owner = true

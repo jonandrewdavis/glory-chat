@@ -49,17 +49,18 @@ func _process(_delta):
 		print(_get_closest_platform())
 		pass
 	elif Input.is_action_just_pressed("toggle_game") and window.mouse_passthrough:
+		world.show_all()
+		world.show_all_modulate(true)
 		window.mouse_passthrough = false
 	elif Input.is_action_just_pressed("toggle_game") and not window.mouse_passthrough: 
 		window.mouse_passthrough = true
 	elif Input.is_action_just_pressed("debug1") and world.platforms.visible:
 		world.hide_all()
-		show() #Shows PlayerUI
-		%PointerHitbox.hide()
 	elif Input.is_action_just_pressed("debug1") and not world.platforms.visible:
-		world.hide_all()
-		show() #Shows PlayerUI
-		%PointerHitbox.show()
+		world.show_all()
+	elif Input.is_action_just_pressed("debug2"):
+		world.show_all()
+		world.show_all_modulate()
 
 func _get_closest_player() -> PlayerSimple:
 	var players = get_tree().get_nodes_in_group('Players')
@@ -78,7 +79,8 @@ func proj_hit(body):
 	if is_multiplayer_authority():
 		var get_hit_location = body.position - position
 		body.freeze_arrow.rpc(get_hit_location, 'admin')
-		world.broadcast_player_kill.rpc(body.source)
+		# DO NOT GIVE POINTS out any more
+		#world.broadcast_player_kill.rpc(body.source)
 		
 func _get_closest_platform():
 	var dist = INF

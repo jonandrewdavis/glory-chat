@@ -65,6 +65,8 @@ func _quick_join():
 	LobbySystem.user_connect(username_value)
 	await get_tree().create_timer(1.0).timeout 
 	
+	if OS.is_debug_build():
+		LOBBY_CUSTOM_ID = 'glory-chat-debug'
 	# NOTE: hardcoded 
 	LobbySystem.lobby_join(LOBBY_CUSTOM_ID.rstrip(" "))
 
@@ -75,10 +77,14 @@ func _quick_host():
 	# TODO: actual async/await
 	await get_tree().create_timer(1.0).timeout 
 	#LobbySystem.lobby_create()
-	LobbySystem.lobby_create({ 
+	if OS.is_debug_build():
+		LOBBY_CUSTOM_ID = 'glory-chat-debug'
+
+	LobbySystem.lobby_create({
 		'isPublic': false,
 		'customId': LOBBY_CUSTOM_ID
 	})
+
 
 func _create_user_item(username: String, color: String) -> PanelContainer:
 	var user_hbox = HBoxContainer.new()

@@ -14,4 +14,8 @@ script = ExtResource("1_0xm2m")
 
 [node name="LobbyQuickConnect" parent="." instance=ExtResource("2_0xm2m")]
 layout_mode = 1
-mouse_default_cursor_shape = 3
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(0, 0, 960, 450, 960, 0, 0, 450)
+uv = PackedVector2Array(0, 0, 952, 32, 960, 312.00003, 0, 304)
+internal_vertex_count = 4

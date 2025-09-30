@@ -269,5 +269,15 @@ const engine = new Engine(GODOT_CONFIG);
 			// player.play();
 			setTimeout(() => document.getElementById('go').classList.add('show'), 1000)
 		});		
-    </script></body>
+    </script>
+
+    <script type="text/javascript">
+		document.addEventListener("visibilitychange", () => {
+			if (document.hidden) {
+				document.getElementById('go').blur();
+			}
+		});
+	</script>
+
+</body>
 </html>

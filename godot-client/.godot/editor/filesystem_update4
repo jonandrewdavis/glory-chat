@@ -1,13 +1,5 @@
-res://player/player_admin.tscn
+res://player/player.tscn
 res://lobby/theme/MinimalUI.tres
 res://player/circle.gdshader
-res://player/player_admin.gd
 res://player/player.gd
 res://world/world.tscn
-res://player/player.tscn
-res://player/UI/player_ui.tscn
-res://lobby/lobby_quick_connect.tscn
-res://lobby/lobby_color_grid/lobby_color_grid.tscn
-res://lobby/lobby_color_grid/lobby_color_grid.gd
-res://player/arrow.gd
-res://player/arrow.tscn

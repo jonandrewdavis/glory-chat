@@ -13,6 +13,7 @@ func _ready() -> void:
 	gravity_scale = 0.5
 	set_collision_layer_value(2, true)
 	set_collision_mask_value(2, true)
+
 	$Timer.timeout.connect(destroy)
 
 func _process(_delta: float) -> void:
@@ -42,7 +43,6 @@ func freeze_arrow(hit_location_: Vector2, node_name: String):
 	call_deferred('freeze_arrow_defer')
 
 func freeze_arrow_defer():
-	
 	freeze = true
 	%CollisionShape2D.disabled = true
 

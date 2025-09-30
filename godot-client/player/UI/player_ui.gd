@@ -14,6 +14,7 @@ func _ready() -> void:
 
 	player = get_parent()
 	%Menu.hide()
+	%LabelFPSCounter.hide()
 
 	#player.health_system.max_health_updated.connect(_on_max_health_updated)
 	#player.health_system.health_updated.connect(_on_health_updated)
@@ -28,11 +29,6 @@ func _ready() -> void:
 	world = get_tree().get_first_node_in_group("World")
 	world.signal_player_death.connect(add_death_to_player)
 	world.signal_player_kill.connect(add_kill_to_player)
-	
-	if OS.has_feature('admin'):
-		%LabelFPSCounter.hide()
-	else:
-		%LobbyChatVisible.hide()
 
 func _process(_delta: float) -> void:
 	#if Input.is_action_just_pressed('menu') and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
@@ -126,4 +122,4 @@ func add_death_to_player(playerId: String):
 func add_kill_to_player(playerId: String):
 	var info_target: PlayerInfoItem = %LobbyScoreboard.get_node_or_null(playerId)
 	if not null:
-		info_target.add_kill()
+		info_target.add_kill()	

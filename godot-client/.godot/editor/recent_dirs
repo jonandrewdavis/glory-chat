@@ -1,6 +1,7 @@
-/Users/andrewdavis/godot/glory-chat/godot-client/dist_app
-/Users/andrewdavis/godot/glory-chat/godot-client/dist
-res://
-res://player
-res://lobby
 res://assets
+res://systems
+/Users/andrewdavis/godot/glory-chat/godot-client/dist
+/Users/andrewdavis/godot/glory-chat/godot-client/dist_app
+res://player
+res://
+res://lobby

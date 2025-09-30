@@ -45,11 +45,10 @@ corner_detail = 5
 
 [node name="LobbyQuickConnect" type="Control"]
 layout_mode = 3
-anchors_preset = 15
+anchors_preset = 10
 anchor_right = 1.0
-anchor_bottom = 1.0
+offset_bottom = 360.0
 grow_horizontal = 2
-grow_vertical = 2
 theme = ExtResource("1_42wu0")
 script = ExtResource("2_5djwk")
 
@@ -77,11 +76,10 @@ mouse_filter = 2
 
 [node name="Margin" type="MarginContainer" parent="."]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = 10
 anchor_right = 1.0
-anchor_bottom = 1.0
+offset_bottom = 338.0
 grow_horizontal = 2
-grow_vertical = 2
 theme_override_constants/margin_left = 40
 theme_override_constants/margin_top = 40
 theme_override_constants/margin_right = 40
@@ -89,6 +87,7 @@ theme_override_constants/margin_bottom = 40
 
 [node name="HBoxContainer" type="VBoxContainer" parent="Margin"]
 layout_mode = 2
+size_flags_vertical = 0
 
 [node name="ColumnQuickConnect" type="PanelContainer" parent="Margin/HBoxContainer"]
 unique_name_in_owner = true
@@ -128,6 +127,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 placeholder_text = "Username"
+max_length = 15
 
 [node name="ColorGridPicker" parent="Margin/HBoxContainer/ColumnQuickConnect/MarginContainer/HBoxContainer2" instance=ExtResource("5_kaq8o")]
 layout_mode = 2
@@ -182,6 +182,7 @@ text = "Host"
 
 [node name="ColumnLobby" type="PanelContainer" parent="Margin/HBoxContainer"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
