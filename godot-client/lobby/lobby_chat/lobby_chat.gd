@@ -3,7 +3,7 @@ extends Control
 func _ready() -> void:
 	%LobbyChatInput.text_submitted.connect(func(_text): _send_chat_to_lobby())
 	%LobbyChatSend.pressed.connect(func(): _send_chat_to_lobby())
-
+	
 	LobbySystem.signal_lobby_changed.connect(_render_lobby_clear)
 	LobbySystem.signal_lobby_chat.connect(_render_lobby_chat)
 	LobbySystem.signal_lobby_event.connect(_render_new_event)
@@ -23,7 +23,7 @@ func _render_lobby_chat(chat_user: String, chat_text: String):
 func _render_new_event(event_text: String):
 	%LobbyChat.append_text('[color=808080]' + event_text)
 	%LobbyChat.newline()
-	
+
 func lobby_chat_should_focus(yes: bool = false):
 	if yes: 
 		%LobbyChatInput.grab_focus()

@@ -2,8 +2,7 @@ extends CanvasLayer
 
 class_name PlayerUI
 
-var player = get_parent()
-#@onready var progress_bar = %Health
+@export var player: Node2D
 
 var world: World 
 
@@ -12,30 +11,23 @@ func _ready() -> void:
 		queue_free()
 		return
 
-	player = get_parent()
 	%Menu.hide()
 	%LabelFPSCounter.hide()
-
-	#player.health_system.max_health_updated.connect(_on_max_health_updated)
-	#player.health_system.health_updated.connect(_on_health_updated)
-	#player.health_system.hurt.connect(_on_hurt)
-	
+		
 	LobbySystem.signal_lobby_chat.connect(_render_lobby_chat_visible)
+	LobbySystem.signal_lobby_event.connect(_render_new_event)
 	%LobbyChatFadeTimer.timeout.connect(_render_lobby_chat_fade)
 	# Scoreboard
+	LobbySystem.signal_lobby_changed.connect(_render_own_lobby_info)
 	LobbySystem.signal_lobby_own_info.connect(_render_own_lobby_info)
 	multiplayer.peer_disconnected.connect(_render_remove_player_info)	
 
 	world = get_tree().get_first_node_in_group("World")
-	world.signal_player_death.connect(add_death_to_player)
-	world.signal_player_kill.connect(add_kill_to_player)
+	if world:
+		world.signal_player_death.connect(add_death_to_player)
+		world.signal_player_kill.connect(add_kill_to_player)
 
 func _process(_delta: float) -> void:
-	#if Input.is_action_just_pressed('menu') and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-		#Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-	#elif Input.is_action_just_pressed('menu') and Input.mouse_mode == Input.MOUSE_MODE_VISIBLE:
-		#Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-
 	if Input.is_action_just_pressed('menu') and %Menu.visible:
 		%LobbyChat.lobby_chat_should_focus(false)
 		%Menu.hide()
@@ -47,29 +39,13 @@ func _process(_delta: float) -> void:
 
 	%LabelFPSCounter.text = 'FPS: ' + str(Engine.get_frames_per_second())
 
-func _on_hurt():
-	%HurtSound.play()
-	%HurtTexture.visible = true
-	%HurtTimer.start()
-
-func _on_hurt_timer_timeout():
-	%HurtTexture.visible = false
-
-#func _on_health_updated(next_health):
-	#var current = progress_bar.get_current_value()
-	#if next_health < current:
-		#progress_bar.decrease_bar_value(current - next_health)
-	#else:
-		#var diff = next_health - current
-		#progress_bar.increase_bar_value(diff)
+#func _on_hurt():
+	#%HurtSound.play()
+	#%HurtTexture.visible = true
+	#%HurtTimer.start()
 #
-	#%HealthBar.value = next_health
-#
-#func _on_max_health_updated(new_max):
-	#progress_bar.set_max_value(new_max)
-	#progress_bar.set_bar_value(new_max)
-	#%HealthBar.max_value = new_max
-	#%HealthBar.value = new_max
+#func _on_hurt_timer_timeout():
+	#%HurtTexture.visible = false
 
 func _on_disconnect():
 	if multiplayer != null && multiplayer.has_multiplayer_peer():
@@ -90,6 +66,13 @@ func _render_lobby_chat_visible(chat_user: String, chat_text: String):
 	%LobbyChatVisible.append_text(chat_user + " : " + chat_text)
 	%LobbyChatVisible.newline()
 	%LobbyChatFadeTimer.start()
+
+func _render_new_event(event_text: String):
+	%LobbyChatVisible.modulate.a = 1.0
+	%LobbyChatVisible.append_text('[color=808080]' + event_text)
+	%LobbyChatVisible.newline()
+	%LobbyChatFadeTimer.start()
+
 
 func _render_lobby_chat_fade():
 	var tween = get_tree().create_tween()
@@ -122,4 +105,4 @@ func add_death_to_player(playerId: String):
 func add_kill_to_player(playerId: String):
 	var info_target: PlayerInfoItem = %LobbyScoreboard.get_node_or_null(playerId)
 	if not null:
-		info_target.add_kill()	
+		info_target.add_kill()

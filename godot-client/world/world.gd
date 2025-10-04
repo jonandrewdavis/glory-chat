@@ -8,6 +8,7 @@ var player_admin_new = preload('res://player/player_admin.tscn')
 @export var player_container_admin: Node2D
 @export var player_container: Node2D
 @onready var platforms: Node2D = $Platforms
+@onready var target_marker = $TargetMarker
 
 signal signal_player_death(id)
 signal signal_player_kill(id)
@@ -15,10 +16,12 @@ signal signal_player_kill(id)
 func _ready() -> void:
 	add_to_group('World')
 	get_window().borderless = true
-	
-	if not OS.is_debug_build():
-		get_window().mode = Window.MODE_MAXIMIZED
-	
+	if OS.is_debug_build():
+		%DebugBackground.show()
+	else:
+		get_window().set_mode(Window.MODE_MAXIMIZED)
+		get_window().borderless = true
+
 	multiplayer.connected_to_server.connect(RTCServerConnected)
 	multiplayer.peer_connected.connect(RTCPeerConnected)
 	multiplayer.peer_disconnected.connect(RTCPeerDisconnected)
@@ -66,8 +69,8 @@ func broadcast_player_kill(id: String):
 	signal_player_kill.emit(id)
 
 func remove_player_from_game(id):
-	var player_to_remove = player_container.get_node(str(id))
-	if player_to_remove:
+	var player_to_remove = player_container.get_node_or_null(str(id))
+	if player_to_remove != null:
 		player_to_remove.queue_free()
 	else:
 		player_container_admin.get_node(str(id)).queue_free()

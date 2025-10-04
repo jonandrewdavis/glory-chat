@@ -12,10 +12,10 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_0xm2m")
 
+[node name="Polygon2D" type="Polygon2D" parent="."]
+color = Color(1, 1, 1, 0)
+polygon = PackedVector2Array(7.5243874, -2.9775577, 961, -4, 965.0308, 434.3509, 3.8717573, 434.24866)
+uv = PackedVector2Array(23.999878, -8, 2288, 24, 2288, 24, 2296, 967.99994, 7.999878, 952.00006)
+
 [node name="LobbyQuickConnect" parent="." instance=ExtResource("2_0xm2m")]
 layout_mode = 1
-
-[node name="Polygon2D" type="Polygon2D" parent="."]
-polygon = PackedVector2Array(0, 0, 960, 450, 960, 0, 0, 450)
-uv = PackedVector2Array(0, 0, 952, 32, 960, 312.00003, 0, 304)
-internal_vertex_count = 4

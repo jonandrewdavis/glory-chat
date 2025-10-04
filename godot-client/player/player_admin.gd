@@ -5,6 +5,8 @@ class_name PlayerAdmin
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 
+var target_scene = preload('res://game/target/target.tscn')
+
 @onready var window = get_window()
 @onready var world: World = get_tree().get_first_node_in_group('World')
 
@@ -27,6 +29,11 @@ func _ready():
 	set_physics_process(is_multiplayer_authority())
 	window.always_on_top = true
 	window.borderless = true
+	
+	if is_multiplayer_authority():
+		%TimerSpawnTarget.wait_time = 5.0
+		%TimerSpawnTarget.timeout.connect(_create_new_target)
+		%TimerSpawnTarget.start()
 
 func _physics_process(_delta: float) -> void:
 	var target : Vector2 = get_viewport().get_mouse_position()
@@ -92,3 +99,27 @@ func _get_closest_platform():
 			platform_closest = platform
 
 	return platform_closest
+
+func _create_new_target():
+	var random_pos = _random_pos_in_circle(world.target_marker.position, 300.0)
+	var random_wait = randf_range(4.0, 9.0)
+	var random_cooldown = randf_range(7.0, 11.0)
+	%TimerSpawnTarget.wait_time = random_wait + random_cooldown
+	%TimerSpawnTarget.start()
+	_spawn_new_target.rpc(random_pos, random_wait)
+	
+@rpc('call_local')
+func _spawn_new_target(random_pos: Vector2, destroy_time: float):
+	var new_target: Target = target_scene.instantiate()
+	new_target.position = random_pos
+	new_target.destroy_time = destroy_time
+	world.player_container.add_child(new_target, true)
+
+func _random_pos_in_circle(center_position: Vector2, radius: float) -> Vector2:
+	var angle = randf() * TAU 
+	var random_radius = sqrt(randf()) * radius
+
+	var x = center_position.x + random_radius * cos(angle)
+	var y = center_position.y + random_radius * sin(angle)
+
+	return Vector2(x, y)

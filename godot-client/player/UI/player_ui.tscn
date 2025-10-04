@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://bodmr74jwgi5g"]
+[gd_scene load_steps=8 format=3 uid="uid://bodmr74jwgi5g"]
 
 [ext_resource type="Script" uid="uid://dbkd33tkoa5no" path="res://player/UI/player_ui.gd" id="1_721h2"]
+[ext_resource type="PackedScene" uid="uid://cr0rjm7booup1" path="res://lobby/lobby_color_grid/lobby_color_grid.tscn" id="4_crhk2"]
 [ext_resource type="FontFile" uid="uid://bnudr3myap7vs" path="res://lobby/theme/Strait-Regular.ttf" id="8_4trht"]
 [ext_resource type="Theme" uid="uid://b3kq74llqlv3x" path="res://lobby/theme/MinimalUI.tres" id="9_xyb3v"]
 [ext_resource type="PackedScene" uid="uid://b5bs8xlgxmi3q" path="res://lobby/lobby_chat/lobby_chat.tscn" id="12_2lepv"]
@@ -43,7 +44,6 @@ theme = ExtResource("9_xyb3v")
 
 [node name="TopLeft" type="MarginContainer" parent="TopLevelControl"]
 layout_mode = 1
-anchors_preset = -1
 offset_right = 196.0
 offset_bottom = 245.0
 mouse_filter = 2
@@ -98,11 +98,11 @@ autostart = true
 
 [node name="BottomLeft" type="MarginContainer" parent="TopLevelControl"]
 layout_mode = 1
-anchors_preset = -1
+anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_top = -90.0
-offset_right = 400.0
+offset_right = 200.0
 grow_vertical = 0
 mouse_filter = 2
 theme_override_constants/margin_left = 20
@@ -140,6 +140,7 @@ theme_override_constants/margin_bottom = 40
 
 [node name="Menu" type="PanelContainer" parent="MarginContainer"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 theme = ExtResource("9_xyb3v")
 theme_override_styles/panel = SubResource("StyleBoxFlat_4trht")
@@ -155,50 +156,45 @@ theme_override_constants/margin_bottom = 30
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/Menu/InGameMenuMargin"]
 layout_mode = 2
 
-[node name="Closeinstructions" type="HBoxContainer" parent="MarginContainer/Menu/InGameMenuMargin/VBoxContainer"]
-visible = false
+[node name="TopMenu" type="HBoxContainer" parent="MarginContainer/Menu/InGameMenuMargin/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/separation = 8
-alignment = 2
 
-[node name="LabelClosemenu" type="Label" parent="MarginContainer/Menu/InGameMenuMargin/VBoxContainer/Closeinstructions"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 24
-text = "Close Menu:"
-
-[node name="ColorRect" type="TextureRect" parent="MarginContainer/Menu/InGameMenuMargin/VBoxContainer/Closeinstructions"]
-texture_filter = 3
-custom_minimum_size = Vector2(55, 40)
-layout_mode = 2
-size_flags_vertical = 4
-stretch_mode = 5
-
-[node name="LobbyScoreLabels" type="HBoxContainer" parent="MarginContainer/Menu/InGameMenuMargin/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 24
-
-[node name="Label" type="Label" parent="MarginContainer/Menu/InGameMenuMargin/VBoxContainer/LobbyScoreLabels"]
+[node name="Scoreboard" type="VBoxContainer" parent="MarginContainer/Menu/InGameMenuMargin/VBoxContainer/TopMenu"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label2" type="Label" parent="MarginContainer/Menu/InGameMenuMargin/VBoxContainer/LobbyScoreLabels"]
+[node name="LobbyScoreLabels" type="HBoxContainer" parent="MarginContainer/Menu/InGameMenuMargin/VBoxContainer/TopMenu/Scoreboard"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 24
+
+[node name="Label" type="Label" parent="MarginContainer/Menu/InGameMenuMargin/VBoxContainer/TopMenu/Scoreboard/LobbyScoreLabels"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label2" type="Label" parent="MarginContainer/Menu/InGameMenuMargin/VBoxContainer/TopMenu/Scoreboard/LobbyScoreLabels"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
 text = "K"
 
-[node name="Label3" type="Label" parent="MarginContainer/Menu/InGameMenuMargin/VBoxContainer/LobbyScoreLabels"]
+[node name="Label3" type="Label" parent="MarginContainer/Menu/InGameMenuMargin/VBoxContainer/TopMenu/Scoreboard/LobbyScoreLabels"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
 text = "D"
 
-[node name="Label4" type="Label" parent="MarginContainer/Menu/InGameMenuMargin/VBoxContainer/LobbyScoreLabels"]
+[node name="Label4" type="Label" parent="MarginContainer/Menu/InGameMenuMargin/VBoxContainer/TopMenu/Scoreboard/LobbyScoreLabels"]
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
 
-[node name="LobbyScoreboard" type="VBoxContainer" parent="MarginContainer/Menu/InGameMenuMargin/VBoxContainer"]
+[node name="LobbyScoreboard" type="VBoxContainer" parent="MarginContainer/Menu/InGameMenuMargin/VBoxContainer/TopMenu/Scoreboard"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 0
+
+[node name="ColorGridPicker" parent="MarginContainer/Menu/InGameMenuMargin/VBoxContainer/TopMenu" instance=ExtResource("4_crhk2")]
+layout_mode = 2
+size_flags_horizontal = 3
+randomize_color = false
 
 [node name="GridContainer" type="GridContainer" parent="MarginContainer/Menu/InGameMenuMargin/VBoxContainer"]
 visible = false

@@ -2,11 +2,9 @@ extends Node
 class_name HealthSystem
 
 signal hurt
-signal health_updated
-signal max_health_updated
+signal health_updated(value)
+signal max_health_updated(max_value)
 signal death
-
-@warning_ignore("unused_signal")
 signal respawn
 
 # TODO: HealthBars, do we want them to show on enemies? 
@@ -38,7 +36,8 @@ func _ready() -> void:
 		prepare_regen_timer()
 		max_health_updated.emit(max_health)
 		heal(max_health)
-#
+		respawn.connect(_heal_to_full)
+		#
 #func damage_from_source(value: int, source: int = 0) -> bool:
 	## Do not allow damage when dead.
 #
@@ -119,3 +118,6 @@ func regen_health_tick():
 		regen_tick_timer.start()
 	else:
 		regen_tick_timer.stop()
+
+func _heal_to_full():
+	heal(max_health)

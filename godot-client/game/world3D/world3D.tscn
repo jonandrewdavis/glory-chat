@@ -1,0 +1,31 @@
+[gd_scene load_steps=6 format=3 uid="uid://p57w6lu16jbj"]
+
+[ext_resource type="Texture2D" uid="uid://bot8ndsj83stx" path="res://assets/texture_07.png" id="1_a3g3d"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_afpx2"]
+albedo_texture = ExtResource("1_a3g3d")
+uv1_triplanar = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_xxlxx"]
+material = SubResource("StandardMaterial3D_afpx2")
+size = Vector2(1000, 1000)
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_h20p8"]
+
+[sub_resource type="Environment" id="Environment_a3g3d"]
+
+[node name="World3d" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_xxlxx")
+
+[node name="FloorStaticBody" type="StaticBody3D" parent="."]
+
+[node name="FloorBoundary" type="CollisionShape3D" parent="FloorStaticBody"]
+shape = SubResource("WorldBoundaryShape3D_h20p8")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_a3g3d")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.8384233, 0.54501957, 0, -0.54501957, 0.8384233, 0, 1.9591858, 0)
