@@ -19,6 +19,7 @@ var SPEED_CURRENT = SPEED_MAX
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var nameplate: Label = %LabelUsername
 @onready var player_ui: PlayerUI = $PlayerUI
+@onready var health_progress_bar = %HealthBar
 
 var arrow = preload('res://player/arrow.tscn')
 
@@ -78,8 +79,8 @@ func _ready():
 	if not is_multiplayer_authority():
 		hide_client_elements()
 	else:
-		health_system.health_updated.connect(player_ui.on_health_updated)
-		health_system.max_health_updated.connect(player_ui.on_max_health_updated)
+		health_system.health_updated.connect(on_health_updated)
+		health_system.max_health_updated.connect(on_max_health_updated)
 		window.focus_entered.connect(_on_window_focus_enter)
 		window.focus_exited.connect(_on_window_focus_exit)
 
@@ -321,15 +322,17 @@ func flash_strength(is_flashing: bool = true):
 	else:
 		flash = false
 		temp_bar_flashing_timer.stop()
-		%ArrowProgressBar.get_theme_stylebox("fill").bg_color = Color.from_string('ff4bff66', Color.HOT_PINK)
 		%ArrowProgressBar.modulate.a = 1.0	
+		%ArrowProgressBar.get_theme_stylebox("fill").bg_color = Color.from_string('ff4bff66', Color.HOT_PINK)
 
 func on_temp_flash_timeout():
 	#tween module
 	var tween = create_tween()
 	if (flash):
+		%ArrowProgressBar.get_theme_stylebox("fill").bg_color = Color.GREEN
 		tween.tween_property(%ArrowProgressBar, "modulate:a", 1.0, 0.2).from(0.0)
 	else:
+		%ArrowProgressBar.get_theme_stylebox("fill").bg_color = Color.from_string('ff4bff66', Color.HOT_PINK)
 		tween.tween_property(%ArrowProgressBar, "modulate:a", 0.0, 0.2).from(1.0)
 
 func _check_server():
@@ -391,4 +394,18 @@ func block():
 	%TimerCooldownBlock.start()
 	%TimerCooldown.start()
 	
-	
+func on_health_updated(next_health):
+	var current = health_progress_bar.get_current_value()
+	if next_health < current:
+		health_progress_bar.decrease_bar_value(current - next_health)
+		%HealthBar.show()
+	else:
+		var diff = next_health - current
+		health_progress_bar.increase_bar_value(diff)
+		if next_health == health_system.max_health:
+			await get_tree().create_timer(1.2).timeout
+			%HealthBar.hide()
+
+func on_max_health_updated(new_max):
+	health_progress_bar.set_max_value(new_max)
+	health_progress_bar.set_bar_value(new_max)

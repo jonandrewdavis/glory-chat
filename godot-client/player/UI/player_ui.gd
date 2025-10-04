@@ -3,7 +3,6 @@ extends CanvasLayer
 class_name PlayerUI
 
 @export var player: Node2D
-@onready var health_progress_bar = %HealthBar
 
 var world: World 
 
@@ -14,8 +13,6 @@ func _ready() -> void:
 
 	%Menu.hide()
 	%LabelFPSCounter.hide()
-	if OS.has_feature('admin'):
-		%HealthBar.hide()
 		
 	LobbySystem.signal_lobby_chat.connect(_render_lobby_chat_visible)
 	LobbySystem.signal_lobby_event.connect(_render_new_event)
@@ -49,23 +46,6 @@ func _process(_delta: float) -> void:
 #
 #func _on_hurt_timer_timeout():
 	#%HurtTexture.visible = false
-
-func on_health_updated(next_health):
-	var current = health_progress_bar.get_current_value()
-	if next_health < current:
-		health_progress_bar.decrease_bar_value(current - next_health)
-	else:
-		var diff = next_health - current
-		health_progress_bar.increase_bar_value(diff)
-	# Not present:
-	#%ExternalHealthBar.value = next_health
-
-func on_max_health_updated(new_max):
-	health_progress_bar.set_max_value(new_max)
-	health_progress_bar.set_bar_value(new_max)
-	# Not present
-	#%ExternalHealthBar.max_value = new_max
-	#%ExternalHealthBar.value = new_max
 
 func _on_disconnect():
 	if multiplayer != null && multiplayer.has_multiplayer_peer():

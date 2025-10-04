@@ -1,6 +1,12 @@
-res://player/player.tscn
+res://world/world.tscn
 res://assets/progress-bar/progress_bar.gdshader
 res://lobby/theme/MinimalUI.tres
 res://player/circle.gdshader
+res://world/world.gd
+res://game/world3D/world3D.tscn
+res://player/player.tscn
 res://player/player.gd
-res://world/world.tscn
+res://player/UI/player_ui.gd
+res://lobby/lobby_chat/lobby_chat.tscn
+res://lobby/lobby_chat/lobby_chat.gd
+res://player/UI/player_ui.tscn

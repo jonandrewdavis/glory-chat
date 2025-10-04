@@ -10,7 +10,6 @@ func _ready() -> void:
 
 func _send_chat_to_lobby():
 	LobbySystem.lobby_send_chat(%LobbyChatInput.text)
-	lobby_chat_should_focus(true)
 	%LobbyChatInput.clear()
 
 func _render_lobby_clear(lobby):

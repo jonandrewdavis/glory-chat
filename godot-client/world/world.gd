@@ -18,6 +18,9 @@ func _ready() -> void:
 	get_window().borderless = true
 	if OS.is_debug_build():
 		%DebugBackground.show()
+	else:
+		get_window().set_mode(Window.MODE_MAXIMIZED)
+		get_window().borderless = true
 
 	multiplayer.connected_to_server.connect(RTCServerConnected)
 	multiplayer.peer_connected.connect(RTCPeerConnected)
