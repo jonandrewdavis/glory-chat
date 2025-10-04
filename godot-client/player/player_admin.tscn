@@ -37,4 +37,8 @@ region_rect = Rect2(0, 0, 392, 352)
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="PointerHitbox"]
 polygon = PackedVector2Array(-12, -22, -12, 17, -4, 9, 3, 22, 11, 18, 5, 6, 16, 6)
 
-[node name="PlayerUI" parent="." instance=ExtResource("3_8oe48")]
+[node name="PlayerUI" parent="." node_paths=PackedStringArray("player") instance=ExtResource("3_8oe48")]
+player = NodePath("..")
+
+[node name="TimerSpawnTarget" type="Timer" parent="."]
+unique_name_in_owner = true

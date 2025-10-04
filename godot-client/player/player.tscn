@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://bwpreeakt421"]
+[gd_scene load_steps=44 format=3 uid="uid://bwpreeakt421"]
 
 [ext_resource type="Script" uid="uid://2y57aq7adm8x" path="res://player/player.gd" id="1_rkbax"]
 [ext_resource type="Texture2D" uid="uid://vutnujjptgr8" path="res://assets/Archer.png" id="2_g1dw6"]
@@ -271,21 +271,38 @@ properties/3/replication_mode = 1
 properties/4/path = NodePath("LabelUsername:text")
 properties/4/spawn = true
 properties/4/replication_mode = 0
-properties/5/path = NodePath("ArrowContainer:visible")
+properties/5/path = NodePath("AnimatedSprite2D:modulate")
 properties/5/spawn = true
 properties/5/replication_mode = 2
-properties/6/path = NodePath("ArrowContainer:rotation")
+properties/6/path = NodePath(".:modulate:a")
 properties/6/spawn = true
-properties/6/replication_mode = 1
-properties/7/path = NodePath("AnimatedSprite2D:modulate")
+properties/6/replication_mode = 2
+properties/7/path = NodePath("LabelUsername:visible")
 properties/7/spawn = true
-properties/7/replication_mode = 0
-properties/8/path = NodePath("ArrowContainer/Polygon2D:modulate")
-properties/8/spawn = true
-properties/8/replication_mode = 0
-properties/9/path = NodePath(".:modulate")
-properties/9/spawn = true
-properties/9/replication_mode = 1
+properties/7/replication_mode = 2
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_qjkh3"]
+properties/0/path = NodePath("ArrowContainer:visible")
+properties/0/spawn = true
+properties/0/replication_mode = 2
+properties/1/path = NodePath("ArrowContainer:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("ArrowContainer/ArrowPolygon2D:color")
+properties/2/spawn = true
+properties/2/replication_mode = 2
+properties/3/path = NodePath("ShieldContainer:rotation")
+properties/3/spawn = true
+properties/3/replication_mode = 2
+properties/4/path = NodePath("ShieldContainer/ShieldPolygon2D:color")
+properties/4/spawn = true
+properties/4/replication_mode = 2
+properties/5/path = NodePath("ShieldContainer:visible")
+properties/5/spawn = true
+properties/5/replication_mode = 2
+properties/6/path = NodePath("ShieldContainer/ShieldArea/ShieldCollision:disabled")
+properties/6/spawn = true
+properties/6/replication_mode = 2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rkbax"]
 content_margin_left = 2.0
@@ -293,7 +310,9 @@ content_margin_top = 2.0
 content_margin_right = 2.0
 content_margin_bottom = 2.0
 bg_color = Color(0.76845694, 0.76845694, 0.76845694, 0.63529414)
+border_color = Color(0, 0, 0, 1)
 corner_detail = 6
+shadow_size = 1
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g1dw6"]
 content_margin_left = 2.0
@@ -301,6 +320,11 @@ content_margin_top = 2.0
 content_margin_right = 2.0
 content_margin_bottom = 2.0
 bg_color = Color(1, 0.29411766, 1, 0.4)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
 corner_detail = 6
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yw30f"]
@@ -331,6 +355,11 @@ unique_name_in_owner = true
 wait_time = 2.8
 one_shot = true
 
+[node name="TimerCooldownBlock" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 2.0
+one_shot = true
+
 [node name="TimerCooldown" type="Timer" parent="."]
 unique_name_in_owner = true
 wait_time = 0.4
@@ -344,26 +373,52 @@ one_shot = true
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_rkbax")
 
+[node name="MultiplayerSynchronizerWeapons" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_qjkh3")
+
+[node name="ShieldContainer" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="ShieldPolygon2D" type="Polygon2D" parent="ShieldContainer"]
+position = Vector2(2.9999995, -17.000002)
+scale = Vector2(0.7, 0.7)
+polygon = PackedVector2Array(4, 3.999999, 12.258928, 10.336777, 15.748505, 15.954114, 18, 24, 16, 32, 12, 38, 4.005, 44, 10, 32, 12, 24, 9.808982, 15.998196)
+uv = PackedVector2Array(4, 3.999999, 8, 7.999999, 12, 15.999999, 12, 27.999996, 8, 35.999996, 4, 39.999996, 8, 31.999996, 7.9377055, 24.285152, 8, 15.999999, 16, 24)
+
+[node name="ShieldArea" type="Area2D" parent="ShieldContainer"]
+unique_name_in_owner = true
+position = Vector2(3, -17)
+scale = Vector2(0.7, 0.7)
+collision_layer = 0
+collision_mask = 2
+
+[node name="ShieldCollision" type="CollisionPolygon2D" parent="ShieldContainer/ShieldArea"]
+unique_name_in_owner = true
+polygon = PackedVector2Array(4, 3.999999, 12.258928, 10.336777, 15.748505, 15.954114, 18, 24, 16, 32, 12, 38, 4.005, 44, 10, 32, 12, 24, 9.808982, 15.998196)
+
 [node name="ArrowContainer" type="Node2D" parent="."]
 unique_name_in_owner = true
 
-[node name="Polygon2D" type="Polygon2D" parent="ArrowContainer"]
+[node name="ArrowPolygon2D" type="Polygon2D" parent="ArrowContainer"]
 scale = Vector2(0.1, 0.1)
 polygon = PackedVector2Array(-49.000835, -8.383104, 175.99998, -8, 159.99998, -24, 215.99998, 0, 159.99998, 24.000004, 175.99998, 7.999996, -47.71962, 7.803403, -56.350563, 16.989393, -103.79989, 24.344969, -89.34042, 0.36597383, -104.00384, -23.53025, -55.533623, -16.11337)
 
 [node name="ArrowProgressBar" type="ProgressBar" parent="."]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(25, 4)
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -15.0
+offset_left = -13.0
 offset_top = -20.0
-offset_right = 15.0
+offset_right = 12.0
 offset_bottom = -16.0
 grow_horizontal = 2
+size_flags_horizontal = 4
 theme_override_styles/background = SubResource("StyleBoxFlat_rkbax")
 theme_override_styles/fill = SubResource("StyleBoxFlat_g1dw6")
 max_value = 600.0
+step = 1.0
 fill_mode = 1
 show_percentage = false
 
@@ -386,6 +441,26 @@ theme_override_font_sizes/font_size = 9
 text = "Username"
 horizontal_alignment = 1
 
+[node name="LabelAFK" type="Label" parent="."]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -58.0
+offset_top = -47.0
+offset_right = 58.0
+offset_bottom = -36.875
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.54509807)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 0
+theme_override_constants/shadow_outline_size = 2
+theme_override_fonts/font = ExtResource("4_yw30f")
+theme_override_font_sizes/font_size = 9
+text = "[AFK]"
+horizontal_alignment = 1
+
 [node name="LabelDisconnected" type="Label" parent="."]
 unique_name_in_owner = true
 visible = false
@@ -400,7 +475,11 @@ theme_override_constants/shadow_outline_size = 3
 theme_override_fonts/font = ExtResource("4_yw30f")
 text = "WARNING: DISCONNECTED"
 
-[node name="PlayerUI" parent="." instance=ExtResource("4_qjkh3")]
+[node name="PlayerUI" parent="." node_paths=PackedStringArray("player") instance=ExtResource("4_qjkh3")]
+player = NodePath("..")
+
+[node name="HealthSystem" parent="." instance=ExtResource("5_g6k8r")]
+unique_name_in_owner = true
 
 [node name="ArrowArea" type="Area2D" parent="."]
 unique_name_in_owner = true
@@ -420,6 +499,3 @@ autostart = true
 unique_name_in_owner = true
 wait_time = 0.2
 one_shot = true
-
-[node name="HealthSystem" parent="." instance=ExtResource("5_g6k8r")]
-unique_name_in_owner = true

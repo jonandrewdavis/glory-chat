@@ -2,12 +2,13 @@ extends RigidBody2D
 
 var source: String
 var hit_location: Vector2
-var frozen := false
+var is_arrow_frozen := false
 var hit_node: Node2D
 var hit_rotation: float
 var color := Color.WHITE
 
 func _ready() -> void:
+	add_to_group('Projectiles')
 	%Polygon2D.scale = Vector2(0.1, 0.1)
 	%Polygon2D.modulate = color
 	gravity_scale = 0.5
@@ -17,7 +18,7 @@ func _ready() -> void:
 	$Timer.timeout.connect(destroy)
 
 func _process(_delta: float) -> void:
-	if frozen:
+	if is_arrow_frozen:
 		position = hit_node.position + hit_location
 		rotation = hit_rotation
 	else:
@@ -39,7 +40,7 @@ func freeze_arrow(hit_location_: Vector2, node_name: String):
 		%Polygon2D.scale = Vector2(0.04, 0.04)
 
 	hit_location = hit_location_
-	frozen = true
+	is_arrow_frozen = true
 	call_deferred('freeze_arrow_defer')
 
 func freeze_arrow_defer():
@@ -48,3 +49,10 @@ func freeze_arrow_defer():
 
 func destroy():
 	queue_free()
+
+@rpc('call_local', 'any_peer', 'reliable')
+func reflect_arrow(source_name: String):
+	look_at(linear_velocity * -1.0)
+	linear_velocity = linear_velocity * -1.2	
+	source = source_name
+	$Timer.start(8.0)

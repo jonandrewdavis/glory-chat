@@ -18,12 +18,14 @@ var SPEED_CURRENT = SPEED_MAX
 @onready var health_system: HealthSystem = %HealthSystem
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var nameplate: Label = %LabelUsername
+@onready var player_ui: PlayerUI = $PlayerUI
 
 var arrow = preload('res://player/arrow.tscn')
 
 @onready var timer_perfect_low: Timer = %TimerPerfectLow
 @onready var timer_perfect_high: Timer = %TimerPerfectHigh
 @onready var arrow_progress_bar: ProgressBar = %ArrowProgressBar
+
 var temp_bar_flashing_timer = Timer.new()
 
 var player_color := Color.WHITE
@@ -66,25 +68,20 @@ func _ready():
 	%ArrowArea.body_entered.connect(proj_hit)
 	%TimerCheckServer.timeout.connect(_check_server)
 	%TimerJump.timeout.connect(func(): can_jump = false)
+	
+	%ShieldArea.set_collision_mask_value(2, true)
+	%ShieldArea.body_entered.connect(proj_reflect)
+	%ShieldContainer.hide()
+	%ShieldCollision.disabled = true
 
 	z_index = 1
 	if not is_multiplayer_authority():
 		hide_client_elements()
-
-	if not OS.has_feature('admin'):
-		modulate.a = 1.0
-		if is_multiplayer_authority():
-			window.focus_entered.connect(_on_window_focus_enter)
-			window.focus_exited.connect(_on_window_focus_exit)
-
-func _on_window_focus_enter():
-	if not immobile:
-		modulate.a = 1.0
-		set_process(true)
-	
-func _on_window_focus_exit():
-	modulate.a = 0.3
-	set_process(false)
+	else:
+		health_system.health_updated.connect(player_ui.on_health_updated)
+		health_system.max_health_updated.connect(player_ui.on_max_health_updated)
+		window.focus_entered.connect(_on_window_focus_enter)
+		window.focus_exited.connect(_on_window_focus_exit)
 
 func _physics_process(delta: float) -> void:
 	if is_picked_up:
@@ -126,12 +123,27 @@ func _physics_process(delta: float) -> void:
 	if input_jump and can_jump:
 		jump_action()
 
+	if Input.is_action_pressed('primary') and can_shoot():
+		if timer_perfect_high.is_stopped() and strength == 0.0:
+			timer_perfect_low.start()
+			timer_perfect_high.start()
+		strength += strength_factor
+		arrow_progress_bar.value = strength
+		%ArrowProgressBar.show()
+		%ArrowContainer.show()
+		%ArrowContainer.look_at(get_viewport().get_mouse_position())
+	else:
+		%ArrowProgressBar.hide()
+		%ArrowContainer.hide()
+
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	#var direction := Input.get_axis("left", "right")
 	var direction = input_dir
 
 	if input_primary and is_on_floor():
+		SPEED_CURRENT = SPEED_MAX * 0.5
+	elif is_blocking:
 		SPEED_CURRENT = SPEED_MAX * 0.5
 	else:
 		var modifier = 1.0
@@ -164,26 +176,23 @@ func _process(_delta: float) -> void:
 		if velocity.x != 0.0:
 			animated_sprite.play('walk')
 		else:
-			animated_sprite.play('idle')
+			animated_sprite.play('idle')	
 
-	if Input.is_action_pressed('primary') and can_shoot():
-		if timer_perfect_high.is_stopped() and strength == 0.0:
-			timer_perfect_low.start()
-			timer_perfect_high.start()
-		strength += strength_factor
-		arrow_progress_bar.value = strength
-		%ArrowProgressBar.show()
-		%ArrowContainer.show()
-		%ArrowContainer.look_at(get_viewport().get_mouse_position())
-	else:
-		%ArrowProgressBar.hide()
-		%ArrowContainer.hide()
-	
+
 	if Input.is_action_just_released('primary') and can_shoot():
 		fire_arrow()
+	elif Input.is_action_just_pressed('secondary') and can_shoot() and can_block():
+		block()
+	
+	
+	if is_blocking:
+		%ShieldContainer.look_at(get_viewport().get_mouse_position())
+
+func can_block():
+	return not is_blocking and not immobile and %TimerCooldownBlock.is_stopped()
 
 func can_shoot():
-	return not immobile and %TimerCooldown.is_stopped()
+	return not is_blocking and not immobile and %TimerCooldown.is_stopped()
 
 func fire_arrow():
 	var target : Vector2 = get_viewport().get_mouse_position()
@@ -203,7 +212,7 @@ func fire_arrow():
 func spawn_proj(pos_start: Vector2, pos_target: Vector2, proj_speed: float, source: String, _player_color: Color):
 	if immobile: 
 		return
-	# new_arrow.linear_velocity
+	# new_arrow.linear_velocity 
 	# new_arrow.look_at(target)
 	# new_arrow.position
 	var new_proj: RigidBody2D = arrow.instantiate()
@@ -234,7 +243,7 @@ func get_dropped():
 	immobile = false
 
 func hide_client_elements():
-	z_index = 0
+	z_index = 0	
 	%ArrowProgressBar.hide()
 	%ArrowContainer.hide()
 
@@ -249,8 +258,8 @@ func set_lobby_info(lobby):
 			if _player.metadata:
 				player_color = _player.metadata.color
 				%AnimatedSprite2D.modulate = Color(player_color)
-				%ArrowContainer.get_node('Polygon2D').modulate = Color(player_color)
-
+				%ArrowContainer.get_node('ArrowPolygon2D').color = Color(player_color)
+				%ShieldContainer.get_node('ShieldPolygon2D').color = Color(player_color)
 
 # 3 arrows from the same player, they die
 
@@ -270,20 +279,36 @@ func proj_hit(body):
 	# only perform a hit on the player
 	# only perform if not owned by the player	
 	if is_multiplayer_authority() and body.source != name:
-		# Skip this player if immobile or not focused.
-		if immobile or window.has_focus() == false:
-			return
-
 		# Always freeze arrow
-		var get_hit_location = body.position - position
-		body.freeze_arrow.rpc(get_hit_location, name)
-
 		# Conditionally hurt the player
-		if %TimerPreventDamage.is_stopped():
+		#var get_hit_location = body.position - position
+		#body.freeze_arrow.rpc(get_hit_location, name)
+
+		# A: If prevent damage timer is stopped
+		# B: If window has focus
+		# TODO: Why didn't window focus here work?
+		if %TimerPreventDamage.is_stopped() and %LabelAFK.visible == false:
+			var get_hit_location = body.position - position
+			body.freeze_arrow.rpc(get_hit_location, name)
+
+			flash_sprite()
 			animated_sprite.play('hurt')
 			%HealthSystem._damage_sync(25, body.source)
 			prevent_damage = true
 			%TimerPreventDamage.start()
+
+func proj_reflect(body):
+	if is_multiplayer_authority() and body.source != name:
+		body.reflect_arrow.rpc(name)
+		
+func flash_sprite():
+		animated_sprite.modulate.a = 0.0
+		await get_tree().create_timer(0.1).timeout
+		animated_sprite.modulate.a = 1.0
+		await get_tree().create_timer(0.1).timeout
+		animated_sprite.modulate.a = 0.0
+		await get_tree().create_timer(0.1).timeout
+		animated_sprite.modulate.a = 1.0
 
 var flash = true
 
@@ -291,10 +316,12 @@ func flash_strength(is_flashing: bool = true):
 	if is_flashing:
 		flash = true
 		temp_bar_flashing_timer.start()
+		%ArrowProgressBar.get_theme_stylebox("fill").bg_color = Color.GREEN
 		%ArrowProgressBar.modulate.a = 1.0
 	else:
 		flash = false
 		temp_bar_flashing_timer.stop()
+		%ArrowProgressBar.get_theme_stylebox("fill").bg_color = Color.from_string('ff4bff66', Color.HOT_PINK)
 		%ArrowProgressBar.modulate.a = 1.0	
 
 func on_temp_flash_timeout():
@@ -308,11 +335,17 @@ func on_temp_flash_timeout():
 func _check_server():
 	if not get_tree().get_first_node_in_group('PlayerAdmin'):
 		%LabelDisconnected.show()
+		await get_tree().create_timer(5.0).timeout
+		LobbySystem.lobby_leave()
+		await get_tree().create_timer(2.0).timeout
+		get_tree().quit()
 		
 func jump_action():
 	can_jump = false
 	if not input_primary:
 		velocity.y = JUMP_VELOCITY
+	elif is_blocking:
+		velocity.y = JUMP_VELOCITY * 0.55
 	else: 
 		velocity.y = JUMP_VELOCITY * 0.55
 
@@ -325,7 +358,7 @@ func show_player_death():
 	world.broadcast_player_death(name)
 	await get_tree().create_timer(2.0).timeout
 	modulate.a = 0.0
-	await get_tree().create_timer(5.5).timeout
+	await get_tree().create_timer(3.5).timeout
 	health_system.respawn.emit()
 	
 func show_player_respawn():
@@ -334,3 +367,28 @@ func show_player_respawn():
 	animated_sprite.play('idle')
 	modulate.a = 1.0
 	position = Vector2(randi_range(0, 1000), randi_range(0, 0))
+	
+# TODO: Captured and then have a custom mouse cursor?
+func _on_window_focus_enter():
+	modulate.a = 1.0
+	%LabelAFK.hide()
+	
+func _on_window_focus_exit():
+	modulate.a = 0.3
+	%LabelAFK.show()
+
+var is_blocking:= false 
+
+func block():
+	is_blocking = true
+	%ShieldContainer.show()
+	%ShieldCollision.disabled = !is_blocking
+	await get_tree().create_timer(0.7).timeout 
+	%ShieldContainer.hide()
+	is_blocking = false
+	%ShieldCollision.disabled = !is_blocking
+	# Start cooldowns
+	%TimerCooldownBlock.start()
+	%TimerCooldown.start()
+	
+	

@@ -39,9 +39,16 @@ script = ExtResource("1_6xmxd")
 player_container_admin = NodePath("PlayerContainerAdmin")
 player_container = NodePath("PlayerContainer")
 
+[node name="DebugBackground" type="ColorRect" parent="."]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(960, 540)
+offset_right = 960.0
+offset_bottom = 540.0
+color = Color(0.13051635, 0.39569104, 0.42717296, 1)
+
 [node name="Limits" type="Node2D" parent="."]
 unique_name_in_owner = true
-modulate = Color(1, 1, 1, 0.47843137)
 position = Vector2(0, 13)
 
 [node name="LimitFloor" type="StaticBody2D" parent="Limits"]
@@ -72,7 +79,6 @@ shape = SubResource("WorldBoundaryShape2D_4717r")
 
 [node name="Platforms" type="Node2D" parent="."]
 unique_name_in_owner = true
-modulate = Color(1, 1, 1, 0.5882353)
 
 [node name="Platform" type="StaticBody2D" parent="Platforms"]
 position = Vector2(116, 459)
@@ -88,7 +94,7 @@ region_enabled = true
 region_rect = Rect2(0, 0, 500, 100)
 
 [node name="Platform17" type="StaticBody2D" parent="Platforms"]
-position = Vector2(12.19648, 483.5049)
+position = Vector2(11.19648, 483.5049)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform17"]
 shape = SubResource("RectangleShape2D_mmdvd")
@@ -168,7 +174,7 @@ region_enabled = true
 region_rect = Rect2(0, 0, 500, 100)
 
 [node name="Platform9" type="StaticBody2D" parent="Platforms"]
-position = Vector2(108.227264, 97.243774)
+position = Vector2(108.227264, 102.243774)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform9"]
 shape = SubResource("RectangleShape2D_6xmxd")
@@ -305,9 +311,12 @@ unique_name_in_owner = true
 [node name="PlayerContainerAdmin" type="Node2D" parent="."]
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("uid://bwpreeakt421", "uid://dmxqqk14jck7n")
+_spawnable_scenes = PackedStringArray("uid://bwpreeakt421", "uid://dmxqqk14jck7n", "uid://bmc0hokyqoab")
 spawn_path = NodePath("../PlayerContainer")
 
 [node name="MultiplayerAdmin" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("uid://c1ms5qh1e78o2")
 spawn_path = NodePath("../PlayerContainerAdmin")
+
+[node name="TargetMarker" type="Marker2D" parent="."]
+position = Vector2(521, 258)

@@ -50,7 +50,6 @@ func _ready() -> void:
 	LobbySystem.signal_packet_parsed.connect(func(_packet): _render_connection_light(true))
 	# DEBUG:
 	#LobbySystem.signal_packet_parsed.connect(func(packet): print('DEBUG: ', packet))
-
 	# Admin / Host detection
 
 func _hide_admin_features():
@@ -66,7 +65,7 @@ func _quick_join():
 	await get_tree().create_timer(1.0).timeout 
 	
 	if OS.is_debug_build():
-		LOBBY_CUSTOM_ID = 'glory-chat-debug'
+		LOBBY_CUSTOM_ID = 'glory-chat'
 	# NOTE: hardcoded 
 	LobbySystem.lobby_join(LOBBY_CUSTOM_ID.rstrip(" "))
 
@@ -78,7 +77,7 @@ func _quick_host():
 	await get_tree().create_timer(1.0).timeout 
 	#LobbySystem.lobby_create()
 	if OS.is_debug_build():
-		LOBBY_CUSTOM_ID = 'glory-chat-debug'
+		LOBBY_CUSTOM_ID = 'glory-chat'
 
 	LobbySystem.lobby_create({
 		'isPublic': false,

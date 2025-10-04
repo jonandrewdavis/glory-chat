@@ -1,5 +1,7 @@
 extends Control
 
+@export var randomize_color:= true
+
 var colors = [Color.WHITE, Color.DEEP_PINK, Color.CYAN, Color.BLUE_VIOLET, Color.ROYAL_BLUE, Color.CORAL, Color.FOREST_GREEN, Color.CRIMSON, Color.GOLD]
 var new_toggle_group = ButtonGroup.new()
 
@@ -26,9 +28,11 @@ func _ready() -> void:
 		new_button.add_theme_stylebox_override('hover', style_pressed)
 		new_button.mouse_default_cursor_shape = 2
 		%ColorGrid.add_child(new_button)
-		
-	choose_random_color()
 	
+	if randomize_color:
+		choose_random_color()
+	else:
+		%ColorRect.hide()
 	
 func choose_random_color():
 	var random_color = randi_range(0, colors.size() - 1)
@@ -41,3 +45,4 @@ func choose_color(toggled_on, color_string: Color):
 	if toggled_on and LobbySystem:
 		%ColorRect.color = color_string
 		LobbySystem.user_update_info({ "color": color_string.to_html()})
+		LobbySystem.lobby_get_own()
