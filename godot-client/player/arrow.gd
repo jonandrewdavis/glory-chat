@@ -27,7 +27,7 @@ func _process(_delta: float) -> void:
 
 func find_node_in_group(group: String, name_to_find: String) -> Node2D:
 	for node in get_tree().get_nodes_in_group(group):
-		if node.name == name_to_find:
+		if node.name == name_to_find and node.is_inside_tree():
 			return node
 	return null
 	

@@ -1,9 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://p57w6lu16jbj"]
+[gd_scene load_steps=7 format=3 uid="uid://p57w6lu16jbj"]
 
-[ext_resource type="Texture2D" uid="uid://bot8ndsj83stx" path="res://assets/texture_07.png" id="1_a3g3d"]
+[ext_resource type="Texture2D" uid="uid://bpbsbt56lyggj" path="res://game/world3D/assets/grass.dds" id="1_afpx2"]
+[ext_resource type="PackedScene" uid="uid://bc6t57ymkg7e5" path="res://game/game3D/player3D/player3D.tscn" id="2_afpx2"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_afpx2"]
-albedo_texture = ExtResource("1_a3g3d")
+albedo_texture = ExtResource("1_afpx2")
+uv1_scale = Vector3(0.1, 0.1, 0.1)
 uv1_triplanar = true
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_xxlxx"]
@@ -29,3 +31,9 @@ environment = SubResource("Environment_a3g3d")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.8384233, 0.54501957, 0, -0.54501957, 0.8384233, 0, 1.9591858, 0)
+
+[node name="Player3D" parent="." instance=ExtResource("2_afpx2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.95856655, 0.2848687, 0, -0.2848687, 0.95856655, 0, 7.955139, 5.7221575)

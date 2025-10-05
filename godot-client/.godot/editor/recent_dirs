@@ -1,9 +1,11 @@
-/Users/andrewdavis/godot/glory-chat/godot-client/dist_app
 /Users/andrewdavis/godot/glory-chat/godot-client/dist
+/Users/andrewdavis/godot/glory-chat/godot-client/dist_app
+res://assets
+res://game/world3D/assets
+res://game/game3D/player3D
 res://assets/progress-bar/Scripts
 res://assets/progress-bar
 res://game/target
-res://assets
 res://systems
 res://player
 res://

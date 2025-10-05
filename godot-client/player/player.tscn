@@ -925,9 +925,12 @@ properties/5/replication_mode = 2
 properties/6/path = NodePath(".:modulate:a")
 properties/6/spawn = true
 properties/6/replication_mode = 2
-properties/7/path = NodePath("LabelUsername:visible")
+properties/7/path = NodePath("HealthBar:visible")
 properties/7/spawn = true
 properties/7/replication_mode = 2
+properties/8/path = NodePath("LabelAFK:visible")
+properties/8/spawn = true
+properties/8/replication_mode = 1
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_qjkh3"]
 properties/0/path = NodePath("ArrowContainer:visible")
@@ -984,10 +987,12 @@ corner_detail = 6
 radius = 6.0
 height = 16.0
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("health_system")]
 z_index = 1
 collision_layer = 0
+floor_stop_on_slope = false
 script = ExtResource("1_rkbax")
+health_system = NodePath("HealthSystem")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true
@@ -1147,6 +1152,7 @@ player = NodePath("..")
 
 [node name="HealthSystem" parent="." instance=ExtResource("5_g6k8r")]
 unique_name_in_owner = true
+regen_delay = 6.5
 
 [node name="ArrowArea" type="Area2D" parent="."]
 unique_name_in_owner = true

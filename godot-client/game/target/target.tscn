@@ -18,7 +18,7 @@ fill_to = Vector2(0.6, 0.6)
 radius = 8.0
 
 [node name="Target" type="StaticBody2D"]
-scale = Vector2(1.2, 1.2)
+scale = Vector2(1.5, 1.5)
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_k6oq8")

@@ -37,6 +37,10 @@ func _ready() -> void:
 		max_health_updated.emit(max_health)
 		heal(max_health)
 		respawn.connect(_heal_to_full)
+	
+	
+		await get_tree().create_timer(4.0).timeout
+		hurt.emit()
 		#
 #func damage_from_source(value: int, source: int = 0) -> bool:
 	## Do not allow damage when dead.

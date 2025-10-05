@@ -18,3 +18,6 @@ func add_death():
 func add_kill():
 	count_kills +=  1
 	$HBoxContainer/LabelKills.text = str(count_kills)
+
+func update_color(new_color: String):
+	$HBoxContainer/LabelColor.modulate = Color.from_string(new_color, Color.WHITE)

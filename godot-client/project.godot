@@ -33,12 +33,11 @@ gdscript/warnings/unused_signal=0
 
 window/size/viewport_width=960
 window/size/viewport_height=540
-window/size/mode=2
 window/size/always_on_top=true
 window/size/transparent=true
 window/subwindows/embed_subwindows=false
 window/stretch/mode="canvas_items"
-window/stretch/aspect="expand"
+window/stretch/aspect="ignore"
 window/per_pixel_transparency/allowed=true
 
 [editor_plugins]

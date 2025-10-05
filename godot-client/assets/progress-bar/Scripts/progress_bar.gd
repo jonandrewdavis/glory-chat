@@ -34,12 +34,12 @@ extends ColorRect
 var segment_count: int = 1
 var max_value: float = 100.0
 var current_value: float = 100.0
-var current_fill: float = 1.0
+@export var current_fill: float = 1.0
 var target_fill: float = 1.0
-var current_segment_fill: int = 0
+@export var current_segment_fill: int = 0
 var max_segments: int = 0
 
-# State tracking
+# State trackingdd
 var effect_start_fill: float = 1.0
 var continuous_effect_start_fill: float = 1.0
 var is_effect_active: bool = false
@@ -173,9 +173,11 @@ func _kill_transitions():
 # GAME INTEGRATION
 # =============================================================================
 
+@rpc("any_peer", 'call_local')
 func decrease_bar_value(amount: float) -> void:
 	_change_value(-amount)
 
+@rpc("any_peer", 'call_local')
 func increase_bar_value(amount: float) -> void:
 	_change_value(amount)
 

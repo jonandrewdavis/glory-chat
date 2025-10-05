@@ -6,6 +6,7 @@ class_name PlayerUI
 
 var world: World 
 
+
 func _ready() -> void:
 	if not is_multiplayer_authority():
 		queue_free()
@@ -21,6 +22,9 @@ func _ready() -> void:
 	LobbySystem.signal_lobby_changed.connect(_render_own_lobby_info)
 	LobbySystem.signal_lobby_own_info.connect(_render_own_lobby_info)
 	multiplayer.peer_disconnected.connect(_render_remove_player_info)	
+	
+	if player.is_in_group('Players'):
+		player.health_system.hurt.connect(_on_hurt)
 
 	world = get_tree().get_first_node_in_group("World")
 	if world:
@@ -39,13 +43,10 @@ func _process(_delta: float) -> void:
 
 	%LabelFPSCounter.text = 'FPS: ' + str(Engine.get_frames_per_second())
 
-#func _on_hurt():
-	#%HurtSound.play()
-	#%HurtTexture.visible = true
-	#%HurtTimer.start()
-#
-#func _on_hurt_timer_timeout():
-	#%HurtTexture.visible = false
+func _on_hurt():
+	%HurtTexture.visible = true
+	await get_tree().create_timer(0.3).timeout
+	%HurtTexture.visible = false
 
 func _on_disconnect():
 	if multiplayer != null && multiplayer.has_multiplayer_peer():
@@ -91,6 +92,10 @@ func _render_own_lobby_info(lobby):
 			new_player_item.name = _player.id 
 			new_player_item.render_player_info(_player.username,  _player.metadata.color if _player.metadata.has('color') else 'WHITE')
 			%LobbyScoreboard.add_child(new_player_item, true)
+		else:
+			# it exists. we might need to update the color though.
+			var player_to_update = %LobbyScoreboard.get_node_or_null(_player.id)
+			player_to_update.update_color(_player.metadata.color)
 
 func _render_remove_player_info(id: int):
 	var player_info_item_to_remove =  %LobbyScoreboard.get_node_or_null(str(id))

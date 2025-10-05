@@ -7,6 +7,7 @@ var destroy_time := 5.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	add_to_group("Targets")
 	hurt_area.set_collision_layer_value(2, true)
 	hurt_area.set_collision_mask_value(2, true)
 	

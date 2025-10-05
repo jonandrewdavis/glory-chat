@@ -1,38 +1,15 @@
-[gd_scene load_steps=13 format=3 uid="uid://5yd5avbt86oq"]
+[gd_scene load_steps=6 format=4 uid="uid://5yd5avbt86oq"]
 
 [ext_resource type="Script" uid="uid://bqqlylp67u2ad" path="res://world/world.gd" id="1_6xmxd"]
+[ext_resource type="TileSet" uid="uid://bin3kwb33d1rx" path="res://assets/oak_tileset.tres" id="2_tcf2h"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_6xmxd"]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_6xmxd"]
-load_path = "res://.godot/imported/texture_08.png-55422b6c9181f85f6ecd7904cb7603ac.ctex"
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_tcf2h"]
 normal = Vector2(1, 0)
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_4717r"]
 normal = Vector2(-1, 0)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_g312j"]
-size = Vector2(50, 10)
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_g312j"]
-load_path = "res://.godot/imported/texture_08.png-55422b6c9181f85f6ecd7904cb7603ac.ctex"
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_mmdvd"]
-size = Vector2(50, 100)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_6xmxd"]
-size = Vector2(20, 10)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_h5o24"]
-size = Vector2(10, 10)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_tcf2h"]
-size = Vector2(25, 10)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_4717r"]
-size = Vector2(25, 10)
 
 [node name="World" type="Node2D" node_paths=PackedStringArray("player_container_admin", "player_container")]
 script = ExtResource("1_6xmxd")
@@ -45,26 +22,31 @@ visible = false
 custom_minimum_size = Vector2(960, 540)
 offset_right = 960.0
 offset_bottom = 540.0
-color = Color(0.13051635, 0.39569104, 0.42717296, 1)
+color = Color(0.04, 0.18400002, 0.2, 0.3254902)
+
+[node name="TileMaps" type="Node2D" parent="."]
+
+[node name="TileMapLayer2" type="TileMapLayer" parent="TileMaps"]
+texture_filter = 2
+position = Vector2(0, -20)
+tile_map_data = PackedByteArray("AAAXACIAAAABAAEAAAAYACIAAAABAAEAAAAZACIAAAABAAEAAAAaACIAAAABAAEAAAAWACIAAAABAAEAAAAVACIAAAABAAEAAAAUACIAAAABAAEAAAATACIAAAABAAEAAAASACIAAAABAAEAAAARACIAAAABAAEAAAAQACIAAAABAAEAAAAPACIAAAABAAEAAAAOACIAAAABAAEAAAANACIAAAABAAEAAAAMACIAAAABAAEAAAALACIAAAABAAEAAAAKACIAAAABAAEAAAAJACIAAAABAAEAAAAIACIAAAABAAEAAAAHACIAAAABAAEAAAAGACIAAAABAAEAAAAFACIAAAABAAEAAAAEACIAAAABAAEAAAADACIAAAABAAEAAAACACIAAAABAAEAAAABACIAAAABAAEAAAAAACIAAAABAAEAAAAmACIAAAABAAEAAAAnACIAAAABAAEAAAAoACIAAAABAAEAAAApACIAAAABAAEAAAAqACIAAAABAAEAAAArACIAAAABAAEAAAAsACIAAAABAAEAAAAtACIAAAABAAEAAAAuACIAAAABAAEAAAAvACIAAAABAAEAAAAwACIAAAABAAEAAAAxACIAAAABAAEAAAAEACAAAAACAAIAAAADACAAAAACAAIAAAACACAAAAACAAIAAAABACAAAAACAAIAAAAAACAAAAACAAIAAAAAAB8AAAACAAIAAAABAB8AAAACAAIAAAACAB8AAAACAAIAAAADAB8AAAACAAIAAAAGACEAAAACAAIAAAAYACEAAAACAAIAAAAaACAAAAACAAIAAAAmACAAAAACAAIAAAAoACEAAAACAAIAAAA=")
+tile_set = ExtResource("2_tcf2h")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="TileMaps"]
+texture_filter = 1
+position = Vector2(0, -20)
+tile_map_data = PackedByteArray("AAAAACEAAAACAAIAAAAAACIAAAACAAIAAAABACEAAAACAAIAAAABACIAAAACAAIAAAACACEAAAACAAIAAAACACIAAAACAAIAAAADACEAAAACAAIAAAADACIAAAACAAIAAAAEACEAAAACAAIAAAAEACIAAAACAAIAAAAFACIAAAACAAIAAAAGACEAAAAEAAkAAAAGACIAAAACAAIAAAAHACEAAAAFAAkAAAAHACIAAAACAAIAAAAIACEAAAAMAAAAAAAIACIAAAACAAIAAAAJACEAAAAIAAAAAAAJACIAAAACAAIAAAAKACEAAAAJAAAAAAAKACIAAAACAAIAAAALACEAAAAKAAAAAAALACIAAAACAAIAAAAMACEAAAAAAAkAAAAMACIAAAACAAIAAAANACEAAAACAAIAAAANACIAAAACAAIAAAAOACEAAAACAAIAAAAOACIAAAACAAIAAAAPACEAAAACAAIAAAAPACIAAAACAAIAAAAQACEAAAACAAIAAAAQACIAAAACAAIAAAARACEAAAAFAAkAAAARACIAAAACAAIAAAASACEAAAAMAAAAAAASACIAAAACAAIAAAATACEAAAAIAAAAAAATACIAAAACAAIAAAAUACEAAAAJAAAAAAAUACIAAAACAAIAAAAVACIAAAACAAIAAAAWACIAAAACAAIAAAAXACIAAAACAAIAAAAlACEAAAAOAAkAAAAmACEAAAACAAIAAAAnACEAAAACAAIAAAAoACEAAAAEAAkAAAApACEAAAADAAgAAAAqACEAAAAJAAAAAAArACEAAAAKAAAAAAAsACEAAAAKAAAAAAAtACEAAAAIAAAAAAAuACEAAAALAAAAAAAvACEAAAAJAAAAAAAwACEAAAAKAAAAAAAxACEAAAAKAAAAAAAyACEAAAAKAAAAAAAzACEAAAAIAAAAAAA0ACEAAAAAAAkAAAA1ACEAAAACAAEAAAA2ACEAAAACAAIAAAA3ACEAAAACAAIAAAA4ACEAAAACAAIAAAA5ACEAAAACAAIAAAA6ACEAAAACAAIAAAA7ACEAAAACAAIAAAAYACIAAAACAAIAAAAZACIAAAACAAIAAAAaACIAAAACAAIAAAAlACIAAAAOAAkAAAAmACIAAAACAAIAAAAnACIAAAACAAIAAAAoACIAAAACAAIAAAApACIAAAACAAIAAAAqACIAAAACAAIAAAArACIAAAACAAIAAAAsACIAAAACAAIAAAAtACIAAAACAAIAAAAuACIAAAACAAIAAAAvACIAAAACAAIAAAAwACIAAAACAAIAAAAxACIAAAACAAIAAAAyACIAAAACAAIAAAAzACIAAAACAAIAAAA0ACIAAAACAAIAAAA1ACIAAAACAAIAAAA2ACIAAAACAAIAAAA3ACIAAAACAAIAAAA4ACIAAAACAAIAAAA5ACIAAAACAAIAAAA6ACIAAAACAAIAAAA7ACIAAAABAAEAAAAFACEAAAACAAIAAAAVACEAAAAKAAAAAAAWACEAAAAKAAAAAAAXACEAAAAAAAkAAAAYACEAAAABAAkAAAAHACAAAAAFAAgAAAAGACAAAAAEAAgAAAAFACAAAAADAAgAAAAFAB8AAAADAAcAAAAXACAAAAAAAAgAAAAYACAAAAABAAgAAAAZAB8AAAACAAcAAAAZACAAAAACAAgAAAAaAB8AAAABAAgAAAAaACAAAAABAAkAAAAMACAAAAAAAAgAAAANACAAAAABAAgAAAAOACAAAAAJAAAAAAAPACAAAAAJAAAAAAAQACAAAAAEAAgAAAARACAAAAAFAAgAAAAAABgAAAAFAAMAAAAAABkAAAAFAAQAAAAAABoAAAAFAAEAAAAAABwAAAAFAAMAAAAAAB0AAAAFAAQAAAAAAB4AAAACAA8AAAAAABsAAAAFAAIAAAABAB4AAAALAAAAAAAEAB8AAAAEAAgAAAADAB4AAAAFAAgAAAACAB4AAAAEAAgAAAACAB8AAAAEAAkAAAADAB8AAAAFAAkAAAAAABYAAAAFAAMAAAAAABcAAAAFAAQAAAAAABQAAAAFAAQAAAAAABUAAAAFAAIAAAAAABEAAAAFAAMAAAAAABIAAAAFAAQAAAAAABMAAAAFAAMAAAAAAA8AAAAFAAEAAAAAABAAAAAFAAIAAAAbAB8AAAAKAAAAAAAbACAAAAAPAAsAAAAbACEAAAAPAAsAAAAbACIAAAAPAAsAAAAaACEAAAACAAIAAAAlAB8AAAAIAAAAAAAlACAAAAAOAAkAAAAmAB8AAAAEAAgAAAAnAB8AAAAFAAgAAAAoACAAAAAEAAgAAAApACAAAAAFAAgAAAAnACAAAAADAAgAAAAmACAAAAAEAAkAAAAkAB8AAAAHAAAAAAAkACAAAAANAAsAAAAkACEAAAANAAwAAAAkACIAAAANAA0AAAAcAB8AAAANAAAAAAAcACAAAAAQAAoAAAAcACEAAAAQAAsAAAAcACIAAAAQAAwAAAAZACEAAAACAAIAAAA0ACAAAAAAAAgAAAA1ACAAAAABAAgAAAA2AB8AAAACAAcAAAA2ACAAAAACAAgAAAA4AB4AAAAAAAgAAAA4AB8AAAAAAAkAAAA5AB4AAAABAAgAAAA5AB8AAAACAAEAAAA6AB4AAAALAAAAAAA3AB8AAAABAAgAAAA3ACAAAAACAAEAAAA4ACAAAAACAAIAAAA5ACAAAAACAAIAAAA6ACAAAAACAAIAAAA7ACAAAAACAAIAAAA7AB8AAAACAAIAAAA6AB8AAAACAAIAAAA7AB4AAAAAAA8AAAA7ABoAAAAAAAEAAAA7ABsAAAAAAAIAAAA7ABwAAAAAAAMAAAA7AB0AAAAAAAQAAAA7ABkAAAAAAAEAAAA7ABgAAAAAAAMAAAA7ABcAAAAAAAIAAAA7ABYAAAAAAAMAAAA7ABUAAAAAAAIAAAA7ABQAAAAAAAEAAAA7ABMAAAAAAAMAAAA7ABIAAAAAAAQAAAA7ABEAAAAAAAQAAAA7ABAAAAAAAAMAAAA7AA8AAAAAAAIAAAA7AA4AAAAAAAMAAAA7AA0AAAAAAAIAAAA7AAwAAAAAAAEAAAA7AAsAAAAAAAIAAAA7AAoAAAAAAAEAAAA7AAkAAAAAAAMAAAA7AAgAAAAAAAQAAAA7AAcAAAAAAAIAAAA7AAYAAAAAAAEAAAA7AAUAAAAAAAEAAAA7AAQAAAAAAAMAAAA7AAMAAAAAAAEAAAA7AAIAAAAAAAMAAAA7AAEAAAAAAAQAAAAAAA4AAAAFAAEAAAAAAA0AAAAFAAEAAAAAAAwAAAAFAAEAAAAAAAsAAAAFAAMAAAAAAAoAAAAFAAIAAAAAAAkAAAAFAAEAAAAAAAgAAAAFAAEAAAAAAAcAAAAFAAMAAAAAAAYAAAAFAAEAAAAAAAUAAAAFAAMAAAAAAAQAAAAFAAIAAAAAAAMAAAAFAAQAAAAAAAIAAAAFAAEAAAAAAAEAAAAFAAQAAAAEABEAAAAKAA0AAAAFABEAAAAJAA0AAAAGABEAAAAKAA0AAAANABQAAAAJAA0AAAAOABQAAAAKAA0AAAAPABQAAAAJAA0AAAAQABQAAAAKAA0AAAARABQAAAAJAA0AAAASABQAAAAKAA0AAAATABQAAAAJAA0AAAAUABQAAAAKAA0AAAALAAwAAAAJAA0AAAAMAAwAAAAKAA0AAAANAAwAAAAJAA0AAAAOAAwAAAAKAA0AAAAFAAcAAAAKAA0AAAAGAAcAAAAJAA0AAAAHAAcAAAAKAA0AAAAVAAgAAAAJAA0AAAAWAAgAAAAKAA0AAAATAAgAAAAJAA0AAAAUAAgAAAAKAA0AAAAeAAUAAAAJAA0AAAAfAAUAAAAKAA0AAAAnAAoAAAAJAA0AAAAoAAoAAAAKAA0AAAApAAoAAAAKAA0AAAAuAA8AAAAIAA0AAAAvAA8AAAAJAA0AAAAwAA8AAAAKAA0AAAAxAA8AAAALAA0AAAANABUAAAASABAAAAAOABUAAAATABAAAAAPABUAAAAUABAAAAAQABUAAAASABAAAAARABUAAAATABAAAAASABUAAAASABAAAAATABUAAAATABAAAAAUABUAAAAUABAAAAAEABIAAAASABAAAAAFABIAAAATABAAAAAGABIAAAAUABAAAAALAA0AAAASABAAAAAMAA0AAAASABAAAAANAA0AAAATABAAAAAOAA0AAAAUABAAAAATAAkAAAATABAAAAAUAAkAAAAUABAAAAAVAAkAAAASABAAAAAWAAkAAAASABAAAAAFAAgAAAASABAAAAAGAAgAAAATABAAAAAHAAgAAAASABAAAAAeAAYAAAASABAAAAAfAAYAAAATABAAAAAnAAsAAAATABAAAAAoAAsAAAAUABAAAAApAAsAAAASABAAAAAvABAAAAATABAAAAAwABAAAAAUABAAAAAxABAAAAAUABAAAAAuABAAAAASABAAAAAtABwAAAAIAA0AAAAuABwAAAAJAA0AAAAvABwAAAAKAA0AAAAwABwAAAALAA0AAAAxABwAAAALAA0AAAAtAB0AAAASABAAAAAuAB0AAAATABAAAAAvAB0AAAAUABAAAAAwAB0AAAASABAAAAAxAB0AAAATABAAAAAGABoAAAASABAAAAAHABoAAAATABAAAAAIABoAAAASABAAAAAJABoAAAATABAAAAAGABkAAAAIAA0AAAAHABkAAAAJAA0AAAAIABkAAAAIAA0AAAAJABkAAAAJAA0AAAAiAAgAAAAJAA0AAAAjAAgAAAAKAA0AAAAMAAIAAAAJAA0AAAANAAIAAAAKAA0AAAAMAAMAAAATABAAAAANAAMAAAAUABAAAAAiAAkAAAATABAAAAAjAAkAAAAUABAAAAAoABkAAAATABAAAAApABkAAAAUABAAAAAmABkAAAATABAAAAAnABkAAAAUABAAAAAkABkAAAATABAAAAAlABkAAAAUABAAAAAnABgAAAAJAA0AAAAoABgAAAAKAA0AAAApABgAAAALAA0AAAAkABgAAAAIAA0AAAAlABgAAAAJAA0AAAAmABgAAAAIAA0AAAAcACMAAAAQAAwAAAAcACQAAAAQAAwAAAAcACUAAAAQAAwAAAAcACYAAAAQAAwAAAAkACMAAAANAA0AAAAkACQAAAANAA0AAAAkACUAAAANAA0AAAAkACYAAAANAA0AAAAbACMAAAABAAEAAAAbACQAAAABAAEAAAAbACUAAAABAAEAAAAbACYAAAABAAEAAAAaACYAAAABAAEAAAAaACUAAAABAAEAAAAaACQAAAABAAEAAAAaACMAAAABAAEAAAAlACMAAAABAAEAAAAlACQAAAABAAEAAAAlACUAAAABAAEAAAAlACYAAAABAAEAAAAmACYAAAABAAEAAAAmACUAAAABAAEAAAAmACQAAAABAAEAAAAmACMAAAABAAEAAAAwABUAAAAIAA0AAAAxABUAAAAJAA0AAAAyABUAAAAKAA0AAAAzABUAAAALAA0AAAA0ABUAAAAIAA0AAAA1ABUAAAABAAsAAAA2ABUAAAACAAsAAAA3ABUAAAAIAA4AAAAwABYAAAASABAAAAAxABYAAAATABAAAAAyABYAAAAUABAAAAAzABYAAAASABAAAAA0ABYAAAATABAAAAA1ABYAAAASABAAAAA2ABYAAAATABAAAAA3ABYAAAAUABAAAAA2ABQAAAAAAAsAAAA3ABQAAAAIAA0AAAA=")
+tile_set = ExtResource("2_tcf2h")
 
 [node name="Limits" type="Node2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(0, 13)
+position = Vector2(0, 15)
 
 [node name="LimitFloor" type="StaticBody2D" parent="Limits"]
-position = Vector2(542, 520)
+position = Vector2(538, 547)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Limits/LimitFloor"]
 shape = SubResource("WorldBoundaryShape2D_6xmxd")
-
-[node name="Sprite2D" type="Sprite2D" parent="Limits/LimitFloor"]
-texture_filter = 3
-texture_repeat = 2
-scale = Vector2(0.08, 0.08)
-texture = SubResource("CompressedTexture2D_6xmxd")
-offset = Vector2(0, 125)
-region_enabled = true
-region_rect = Rect2(0, 0, 20000, 250)
 
 [node name="LimitRight" type="StaticBody2D" parent="Limits"]
 
@@ -76,234 +58,6 @@ position = Vector2(960, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Limits/LimitLeft"]
 shape = SubResource("WorldBoundaryShape2D_4717r")
-
-[node name="Platforms" type="Node2D" parent="."]
-unique_name_in_owner = true
-
-[node name="Platform" type="StaticBody2D" parent="Platforms"]
-position = Vector2(116, 459)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform"]
-shape = SubResource("RectangleShape2D_g312j")
-
-[node name="Sprite2D" type="Sprite2D" parent="Platforms/Platform"]
-texture_repeat = 2
-scale = Vector2(0.1, 0.1)
-texture = SubResource("CompressedTexture2D_g312j")
-region_enabled = true
-region_rect = Rect2(0, 0, 500, 100)
-
-[node name="Platform17" type="StaticBody2D" parent="Platforms"]
-position = Vector2(11.19648, 483.5049)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform17"]
-shape = SubResource("RectangleShape2D_mmdvd")
-
-[node name="Sprite2D" type="Sprite2D" parent="Platforms/Platform17"]
-texture_repeat = 2
-scale = Vector2(0.1, 0.1)
-texture = SubResource("CompressedTexture2D_g312j")
-region_enabled = true
-region_rect = Rect2(0, 0, 500, 1000)
-
-[node name="Platform2" type="StaticBody2D" parent="Platforms"]
-position = Vector2(862, 460)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform2"]
-shape = SubResource("RectangleShape2D_g312j")
-
-[node name="Sprite2D" type="Sprite2D" parent="Platforms/Platform2"]
-texture_repeat = 2
-scale = Vector2(0.1, 0.1)
-texture = SubResource("CompressedTexture2D_g312j")
-region_enabled = true
-region_rect = Rect2(0, 0, 500, 100)
-
-[node name="Platform3" type="StaticBody2D" parent="Platforms"]
-position = Vector2(219, 381)
-rotation = 0.10310116
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform3"]
-shape = SubResource("RectangleShape2D_g312j")
-
-[node name="Sprite2D" type="Sprite2D" parent="Platforms/Platform3"]
-texture_repeat = 2
-scale = Vector2(0.1, 0.1)
-texture = SubResource("CompressedTexture2D_g312j")
-region_enabled = true
-region_rect = Rect2(0, 0, 500, 100)
-
-[node name="Platform5" type="StaticBody2D" parent="Platforms"]
-position = Vector2(139, 329)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform5"]
-shape = SubResource("RectangleShape2D_g312j")
-
-[node name="Sprite2D" type="Sprite2D" parent="Platforms/Platform5"]
-texture_repeat = 2
-scale = Vector2(0.1, 0.1)
-texture = SubResource("CompressedTexture2D_g312j")
-region_enabled = true
-region_rect = Rect2(0, 0, 500, 100)
-
-[node name="Platform6" type="StaticBody2D" parent="Platforms"]
-position = Vector2(89.519, 263.339)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform6"]
-shape = SubResource("RectangleShape2D_g312j")
-
-[node name="Sprite2D" type="Sprite2D" parent="Platforms/Platform6"]
-texture_repeat = 2
-scale = Vector2(0.1, 0.1)
-texture = SubResource("CompressedTexture2D_g312j")
-region_enabled = true
-region_rect = Rect2(0, 0, 500, 100)
-
-[node name="Platform8" type="StaticBody2D" parent="Platforms"]
-position = Vector2(209.88017, 182.2851)
-rotation = -0.29843834
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform8"]
-shape = SubResource("RectangleShape2D_g312j")
-
-[node name="Sprite2D" type="Sprite2D" parent="Platforms/Platform8"]
-texture_repeat = 2
-scale = Vector2(0.1, 0.1)
-texture = SubResource("CompressedTexture2D_g312j")
-region_enabled = true
-region_rect = Rect2(0, 0, 500, 100)
-
-[node name="Platform9" type="StaticBody2D" parent="Platforms"]
-position = Vector2(108.227264, 102.243774)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform9"]
-shape = SubResource("RectangleShape2D_6xmxd")
-
-[node name="Sprite2D" type="Sprite2D" parent="Platforms/Platform9"]
-texture_repeat = 2
-scale = Vector2(0.1, 0.1)
-texture = SubResource("CompressedTexture2D_g312j")
-region_enabled = true
-region_rect = Rect2(0, 0, 250, 100)
-
-[node name="Platform16" type="StaticBody2D" parent="Platforms"]
-position = Vector2(581.3568, 222.90192)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform16"]
-shape = SubResource("RectangleShape2D_h5o24")
-
-[node name="Sprite2D" type="Sprite2D" parent="Platforms/Platform16"]
-texture_repeat = 2
-scale = Vector2(0.1, 0.1)
-texture = SubResource("CompressedTexture2D_g312j")
-region_enabled = true
-region_rect = Rect2(0, 0, 100, 100)
-
-[node name="Platform10" type="StaticBody2D" parent="Platforms"]
-position = Vector2(463, 65)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform10"]
-shape = SubResource("RectangleShape2D_tcf2h")
-
-[node name="Sprite2D" type="Sprite2D" parent="Platforms/Platform10"]
-texture_repeat = 2
-scale = Vector2(0.1, 0.1)
-texture = SubResource("CompressedTexture2D_g312j")
-region_enabled = true
-region_rect = Rect2(0, 0, 250, 100)
-
-[node name="Platform11" type="StaticBody2D" parent="Platforms"]
-position = Vector2(347, 126)
-rotation = 0.19800654
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform11"]
-shape = SubResource("RectangleShape2D_g312j")
-
-[node name="Sprite2D" type="Sprite2D" parent="Platforms/Platform11"]
-texture_repeat = 2
-scale = Vector2(0.1, 0.1)
-texture = SubResource("CompressedTexture2D_g312j")
-region_enabled = true
-region_rect = Rect2(0, 0, 500, 100)
-
-[node name="Platform12" type="StaticBody2D" parent="Platforms"]
-position = Vector2(702, 142)
-rotation = -2.5856144
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform12"]
-shape = SubResource("RectangleShape2D_g312j")
-
-[node name="Sprite2D" type="Sprite2D" parent="Platforms/Platform12"]
-texture_repeat = 2
-scale = Vector2(0.1, 0.1)
-texture = SubResource("CompressedTexture2D_g312j")
-region_enabled = true
-region_rect = Rect2(0, 0, 500, 100)
-
-[node name="Platform13" type="StaticBody2D" parent="Platforms"]
-position = Vector2(892.6487, 290.8719)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform13"]
-shape = SubResource("RectangleShape2D_4717r")
-
-[node name="Sprite2D" type="Sprite2D" parent="Platforms/Platform13"]
-texture_repeat = 2
-scale = Vector2(0.1, 0.1)
-texture = SubResource("CompressedTexture2D_g312j")
-region_enabled = true
-region_rect = Rect2(0, 0, 250, 100)
-
-[node name="Platform14" type="StaticBody2D" parent="Platforms"]
-position = Vector2(789.28503, 207.96278)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform14"]
-shape = SubResource("RectangleShape2D_g312j")
-
-[node name="Sprite2D" type="Sprite2D" parent="Platforms/Platform14"]
-texture_repeat = 2
-scale = Vector2(0.1, 0.1)
-texture = SubResource("CompressedTexture2D_g312j")
-region_enabled = true
-region_rect = Rect2(0, 0, 500, 100)
-
-[node name="Platform15" type="StaticBody2D" parent="Platforms"]
-position = Vector2(789.28503, 207.96278)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform15"]
-shape = SubResource("RectangleShape2D_g312j")
-
-[node name="Sprite2D" type="Sprite2D" parent="Platforms/Platform15"]
-texture_repeat = 2
-scale = Vector2(0.1, 0.1)
-texture = SubResource("CompressedTexture2D_g312j")
-region_enabled = true
-region_rect = Rect2(0, 0, 500, 100)
-
-[node name="Platform4" type="StaticBody2D" parent="Platforms"]
-position = Vector2(927, 380)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform4"]
-shape = SubResource("RectangleShape2D_g312j")
-
-[node name="Sprite2D" type="Sprite2D" parent="Platforms/Platform4"]
-texture_repeat = 2
-scale = Vector2(0.1, 0.1)
-texture = SubResource("CompressedTexture2D_g312j")
-region_enabled = true
-region_rect = Rect2(0, 0, 500, 100)
-
-[node name="Platform7" type="StaticBody2D" parent="Platforms"]
-position = Vector2(802.93506, 349.1465)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Platforms/Platform7"]
-shape = SubResource("RectangleShape2D_g312j")
-
-[node name="Sprite2D" type="Sprite2D" parent="Platforms/Platform7"]
-texture_repeat = 2
-scale = Vector2(0.1, 0.1)
-texture = SubResource("CompressedTexture2D_g312j")
-region_enabled = true
-region_rect = Rect2(0, 0, 500, 100)
 
 [node name="PlayerContainer" type="Node2D" parent="."]
 unique_name_in_owner = true
@@ -319,4 +73,4 @@ _spawnable_scenes = PackedStringArray("uid://c1ms5qh1e78o2")
 spawn_path = NodePath("../PlayerContainerAdmin")
 
 [node name="TargetMarker" type="Marker2D" parent="."]
-position = Vector2(521, 258)
+position = Vector2(480, 258)

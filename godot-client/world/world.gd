@@ -7,7 +7,8 @@ var player_admin_new = preload('res://player/player_admin.tscn')
 
 @export var player_container_admin: Node2D
 @export var player_container: Node2D
-@onready var platforms: Node2D = $Platforms
+
+@onready var tile_maps: Node2D = $TileMaps
 @onready var target_marker = $TargetMarker
 
 signal signal_player_death(id)
@@ -17,7 +18,7 @@ func _ready() -> void:
 	add_to_group('World')
 	get_window().borderless = true
 	if OS.is_debug_build():
-		%DebugBackground.show()
+		pass
 	else:
 		get_window().set_mode(Window.MODE_MAXIMIZED)
 		get_window().borderless = true
@@ -52,12 +53,14 @@ func add_player_to_game(id: int, is_admin: bool = false):
 	if is_admin or id == LobbySystem.host_peer_id: 
 		player_to_add = player_admin_new.instantiate()
 		player_to_add.name = str(id)
-		player_to_add.position = Vector2(randi_range(0, 1000), randi_range(0, 0))
+		player_to_add.position = Vector2(randi_range(30, 880), randi_range(0, 0))
+		print(player_to_add.position)
 		player_container_admin.add_child(player_to_add, true)
 	else:
 		player_to_add = player_scene_new.instantiate()
 		player_to_add.name = str(id)
-		player_to_add.position = Vector2(randi_range(0, 1000), randi_range(0, 0))
+		player_to_add.position = Vector2(randi_range(30, 880), randi_range(0, 0))
+		print(player_to_add.position)
 		player_container.add_child(player_to_add, true)
 
 @rpc("any_peer", 'call_local', 'reliable')
@@ -76,14 +79,12 @@ func remove_player_from_game(id):
 		player_container_admin.get_node(str(id)).queue_free()
 
 func hide_all():
-	%Limits.hide()
-	%Platforms.hide()
-	%PlayerContainer.hide()
+	tile_maps.hide()
+	player_container.hide()
 
 func show_all():
-	%Limits.show()
-	%Platforms.show()
-	%PlayerContainer.show()
+	tile_maps.show()
+	player_container.show()
 	
 var mod_value = 1.0
 func show_all_modulate(should_show: bool = false):
@@ -96,6 +97,5 @@ func show_all_modulate(should_show: bool = false):
 	if should_show: 
 		mod_value = 1.0
 
-	%Limits.modulate.a = mod_value
-	%Platforms.modulate.a = mod_value
-	%PlayerContainer.modulate.a = mod_value
+	tile_maps.modulate.a = mod_value
+	player_container.modulate.a = mod_value

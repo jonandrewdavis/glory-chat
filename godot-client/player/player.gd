@@ -15,7 +15,8 @@ var SPEED_CURRENT = SPEED_MAX
 
 # TODO: Use just Perfect High timer & have it count for remaining wait time between -2.0 and 0.0
 
-@onready var health_system: HealthSystem = %HealthSystem
+@export var health_system: HealthSystem
+
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var nameplate: Label = %LabelUsername
 @onready var player_ui: PlayerUI = $PlayerUI
@@ -27,7 +28,7 @@ var arrow = preload('res://player/arrow.tscn')
 @onready var timer_perfect_high: Timer = %TimerPerfectHigh
 @onready var arrow_progress_bar: ProgressBar = %ArrowProgressBar
 
-var temp_bar_flashing_timer = Timer.new()
+var timer_flash_strength = Timer.new()
 
 var player_color := Color.WHITE
 var is_picked_up := false
@@ -55,10 +56,10 @@ func _ready():
 	timer_perfect_low.timeout.connect(flash_strength)
 	timer_perfect_high.timeout.connect(func(): flash_strength(false))
 	
-	add_child(temp_bar_flashing_timer)
-	temp_bar_flashing_timer.wait_time = 0.2
-	temp_bar_flashing_timer.one_shot = false
-	temp_bar_flashing_timer.timeout.connect(on_temp_flash_timeout)
+	add_child(timer_flash_strength)
+	timer_flash_strength.wait_time = 0.2
+	timer_flash_strength.one_shot = false
+	timer_flash_strength.timeout.connect(on_temp_flash_timeout)
 	
 	LobbySystem.signal_lobby_own_info.connect(set_lobby_info)
 	LobbySystem.lobby_get_own()
@@ -213,6 +214,10 @@ func fire_arrow():
 func spawn_proj(pos_start: Vector2, pos_target: Vector2, proj_speed: float, source: String, _player_color: Color):
 	if immobile: 
 		return
+
+	#if window.has_focus() == false:
+		#return
+
 	# new_arrow.linear_velocity 
 	# new_arrow.look_at(target)
 	# new_arrow.position
@@ -316,12 +321,12 @@ var flash = true
 func flash_strength(is_flashing: bool = true):
 	if is_flashing:
 		flash = true
-		temp_bar_flashing_timer.start()
+		timer_flash_strength.start()
 		%ArrowProgressBar.get_theme_stylebox("fill").bg_color = Color.GREEN
 		%ArrowProgressBar.modulate.a = 1.0
 	else:
 		flash = false
-		temp_bar_flashing_timer.stop()
+		timer_flash_strength.stop()
 		%ArrowProgressBar.modulate.a = 1.0	
 		%ArrowProgressBar.get_theme_stylebox("fill").bg_color = Color.from_string('ff4bff66', Color.HOT_PINK)
 
@@ -369,10 +374,12 @@ func show_player_respawn():
 	immobile = false
 	animated_sprite.play('idle')
 	modulate.a = 1.0
-	position = Vector2(randi_range(0, 1000), randi_range(0, 0))
+	position = Vector2(randi_range(30, 880), randi_range(0, 0))
 	
 # TODO: Captured and then have a custom mouse cursor?
 func _on_window_focus_enter():
+	for target in get_tree().get_nodes_in_group("Targets"):
+		target.queue_free()
 	modulate.a = 1.0
 	%LabelAFK.hide()
 	
@@ -397,11 +404,11 @@ func block():
 func on_health_updated(next_health):
 	var current = health_progress_bar.get_current_value()
 	if next_health < current:
-		health_progress_bar.decrease_bar_value(current - next_health)
+		health_progress_bar.decrease_bar_value.rpc(current - next_health)
 		%HealthBar.show()
 	else:
 		var diff = next_health - current
-		health_progress_bar.increase_bar_value(diff)
+		health_progress_bar.increase_bar_value.rpc(diff)
 		if next_health == health_system.max_health:
 			await get_tree().create_timer(1.2).timeout
 			%HealthBar.hide()

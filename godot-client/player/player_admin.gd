@@ -61,9 +61,9 @@ func _process(_delta):
 		window.mouse_passthrough = false
 	elif Input.is_action_just_pressed("toggle_game") and not window.mouse_passthrough: 
 		window.mouse_passthrough = true
-	elif Input.is_action_just_pressed("debug1") and world.platforms.visible:
+	elif Input.is_action_just_pressed("debug1") and world.tile_maps.visible:
 		world.hide_all()
-	elif Input.is_action_just_pressed("debug1") and not world.platforms.visible:
+	elif Input.is_action_just_pressed("debug1") and not world.tile_maps.visible:
 		world.show_all()
 	elif Input.is_action_just_pressed("debug2"):
 		world.show_all()

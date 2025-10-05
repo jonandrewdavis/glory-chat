@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bodmr74jwgi5g"]
+[gd_scene load_steps=10 format=3 uid="uid://bodmr74jwgi5g"]
 
 [ext_resource type="Script" uid="uid://dbkd33tkoa5no" path="res://player/UI/player_ui.gd" id="1_721h2"]
 [ext_resource type="PackedScene" uid="uid://cr0rjm7booup1" path="res://lobby/lobby_color_grid/lobby_color_grid.tscn" id="4_crhk2"]
@@ -17,6 +17,15 @@ border_width_top = 1
 border_width_right = 1
 border_width_bottom = 1
 border_color = Color(1, 1, 1, 0.23529412)
+
+[sub_resource type="Gradient" id="Gradient_crhk2"]
+offsets = PackedFloat32Array(0.74538743, 1)
+colors = PackedColorArray(1, 0, 0, 0, 1, 0, 0, 0.36078432)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_56i8j"]
+gradient = SubResource("Gradient_crhk2")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4trht"]
 content_margin_left = 0.0
@@ -126,6 +135,17 @@ theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
+
+[node name="HurtTexture" type="TextureRect" parent="TopLevelControl"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_56i8j")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 anchors_preset = 15
