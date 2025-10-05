@@ -1,3 +1,4 @@
+Label
 TextureRect
 Node2D
 TileMapLayer
@@ -10,6 +11,4 @@ DirectionalLight3D
 WorldEnvironment
 StaticBody3D
 CharacterBody3D
-Label
 HBoxContainer
-Control

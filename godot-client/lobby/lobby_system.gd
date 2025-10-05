@@ -84,7 +84,8 @@ func _ready():
 	signal_lobby_game_started.connect(_listen_for_connections_finished)
 	signal_lobby_game_started.connect(_listen_for_connections_finished_cancel)
 	LobbySystem.signal_lobby_joined.connect(func(lobby): if lobby: LobbySystem.host_peer_id = int(lobby.players[0].id))
-	
+
+
 func _process(_delta):
 	ws_peer.poll()
 	var state: WebSocketPeer.State = ws_peer.get_ready_state()

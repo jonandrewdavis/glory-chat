@@ -8,3 +8,6 @@ res://player/player.tscn
 res://player/player.gd
 res://world/world.tscn
 res://world/world.gd
+res://lobby/lobby_quick_connect.tscn
+res://lobby/lobby_system.gd
+res://lobby/lobby_quick_connect.gd

@@ -51,6 +51,15 @@ func _ready() -> void:
 	# DEBUG:
 	#LobbySystem.signal_packet_parsed.connect(func(packet): print('DEBUG: ', packet))
 	# Admin / Host detection
+	LobbySystem.signal_lobby_joined.connect(func(lobby): if lobby == null: show_error_message())
+
+
+func show_error_message():
+	%LabelError.show()	
+	LobbySystem.user_disconnect()
+	await get_tree().create_timer(1.0).timeout
+	%ConnectionLight.modulate = Color.CRIMSON
+	
 
 func _hide_admin_features():
 	%InputCode.hide()
@@ -119,5 +128,6 @@ func _render_current_lobby_view(lobby):
 func _render_connection_light(is_user_connected: bool = false):
 	%ConnectionLight.modulate = Color.WHITE
 	if is_user_connected:	
+		%LabelError.hide()	
 		await get_tree().create_timer(0.08).timeout
 		%ConnectionLight.modulate = Color.GREEN

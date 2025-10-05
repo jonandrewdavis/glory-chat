@@ -13,7 +13,7 @@ res://lobby/theme/lobby_panel_container_styleboxflat.tres::c6bb01ff3f467273f62c3
 res://lobby/theme/lobby_player_container_styleboxflat.tres::79d3c340df4f7e583b493dc1e9dfb40a::1756784446::res://.godot/exported/133200997/export-381680b9a9330f6e2df12b57a5ef3cdc-lobby_player_container_styleboxflat.res
 res://lobby/theme/MinimalUI.tres::060808738f71a3142438c6b5013c4896::1759687736::res://.godot/exported/133200997/export-af50b02587b19f479ce592556b8708eb-MinimalUI.res
 res://lobby/lobby_menu.tscn::7fbec74d91a1d287013d41e0f889aabc::1759184452::res://.godot/exported/133200997/export-97178ff0ae04a1d44945ab296aeec85e-lobby_menu.scn
-res://lobby/lobby_quick_connect.tscn::18390e7012899d37526f6b0a05152e3a::1759340745::res://.godot/exported/133200997/export-2f40d17674b0da035351684067d1fb03-lobby_quick_connect.scn
+res://lobby/lobby_quick_connect.tscn::c878d9e6c038cdddbe6e1fa2a78cac41::1759691573::res://.godot/exported/133200997/export-2f40d17674b0da035351684067d1fb03-lobby_quick_connect.scn
 res://player/UI/player_info_item.tscn::417ff230bbaa90716eee94e4aa19a07e::1759080386::res://.godot/exported/133200997/export-0554a12357c46fbe46c67d04e073116b-player_info_item.scn
 res://player/UI/player_ui.tscn::3b92a9b26f68a451a4627630f6e27d29::1759685315::res://.godot/exported/133200997/export-ecca2a399bd4fbb385cc8659d9486611-player_ui.scn
 res://player/player_admin.tscn::0c955b21910b8e2a026914150fc3f780::1759684535::res://.godot/exported/133200997/export-469ef28048923ecb075bac36932ea8f1-player_admin.scn
