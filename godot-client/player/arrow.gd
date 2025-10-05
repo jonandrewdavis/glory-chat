@@ -53,6 +53,6 @@ func destroy():
 @rpc('call_local', 'any_peer', 'reliable')
 func reflect_arrow(source_name: String):
 	look_at(linear_velocity * -1.0)
-	linear_velocity = linear_velocity * -1.2	
+	linear_velocity = linear_velocity * -1.1
 	source = source_name
 	$Timer.start(8.0)

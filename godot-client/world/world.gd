@@ -54,13 +54,11 @@ func add_player_to_game(id: int, is_admin: bool = false):
 		player_to_add = player_admin_new.instantiate()
 		player_to_add.name = str(id)
 		player_to_add.position = Vector2(randi_range(30, 880), randi_range(0, 0))
-		print(player_to_add.position)
 		player_container_admin.add_child(player_to_add, true)
 	else:
 		player_to_add = player_scene_new.instantiate()
 		player_to_add.name = str(id)
 		player_to_add.position = Vector2(randi_range(30, 880), randi_range(0, 0))
-		print(player_to_add.position)
 		player_container.add_child(player_to_add, true)
 
 @rpc("any_peer", 'call_local', 'reliable')

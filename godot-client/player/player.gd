@@ -5,24 +5,23 @@ class_name PlayerSimple
 const SPEED_MAX = 100.0
 const JUMP_VELOCITY = -400.0
 
-var SPEED_CURRENT = SPEED_MAX
 
-@onready var window: Window = get_window()
-@onready var world: World = get_tree().get_first_node_in_group('World')
+const CONST_ACCELERATION = 17.5
+const CONST_FRICTION = 8.0
 
-# TODO: Expenential speed up, at the start,
-# TODO: Gets slower (pulling harder) at the end.
+var current_friction = CONST_FRICTION
+var current_speed = SPEED_MAX
 
-# TODO: Use just Perfect High timer & have it count for remaining wait time between -2.0 and 0.0
+var arrow = preload('res://player/arrow.tscn')
 
 @export var health_system: HealthSystem
 
+@onready var window: Window = get_window()
+@onready var world: World = get_tree().get_first_node_in_group('World')
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var nameplate: Label = %LabelUsername
 @onready var player_ui: PlayerUI = $PlayerUI
 @onready var health_progress_bar = %HealthBar
-
-var arrow = preload('res://player/arrow.tscn')
 
 @onready var timer_perfect_low: Timer = %TimerPerfectLow
 @onready var timer_perfect_high: Timer = %TimerPerfectHigh
@@ -126,17 +125,9 @@ func _physics_process(delta: float) -> void:
 		jump_action()
 
 	if Input.is_action_pressed('primary') and can_shoot():
-		if timer_perfect_high.is_stopped() and strength == 0.0:
-			timer_perfect_low.start()
-			timer_perfect_high.start()
-		strength += strength_factor
-		arrow_progress_bar.value = strength
-		%ArrowProgressBar.show()
-		%ArrowContainer.show()
-		%ArrowContainer.look_at(get_viewport().get_mouse_position())
+		arrow_charge()
 	else:
-		%ArrowProgressBar.hide()
-		%ArrowContainer.hide()
+		arrow_hide()
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
@@ -144,18 +135,20 @@ func _physics_process(delta: float) -> void:
 	var direction = input_dir
 
 	if input_primary and is_on_floor():
-		SPEED_CURRENT = SPEED_MAX * 0.5
+		current_speed = SPEED_MAX * 0.5
+		current_friction = CONST_FRICTION
 	elif is_blocking:
-		SPEED_CURRENT = SPEED_MAX * 0.5
+		current_speed = SPEED_MAX * 0.5
+		current_friction = CONST_FRICTION
+	elif input_sprint:
+		current_speed = SPEED_MAX  * 1.5
+		current_friction = CONST_FRICTION - 7.0
 	else:
-		var modifier = 1.0
-		if input_sprint: modifier = 1.5
-		SPEED_CURRENT = SPEED_MAX  * modifier
-	
-	if direction:
-		velocity.x = direction * SPEED_CURRENT
-	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED_CURRENT)
+		current_speed = SPEED_MAX
+		current_friction = CONST_FRICTION
+
+	var velocity_weight: float = delta * (CONST_ACCELERATION if direction else current_friction) 
+	velocity.x = lerp(velocity.x, direction * current_speed, velocity_weight) 
 
 	move_and_slide()
 
@@ -183,7 +176,7 @@ func _process(_delta: float) -> void:
 
 	if Input.is_action_just_released('primary') and can_shoot():
 		fire_arrow()
-	elif Input.is_action_just_pressed('secondary') and can_shoot() and can_block():
+	elif Input.is_action_just_pressed('secondary') and can_shoot() and can_block() and strength == 0.0:
 		block()
 	
 	
@@ -196,6 +189,24 @@ func can_block():
 func can_shoot():
 	return not is_blocking and not immobile and %TimerCooldown.is_stopped()
 
+
+func arrow_charge():
+	if timer_perfect_high.is_stopped() and strength == 0.0:
+		timer_perfect_low.start()
+		timer_perfect_high.start()
+	strength += strength_factor
+	arrow_progress_bar.value = strength
+	%ArrowProgressBar.show()
+	%ArrowContainer.show()
+	%ArrowContainer.look_at(get_viewport().get_mouse_position())
+
+
+func arrow_hide():
+	%ArrowProgressBar.hide()
+	%ArrowContainer.hide()
+
+# TODO: Expenential speed up, at the start,
+# TODO: Gets slower (pulling harder) at the end.
 func fire_arrow():
 	var target : Vector2 = get_viewport().get_mouse_position()
 	var proj_speed: float
@@ -267,18 +278,6 @@ func set_lobby_info(lobby):
 				%ArrowContainer.get_node('ArrowPolygon2D').color = Color(player_color)
 				%ShieldContainer.get_node('ShieldPolygon2D').color = Color(player_color)
 
-# 3 arrows from the same player, they die
-
-# increment the hit as a timestamp?? how long ago 
-# a timer going to DECREMENT the 
-# - 1
-
-var recent_hits = {
-	'player_id_123': 0,
-}
-
-# Check for garbage in your vicinity (collision check)
-# if : x === 3: die.
 var prevent_damage := false
 
 func proj_hit(body):
