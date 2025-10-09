@@ -1,0 +1,43 @@
+[gd_scene load_steps=6 format=3 uid="uid://bmc0hokyqoab"]
+
+[ext_resource type="Script" uid="uid://dd85mtsu1bij2" path="res://game/target.gd" id="1_k6oq8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k6oq8"]
+
+[sub_resource type="Gradient" id="Gradient_k6oq8"]
+offsets = PackedFloat32Array(0.18979266, 0.24082935, 0.6028708, 0.6172249, 0.79266346, 0.80382776)
+colors = PackedColorArray(1, 0, 0, 1, 1, 0.8936171, 0.8936171, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_aosyw"]
+gradient = SubResource("Gradient_k6oq8")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.6, 0.6)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_aosyw"]
+radius = 8.0
+
+[node name="Target" type="StaticBody2D"]
+scale = Vector2(1.5, 1.5)
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_k6oq8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_k6oq8")
+disabled = true
+
+[node name="TextureRect" type="TextureRect" parent="."]
+texture_filter = 1
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+texture = SubResource("GradientTexture2D_aosyw")
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_aosyw")

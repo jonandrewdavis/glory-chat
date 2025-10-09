@@ -1,0 +1,73 @@
+[gd_scene load_steps=10 format=3 uid="uid://c4vv1dere8bc0"]
+
+[ext_resource type="Script" uid="uid://4lpcaea3woer" path="res://game3d/volleyball/volley_ball.gd" id="1_uvwyt"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_6kpcp"]
+radius = 1.5
+
+[sub_resource type="Gradient" id="Gradient_uvwyt"]
+offsets = PackedFloat32Array(0.15242718, 0.17281553, 0.4223301, 0.4699029, 0.61165047, 0.7883495, 0.831068)
+colors = PackedColorArray(1, 1, 1, 1, 1, 0, 0, 1, 0, 0.36862746, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0.3833332, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_c8opw"]
+gradient = SubResource("Gradient_uvwyt")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x3xoj"]
+albedo_texture = SubResource("GradientTexture2D_c8opw")
+
+[sub_resource type="SphereMesh" id="SphereMesh_6kpcp"]
+material = SubResource("StandardMaterial3D_x3xoj")
+radius = 1.5
+height = 3.0
+
+[sub_resource type="TorusMesh" id="TorusMesh_uvwyt"]
+inner_radius = 0.8
+outer_radius = 1.2
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_uvwyt"]
+size = Vector3(1, 100, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_c8opw"]
+size = Vector3(1, 1.5, 1)
+
+[node name="VolleyBall" type="RigidBody3D"]
+collision_layer = 0
+collision_mask = 3
+gravity_scale = 0.2
+script = ExtResource("1_uvwyt")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_6kpcp")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_6kpcp")
+
+[node name="TorusIndicator" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.8956254, 0)
+top_level = true
+mesh = SubResource("TorusMesh_uvwyt")
+
+[node name="ShapeCastDown" type="ShapeCast3D" parent="."]
+unique_name_in_owner = true
+top_level = true
+shape = SubResource("BoxShape3D_uvwyt")
+target_position = Vector3(0, -5, 0)
+collision_mask = 16
+
+[node name="ShapeCastFloor" type="ShapeCast3D" parent="."]
+unique_name_in_owner = true
+shape = SubResource("BoxShape3D_c8opw")
+collision_mask = 0
+
+[node name="RayCastDown" type="RayCast3D" parent="."]
+unique_name_in_owner = true
+top_level = true
+target_position = Vector3(0, -100, 0)
+collision_mask = 16
+collide_with_areas = true
+debug_shape_custom_color = Color(0.6939626, 9.770542e-06, 0.46498328, 1)
+debug_shape_thickness = 5

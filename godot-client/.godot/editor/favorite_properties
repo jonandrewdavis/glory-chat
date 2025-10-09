@@ -1,7 +1,0 @@
-[ProgressBar]
-
-properties=PackedStringArray("fill_mode")
-
-[Control]
-
-properties=PackedStringArray("size_flags_horizontal", "size_flags_vertical")
