@@ -12,7 +12,13 @@ extends Node2D
 var launched = false
 var target: Vector2
 
+func _ready():
+	if not is_multiplayer_authority():
+		set_process(false)
+		set_physics_process(false)
+
 func _process(delta):
+	
 	sprite_target.top_level = true
 	
 	ray.look_at(get_global_mouse_position())
