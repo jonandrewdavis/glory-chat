@@ -11,7 +11,8 @@ func _ready() -> void:
 	add_to_group('Projectiles')
 	%Polygon2D.scale = Vector2(0.1, 0.1)
 	%Polygon2D.modulate = color
-	gravity_scale = 0.5
+	#gravity_scale = 0.5 TUNE UP gravity cause we lowered global gravity
+	gravity_scale = 0.8
 	set_collision_layer_value(2, true)
 	set_collision_mask_value(2, true)
 

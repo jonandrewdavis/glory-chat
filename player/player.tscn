@@ -1,7 +1,8 @@
-[gd_scene load_steps=47 format=3 uid="uid://bwpreeakt421"]
+[gd_scene load_steps=50 format=3 uid="uid://bwpreeakt421"]
 
 [ext_resource type="Script" uid="uid://2y57aq7adm8x" path="res://player/player.gd" id="1_rkbax"]
 [ext_resource type="Texture2D" uid="uid://vutnujjptgr8" path="res://assets/Archer.png" id="2_g1dw6"]
+[ext_resource type="Script" uid="uid://c6qxp2dw30gjx" path="res://player/grapple_controller.gd" id="3_boad6"]
 [ext_resource type="PackedScene" uid="uid://bodmr74jwgi5g" path="res://player/UI/player_ui.tscn" id="4_qjkh3"]
 [ext_resource type="FontFile" uid="uid://bnudr3myap7vs" path="res://lobby/theme/Strait-Regular.ttf" id="4_yw30f"]
 [ext_resource type="PackedScene" uid="uid://qsh5m8pulul5" path="res://player/health_system.tscn" id="5_g6k8r"]
@@ -255,6 +256,18 @@ animations = [{
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rkbax"]
 radius = 6.0
 height = 16.0
+
+[sub_resource type="Gradient" id="Gradient_boad6"]
+offsets = PackedFloat32Array(0.4968254, 0.5190476, 0.5714286, 0.7)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_rgyib"]
+gradient = SubResource("Gradient_boad6")
+width = 10
+height = 10
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 1)
 
 [sub_resource type="Shader" id="Shader_g6k8r"]
 code = "shader_type canvas_item;
@@ -930,7 +943,13 @@ properties/7/spawn = true
 properties/7/replication_mode = 2
 properties/8/path = NodePath("LabelAFK:visible")
 properties/8/spawn = true
-properties/8/replication_mode = 1
+properties/8/replication_mode = 2
+properties/9/path = NodePath("Grapple/Line2D:points")
+properties/9/spawn = true
+properties/9/replication_mode = 2
+properties/10/path = NodePath("Grapple/Line2D:visible")
+properties/10/spawn = true
+properties/10/replication_mode = 2
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_qjkh3"]
 properties/0/path = NodePath("ArrowContainer:visible")
@@ -1002,6 +1021,24 @@ animation = &"death"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_rkbax")
+
+[node name="Grapple" type="Node2D" parent="."]
+script = ExtResource("3_boad6")
+
+[node name="RayCast2D" type="RayCast2D" parent="Grapple"]
+target_position = Vector2(200, 0)
+
+[node name="Line2D" type="Line2D" parent="Grapple"]
+z_index = -1
+points = PackedVector2Array(0, 0, 0, 0)
+width = 1.0
+
+[node name="Sprite2D" type="Sprite2D" parent="Grapple"]
+z_index = 2
+z_as_relative = false
+texture_filter = 1
+position = Vector2(0, -12)
+texture = SubResource("GradientTexture2D_rgyib")
 
 [node name="TimerPerfectLow" type="Timer" parent="."]
 unique_name_in_owner = true

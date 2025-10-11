@@ -3,8 +3,7 @@ extends CharacterBody2D
 class_name PlayerSimple
 
 const SPEED_MAX = 100.0
-const JUMP_VELOCITY = -400.0
-
+const JUMP_VELOCITY = -290.0
 
 const CONST_ACCELERATION = 17.5
 const CONST_FRICTION = 8.0
@@ -26,6 +25,8 @@ var arrow = preload('res://player/arrow.tscn')
 @onready var timer_perfect_low: Timer = %TimerPerfectLow
 @onready var timer_perfect_high: Timer = %TimerPerfectHigh
 @onready var arrow_progress_bar: ProgressBar = %ArrowProgressBar
+
+@onready var grapple = $Grapple
 
 var timer_flash_strength = Timer.new()
 
@@ -134,8 +135,15 @@ func _physics_process(delta: float) -> void:
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	#var direction := Input.get_axis("left", "right")
 	var direction = input_dir
+	if grapple.launched:
+		if strength > 0.0:
+			current_speed = SPEED_MAX * 0.8
+		else: 
+			current_speed = SPEED_MAX * 1.5
 
-	if input_primary and is_on_floor():
+	elif not is_on_floor():
+		current_speed = SPEED_MAX * 0.97
+	elif input_primary and is_on_floor():
 		current_speed = SPEED_MAX * 0.5
 		current_friction = CONST_FRICTION
 	elif is_blocking:
@@ -189,11 +197,15 @@ func can_block():
 func can_shoot():
 	return not is_blocking and not immobile and %TimerCooldown.is_stopped()
 
-
 func arrow_charge():
 	if timer_perfect_high.is_stopped() and strength == 0.0:
 		timer_perfect_low.start()
 		timer_perfect_high.start()
+
+		# TODO: Should we allow charging during grapple? I think so.
+		#if grapple.launched:
+			#grapple.retract() 
+
 	strength += strength_factor
 	arrow_progress_bar.value = strength
 	%ArrowProgressBar.show()
@@ -340,6 +352,9 @@ func on_temp_flash_timeout():
 		tween.tween_property(%ArrowProgressBar, "modulate:a", 0.0, 0.2).from(1.0)
 
 func _check_server():
+	if OS.is_debug_build():
+		return
+		
 	if not get_tree().get_first_node_in_group('PlayerAdmin'):
 		%LabelDisconnected.show()
 		await get_tree().create_timer(5.0).timeout
@@ -349,12 +364,14 @@ func _check_server():
 		
 func jump_action():
 	can_jump = false
-	if not input_primary:
+
+	if grapple.launched:	
+		grapple.retract()
+
+	if input_primary or is_blocking:
+		velocity.y = JUMP_VELOCITY * 0.55
+	else:
 		velocity.y = JUMP_VELOCITY
-	elif is_blocking:
-		velocity.y = JUMP_VELOCITY * 0.55
-	else: 
-		velocity.y = JUMP_VELOCITY * 0.55
 
 func show_player_death():
 	# TODO: play actual death.
@@ -395,6 +412,9 @@ func make_afk():
 var is_blocking:= false 
 
 func block():
+	if grapple.launched:
+		grapple.retract()
+		
 	is_blocking = true
 	%ShieldContainer.show()
 	%ShieldCollision.disabled = !is_blocking
