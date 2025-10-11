@@ -69,6 +69,7 @@ func _ready():
 	%ArrowArea.body_entered.connect(proj_hit)
 	%TimerCheckServer.timeout.connect(_check_server)
 	%TimerJump.timeout.connect(func(): can_jump = false)
+	%TimerCheckAFK.timeout.connect(make_afk)
 	
 	%ShieldArea.set_collision_mask_value(2, true)
 	%ShieldArea.body_entered.connect(proj_reflect)
@@ -178,7 +179,6 @@ func _process(_delta: float) -> void:
 		fire_arrow()
 	elif Input.is_action_just_pressed('secondary') and can_shoot() and can_block() and strength == 0.0:
 		block()
-	
 	
 	if is_blocking:
 		%ShieldContainer.look_at(get_viewport().get_mouse_position())
@@ -376,15 +376,21 @@ func show_player_respawn():
 	position = Vector2(randi_range(30, 880), randi_range(0, 0))
 	
 # TODO: Captured and then have a custom mouse cursor?
+# TODO: is this not clearing targets properly?
 func _on_window_focus_enter():
 	for target in get_tree().get_nodes_in_group("Targets"):
 		target.queue_free()
 	modulate.a = 1.0
 	%LabelAFK.hide()
-	
+	%TimerCheckAFK.stop()
+
 func _on_window_focus_exit():
+	%TimerCheckAFK.start()
+
+func make_afk():
 	modulate.a = 0.3
 	%LabelAFK.show()
+
 
 var is_blocking:= false 
 

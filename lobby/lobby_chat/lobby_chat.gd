@@ -1,6 +1,7 @@
 extends Control
 
 func _ready() -> void:
+	%LobbyChatInput.max_length = 25
 	%LobbyChatInput.keep_editing_on_text_submit = true
 	%LobbyChatInput.text_submitted.connect(func(_text): _send_chat_to_lobby())
 	%LobbyChatSend.pressed.connect(func(): _send_chat_to_lobby())

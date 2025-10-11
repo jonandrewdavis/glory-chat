@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://6eoclhsx0qae"]
+[gd_scene load_steps=12 format=3 uid="uid://6eoclhsx0qae"]
 
 [ext_resource type="Theme" uid="uid://b3kq74llqlv3x" path="res://lobby/theme/MinimalUI.tres" id="1_42wu0"]
 [ext_resource type="Script" uid="uid://5a0hl5vi0f3x" path="res://lobby/lobby_quick_connect.gd" id="2_5djwk"]
@@ -32,6 +32,22 @@ content_margin_left = 2.0
 content_margin_top = 2.0
 content_margin_right = 2.0
 content_margin_bottom = 2.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fhgty"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
 bg_color = Color(0.1, 0.1, 0.1, 0.6)
 border_width_left = 1
 border_width_top = 1
@@ -178,6 +194,7 @@ layout_mode = 2
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_fhgty")
 text = "Join"
 
 [node name="ButtonQuickHost" type="Button" parent="Margin/HBoxContainer/ColumnQuickConnect/MarginContainer/HBoxContainer2/VBoxContainer/VBoxContainer"]

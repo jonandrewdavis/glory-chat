@@ -1152,7 +1152,7 @@ player = NodePath("..")
 
 [node name="HealthSystem" parent="." instance=ExtResource("5_g6k8r")]
 unique_name_in_owner = true
-regen_delay = 6.5
+regen_delay = 8.0
 
 [node name="ArrowArea" type="Area2D" parent="."]
 unique_name_in_owner = true
@@ -1171,4 +1171,9 @@ autostart = true
 [node name="TimerJump" type="Timer" parent="."]
 unique_name_in_owner = true
 wait_time = 0.2
+one_shot = true
+
+[node name="TimerCheckAFK" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 2.5
 one_shot = true
