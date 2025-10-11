@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://d1oefy32crhwe"]
+[gd_scene load_steps=14 format=3 uid="uid://d1oefy32crhwe"]
 
 [ext_resource type="Script" uid="uid://dupbw8lt0cn8e" path="res://game3d/world_3d.gd" id="1_0ox63"]
 [ext_resource type="PackedScene" uid="uid://bgkmxyw21pc1m" path="res://addons/PlayerCharacter/PlayerCharacterScene.tscn" id="1_n82e1"]
 [ext_resource type="Texture2D" uid="uid://bot8ndsj83stx" path="res://assets/texture_07.png" id="2_thlin"]
+[ext_resource type="Texture2D" uid="uid://e0d6qg67fv8l" path="res://assets/glory_full_logo.png" id="4_jrujf"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_n82e1"]
 
@@ -27,6 +28,19 @@ size = Vector2(1000, 1000)
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_m5ofj"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ra7us"]
+albedo_texture = ExtResource("4_jrujf")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_0ox63"]
+material = SubResource("StandardMaterial3D_ra7us")
+size = Vector2(20, 13)
+orientation = 2
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ra7us"]
+material = SubResource("StandardMaterial3D_ra7us")
+size = Vector2(5, 13)
+orientation = 2
+
 [node name="World3d" type="Node3D"]
 script = ExtResource("1_0ox63")
 
@@ -46,3 +60,11 @@ skeleton = NodePath("../..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
 shape = SubResource("WorldBoundaryShape3D_m5ofj")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.954848, -9.067088)
+mesh = SubResource("PlaneMesh_0ox63")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.276012, 7.954848, -9.067088)
+mesh = SubResource("PlaneMesh_ra7us")

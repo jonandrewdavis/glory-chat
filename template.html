@@ -5,10 +5,20 @@
 		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
 		<title>GloryChat</title>
 		<style>
+
+/* NOTE: Height 100% Helps fullscreen */
 html, body, #canvas {
 	margin: 0;
 	padding: 0;
 	border: 0;
+	height: 100%;
+}
+
+
+/* NOTE: Height 100% Helps fullscreen */
+#twitch-embed { 
+	height: 100%;
+	width: 100%
 }
 
 body {
@@ -105,6 +115,7 @@ body {
 	display: block;
 	visibility:visible;
 }
+
 
 		</style>
 		<link id="-gd-engine-icon" rel="icon" type="image/png" href="index.icon.png" />
@@ -237,8 +248,6 @@ const engine = new Engine(GODOT_CONFIG);
 	}
 }());
 
-// 
-
 
 
 
@@ -249,8 +258,8 @@ const engine = new Engine(GODOT_CONFIG);
     <!-- Create a Twitch.Embed object that will render within the "twitch-embed" element -->
     <script type="text/javascript">
 		var embed = new Twitch.Embed("twitch-embed", {
-			width: 960,
-			height: 540,
+			width: "100%",
+			height: "100%",
 			channel: "andoodev",
 			layout: "video",
 			autoplay: true,
