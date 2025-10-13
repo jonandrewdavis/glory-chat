@@ -6,9 +6,6 @@ var state_name : String = "Ragdoll"
 
 var cR : CharacterBody3D
 
-var interval = 1.0 # seconds between force applications
-var elapsed = 0.0
-
 func enter(char_ref : CharacterBody3D):
 	cR = char_ref
 	
@@ -36,10 +33,7 @@ func physics_update(delta : float):
 	applies()
 	
 	input_management()
-	elapsed += delta
-	if elapsed >= interval:
-		move(delta)
-	
+	move(delta)
 func check_if_ragdoll():
 	if !cR.godot_plush_skin.ragdoll:
 		transitioned.emit(self, "IdleState")
@@ -72,4 +66,6 @@ func move(delta : float):
 		#cR.plush
 		var center: PhysicalBone3D = cR.godot_plush_skin.center_body
 		#center.
-		center.apply_central_impulse(Vector3(force_x, 0.5, force_z ) * delta)
+		center.apply_central_impulse(Vector3(force_x, 0.0, force_z ) * delta)
+		#center.linear_velocity = 
+		

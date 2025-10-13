@@ -160,6 +160,3 @@ func squash_and_strech(value : float, timing : float):
 	
 	
 	
-	
-	
-	

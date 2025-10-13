@@ -1,25 +1,40 @@
-[gd_scene load_steps=14 format=3 uid="uid://d1oefy32crhwe"]
+[gd_scene load_steps=24 format=3 uid="uid://d1oefy32crhwe"]
 
 [ext_resource type="Script" uid="uid://dupbw8lt0cn8e" path="res://game3d/world_3d.gd" id="1_0ox63"]
 [ext_resource type="PackedScene" uid="uid://bgkmxyw21pc1m" path="res://addons/PlayerCharacter/PlayerCharacterScene.tscn" id="1_n82e1"]
-[ext_resource type="Texture2D" uid="uid://bot8ndsj83stx" path="res://assets/texture_07.png" id="2_thlin"]
+[ext_resource type="Texture2D" uid="uid://d0opbx5s57sio" path="res://assets/tropical-beach-aesthetic-in-late-90s-early-2000s-video-games-v0-7tcx1qnhk7td1.webp" id="2_eypcs"]
 [ext_resource type="Texture2D" uid="uid://e0d6qg67fv8l" path="res://assets/glory_full_logo.png" id="4_jrujf"]
+[ext_resource type="PackedScene" uid="uid://c4vv1dere8bc0" path="res://game3d/volleyball/volley_ball.tscn" id="5_ra7us"]
+[ext_resource type="PackedScene" uid="uid://vq3eppi2yw3s" path="res://game3d/keeb/keeb.tscn" id="6_vro1e"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_n82e1"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1x7uu"]
+albedo_texture = ExtResource("2_eypcs")
 
-[sub_resource type="Sky" id="Sky_thlin"]
-sky_material = SubResource("ProceduralSkyMaterial_n82e1")
+[sub_resource type="QuadMesh" id="QuadMesh_gjbqx"]
+material = SubResource("StandardMaterial3D_1x7uu")
+size = Vector2(20, 20)
+orientation = 0
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ra7us"]
+
+[sub_resource type="Sky" id="Sky_vro1e"]
+sky_material = SubResource("ProceduralSkyMaterial_ra7us")
+process_mode = 1
 
 [sub_resource type="Environment" id="Environment_0ox63"]
 background_mode = 2
-sky = SubResource("Sky_thlin")
-fog_enabled = true
+sky = SubResource("Sky_vro1e")
 fog_mode = 1
+fog_light_color = Color(0.7294435, 0.8699353, 0.91028666, 1)
 fog_density = 1.0
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vro1e"]
+bounce = 2.0
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0ox63"]
-albedo_texture = ExtResource("2_thlin")
+albedo_texture = ExtResource("2_eypcs")
 metallic_specular = 0.0
+uv1_scale = Vector3(0.1, 0.1, 0.1)
 uv1_triplanar = true
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_jrujf"]
@@ -28,21 +43,44 @@ size = Vector2(1000, 1000)
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_m5ofj"]
 
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_ra7us"]
+plane = Plane(0, 0, -1, 0)
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_vro1e"]
+plane = Plane(0, 0, 1, 0)
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_eypcs"]
+plane = Plane(1, 0, 0, 0)
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_1x7uu"]
+plane = Plane(-1, 0, 0, 0)
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_lxnqq"]
+plane = Plane(1, 0, -1, 0)
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_gjbqx"]
+plane = Plane(-1, 0, -1, 0)
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ra7us"]
 albedo_texture = ExtResource("4_jrujf")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_0ox63"]
 material = SubResource("StandardMaterial3D_ra7us")
-size = Vector2(20, 13)
-orientation = 2
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_ra7us"]
-material = SubResource("StandardMaterial3D_ra7us")
-size = Vector2(5, 13)
+size = Vector2(24, 12)
 orientation = 2
 
 [node name="World3d" type="Node3D"]
 script = ExtResource("1_0ox63")
+
+[node name="Island" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.04869283, 0, -0.9988138, 0, 1, 0, 0.9988138, 0, 0.04869283, -8.303844, 10.668358, -0.92652893)
+mesh = SubResource("QuadMesh_gjbqx")
+skeleton = NodePath("../Floor/MeshInstance3D")
+
+[node name="Island2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.04869283, 0, -0.9988138, 0, 1, 0, 0.9988138, 0, 0.04869283, 12.212036, 10.668358, -0.92652893)
+mesh = SubResource("QuadMesh_gjbqx")
+skeleton = NodePath("../Floor/MeshInstance3D")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_0ox63")
@@ -51,8 +89,9 @@ environment = SubResource("Environment_0ox63")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.68878603, 0)
 
 [node name="Floor" type="StaticBody3D" parent="."]
-collision_layer = 3
+collision_layer = 19
 collision_mask = 3
+physics_material_override = SubResource("PhysicsMaterial_vro1e")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
 mesh = SubResource("PlaneMesh_jrujf")
@@ -61,10 +100,65 @@ skeleton = NodePath("../..")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
 shape = SubResource("WorldBoundaryShape3D_m5ofj")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.954848, -9.067088)
+[node name="Walls" type="Node3D" parent="."]
+
+[node name="Wall_Front" type="StaticBody3D" parent="Walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15.164038)
+collision_layer = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Walls/Wall_Front"]
+shape = SubResource("WorldBoundaryShape3D_ra7us")
+
+[node name="Wall_Back" type="StaticBody3D" parent="Walls"]
+collision_layer = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Walls/Wall_Back"]
+shape = SubResource("WorldBoundaryShape3D_vro1e")
+
+[node name="Wall_Left" type="StaticBody3D" parent="Walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, 0)
+collision_layer = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Walls/Wall_Left"]
+shape = SubResource("WorldBoundaryShape3D_eypcs")
+
+[node name="Wall_Right" type="StaticBody3D" parent="Walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 0, 0)
+collision_layer = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Walls/Wall_Right"]
+shape = SubResource("WorldBoundaryShape3D_1x7uu")
+
+[node name="Wall_Left_Angle" type="StaticBody3D" parent="Walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, 8.585743)
+collision_layer = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Walls/Wall_Left_Angle"]
+shape = SubResource("WorldBoundaryShape3D_lxnqq")
+
+[node name="Wall_Right_Angle" type="StaticBody3D" parent="Walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 0, 8.585743)
+collision_layer = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Walls/Wall_Right_Angle"]
+shape = SubResource("WorldBoundaryShape3D_gjbqx")
+
+[node name="SCREEN" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.955, 0.47172165)
 mesh = SubResource("PlaneMesh_0ox63")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.276012, 7.954848, -9.067088)
-mesh = SubResource("PlaneMesh_ra7us")
+[node name="VolleyBall" parent="." instance=ExtResource("5_ra7us")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.0293045, 0)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.655692, 18.383944)
+current = true
+fov = 70.0
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.7154977, 0.6986151, 0, -0.6986151, 0.7154977, 0, 5.918213, 6.6567383)
+directional_shadow_mode = 0
+
+[node name="Keeb" parent="." instance=ExtResource("6_vro1e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -6.0541754, -2.849927)
+visible = false

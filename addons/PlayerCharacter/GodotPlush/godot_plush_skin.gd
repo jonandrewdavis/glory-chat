@@ -15,7 +15,16 @@ signal waved
 
 func _ready():
 	set_ragdoll(ragdoll)
+	
+	apply_new_weights()
+	
+func apply_new_weights():
+	for child in %PhysicalBoneSimulator3D.get_children():
+		var bone: PhysicalBone3D = child
+		bone.mass = 0.01
 
+	$"GodotPlushModel/Rig/Skeleton3D/PhysicalBoneSimulator3D/Physical Bone DEF-hips".mass = 0.1
+	
 func set_ragdoll(value : bool) -> void:
 	#manage the ragdoll appliements to the model, to call when wanting to go in/out ragdoll mode
 	ragdoll = value

@@ -36,7 +36,7 @@ var immobile := false
 
 var input_jump := false
 var input_primary := false
-var input_secondary := false
+var input_shield := false
 var input_dir := 0.0
 var input_sprint := false
 
@@ -112,15 +112,15 @@ func _physics_process(delta: float) -> void:
 	if not immobile:
 		input_jump = Input.is_action_just_pressed("jump") 
 		input_primary = Input.is_action_pressed('primary')
-		input_secondary = Input.is_action_pressed('secondary')
+		input_shield = Input.is_action_pressed('shield')
 		input_dir = Input.get_axis("left", "right")	
-		input_sprint = Input.is_action_pressed('sprint')
+		#input_sprint = Input.is_action_pressed('sprint')
 	else:
 		input_jump = false	
 		input_primary = false
-		input_secondary = false
+		input_shield = false
 		input_dir = 0.0
-		input_sprint = false
+		#input_sprint = false
 
 	# Handle jump.
 	if input_jump and can_jump:
@@ -185,7 +185,7 @@ func _process(_delta: float) -> void:
 
 	if Input.is_action_just_released('primary') and can_shoot():
 		fire_arrow()
-	elif Input.is_action_just_pressed('secondary') and can_shoot() and can_block() and strength == 0.0:
+	elif input_shield and can_shoot() and can_block() and strength == 0.0:
 		block()
 	
 	if is_blocking:
@@ -289,6 +289,8 @@ func set_lobby_info(lobby):
 				%AnimatedSprite2D.modulate = Color(player_color)
 				%ArrowContainer.get_node('ArrowPolygon2D').color = Color(player_color)
 				%ShieldContainer.get_node('ShieldPolygon2D').color = Color(player_color)
+				grapple.get_node('Sprite2D').modulate = Color(player_color)
+				grapple.get_node('Line2D').modulate = Color(player_color)
 
 var prevent_damage := false
 
@@ -310,7 +312,7 @@ func proj_hit(body):
 
 			flash_sprite()
 			animated_sprite.play('hurt')
-			%HealthSystem._damage_sync(25, body.source)
+			%HealthSystem._damage_sync(35, body.source)
 			prevent_damage = true
 			%TimerPreventDamage.start()
 

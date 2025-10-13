@@ -23,11 +23,14 @@ func _ready() -> void:
 
 	torus_indicator.top_level = true
 	
-	if not is_multiplayer_authority():
-		set_process(false)
-		set_physics_process(false)
+	#if not is_multiplayer_authority():
+		#set_process(false)
+		#set_physics_process(false)
 
 func _process(_delta: float) -> void:
+	if Input.is_action_just_pressed("debug1"):
+		apply_central_force(Vector3.UP * 500.0)
+
 	move_ray_casts()
 	check_collision()
 
@@ -44,8 +47,8 @@ func check_collision():
 		
 	if shape_cast_floor.is_colliding() and is_serving == false:
 		var collision_obj = shape_cast_floor.get_collider(0)
-		print('[Debug]: Ball on floor: ', collision_obj)
-		serve_ball()
+		#print('[Debug]: Ball on floor: ', collision_obj)
+		#serve_ball()
 
 func serve_ball():
 	is_serving = true

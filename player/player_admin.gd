@@ -68,7 +68,11 @@ func _process(_delta):
 	elif Input.is_action_just_pressed("debug2"):
 		world.show_all()
 		world.show_all_modulate()
-
+	elif Input.is_action_just_pressed("debug3"):
+		var col: CollisionPolygon2D = %PointerHitbox.get_node("CollisionPolygon2D")
+		col.disabled = !col.disabled
+		%PointerHitbox.visible = !%PointerHitbox.visible
+		
 func _get_closest_player() -> PlayerSimple:
 	var players = get_tree().get_nodes_in_group('Players')
 	var dist = INF

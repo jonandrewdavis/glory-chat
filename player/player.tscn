@@ -263,8 +263,8 @@ colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_rgyib"]
 gradient = SubResource("Gradient_boad6")
-width = 10
-height = 10
+width = 8
+height = 8
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(1, 1)
@@ -950,6 +950,9 @@ properties/9/replication_mode = 2
 properties/10/path = NodePath("Grapple/Line2D:visible")
 properties/10/spawn = true
 properties/10/replication_mode = 2
+properties/11/path = NodePath("Grapple/Line2D:modulate")
+properties/11/spawn = true
+properties/11/replication_mode = 2
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_qjkh3"]
 properties/0/path = NodePath("ArrowContainer:visible")
@@ -1034,6 +1037,7 @@ points = PackedVector2Array(0, 0, 0, 0)
 width = 1.0
 
 [node name="Sprite2D" type="Sprite2D" parent="Grapple"]
+visible = false
 z_index = 2
 z_as_relative = false
 texture_filter = 1

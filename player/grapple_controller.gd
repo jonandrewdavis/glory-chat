@@ -16,6 +16,9 @@ func _ready():
 	if not is_multiplayer_authority():
 		set_process(false)
 		set_physics_process(false)
+		sprite_target.hide()
+	else:
+		sprite_target.show()
 
 func _process(delta):
 	

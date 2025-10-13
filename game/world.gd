@@ -32,7 +32,7 @@ func _ready() -> void:
 		add_player_to_game(multiplayer.get_unique_id(), true)
 	else:
 		add_player_to_game(multiplayer.get_unique_id())
-	
+
 func RTCServerConnected():
 	print("WORLD: rtc server connected")
 	
