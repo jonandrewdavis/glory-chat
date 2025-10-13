@@ -7,15 +7,14 @@ var hit_node: Node2D
 var hit_rotation: float
 var color := Color.WHITE
 
+var DEFAULT_GRAVITY_SCALE := 0.8
+
 func _ready() -> void:
 	add_to_group('Projectiles')
 	%Polygon2D.scale = Vector2(0.1, 0.1)
 	%Polygon2D.modulate = color
-	#gravity_scale = 0.5 TUNE UP gravity cause we lowered global gravity
-	gravity_scale = 0.8
 	set_collision_layer_value(2, true)
 	set_collision_mask_value(2, true)
-
 	$Timer.timeout.connect(destroy)
 
 func _process(_delta: float) -> void:

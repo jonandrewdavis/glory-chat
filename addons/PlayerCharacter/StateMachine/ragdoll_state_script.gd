@@ -61,11 +61,10 @@ func move(delta : float):
 	
 	if cR.move_dir and cR.is_on_floor():
 		#apply smooth move
-		var force_x = cR.move_dir.x * cR.move_speed * 2.0
-		var force_z = cR.move_dir.y * cR.move_speed * 2.0
+		var force_x = cR.move_dir.x * cR.move_speed * 1.2
+		var force_z = cR.move_dir.y * cR.move_speed * 1.2
 		#cR.plush
 		var center: PhysicalBone3D = cR.godot_plush_skin.center_body
 		#center.
 		center.apply_central_impulse(Vector3(force_x, 0.0, force_z ) * delta)
 		#center.linear_velocity = 
-		

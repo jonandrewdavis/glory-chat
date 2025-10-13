@@ -13,6 +13,7 @@ var current_speed = SPEED_MAX
 
 var arrow = preload('res://player/arrow.tscn')
 
+
 @export var health_system: HealthSystem
 
 @onready var window: Window = get_window()
@@ -42,10 +43,18 @@ var input_sprint := false
 
 var can_jump := false
 
+var strength := 0.0
+var strength_factor := 3.0
+var strength_max := 500.0
+var strength_min := 120.0
+var strength_perfect_multipler := 1.5
+var default_cooldown_time := 0.5
+
 func _enter_tree() -> void:
 	set_multiplayer_authority(name.to_int())
 
 func _ready():
+	
 	add_to_group('Players')
 	set_process(is_multiplayer_authority())
 	set_physics_process(is_multiplayer_authority())
@@ -71,6 +80,7 @@ func _ready():
 	%TimerCheckServer.timeout.connect(_check_server)
 	%TimerJump.timeout.connect(func(): can_jump = false)
 	%TimerCheckAFK.timeout.connect(make_afk)
+	%TimerCooldown.wait_time = default_cooldown_time
 	
 	%ShieldArea.set_collision_mask_value(2, true)
 	%ShieldArea.body_entered.connect(proj_reflect)
@@ -161,11 +171,6 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
-var strength = 0.0
-var strength_factor = 3.0
-var strength_max = 500.0
-
-var strength_perfect_multipler = 1.5
 
 func _process(_delta: float) -> void:
 	var mouse_direction = (get_global_mouse_position() - global_position).normalized()
@@ -212,6 +217,7 @@ func arrow_charge():
 	%ArrowContainer.show()
 	%ArrowContainer.look_at(get_viewport().get_mouse_position())
 
+var nerf = false
 
 func arrow_hide():
 	%ArrowProgressBar.hide()
@@ -224,17 +230,17 @@ func fire_arrow():
 	var proj_speed: float
 	if timer_perfect_low.time_left == 0.0 and timer_perfect_high.time_left != 0.0:
 		strength = strength * strength_perfect_multipler
-		proj_speed = clampf(strength, 0, strength_max * strength_perfect_multipler)
+		proj_speed = clampf(strength, strength_min, strength_max * strength_perfect_multipler)
 	else:
 		strength = strength * strength_perfect_multipler
-		proj_speed = clampf(strength, 0, strength_max)
+		proj_speed = clampf(strength, strength_min, strength_max)
 
 	# TODO: PackedByteArray to make this RPC super small
-	spawn_proj.rpc(position, target, proj_speed, name, player_color)
+	spawn_proj.rpc(position, target, proj_speed, name, player_color, nerf)
 	spawn_arrow_reset()
 
 @rpc('call_local')
-func spawn_proj(pos_start: Vector2, pos_target: Vector2, proj_speed: float, source: String, _player_color: Color):
+func spawn_proj(pos_start: Vector2, pos_target: Vector2, proj_speed: float, source: String, _player_color: Color, nerf_: bool = false):
 	if immobile: 
 		return
 
@@ -251,6 +257,8 @@ func spawn_proj(pos_start: Vector2, pos_target: Vector2, proj_speed: float, sour
 	new_proj.look_at(pos_target)
 	new_proj.linear_velocity = Vector2(direction * proj_speed)
 	new_proj.source = source
+	if nerf_:
+		new_proj.gravity_scale = 0.1
 	get_parent().add_child(new_proj, true)
 
 func spawn_arrow_reset():
@@ -284,6 +292,9 @@ func set_lobby_info(lobby):
 		if _player.id == name:
 			%LabelUsername.text = _player.username
 			# players set their own data only, the synchronizer broadcasts it on spawn 
+			if _player.username == 'TofuTheLoafu':
+				nerf_player()
+
 			if _player.metadata:
 				player_color = _player.metadata.color
 				%AnimatedSprite2D.modulate = Color(player_color)
@@ -443,3 +454,10 @@ func on_health_updated(next_health):
 func on_max_health_updated(new_max):
 	health_progress_bar.set_max_value(new_max)
 	health_progress_bar.set_bar_value(new_max)
+
+func nerf_player():
+	nerf = true
+	strength_factor = 1.5
+	strength_max = 100.0
+	strength_min = 0.0
+	%TimerCooldown.wait_time = default_cooldown_time * 1.8
