@@ -1029,7 +1029,6 @@ shape = SubResource("CapsuleShape2D_rkbax")
 script = ExtResource("3_boad6")
 
 [node name="RayCast2D" type="RayCast2D" parent="Grapple"]
-target_position = Vector2(200, 0)
 
 [node name="Line2D" type="Line2D" parent="Grapple"]
 z_index = -1
@@ -1043,6 +1042,10 @@ z_as_relative = false
 texture_filter = 1
 position = Vector2(0, -12)
 texture = SubResource("GradientTexture2D_rgyib")
+
+[node name="GrappleGraceTimer" type="Timer" parent="Grapple"]
+wait_time = 0.4
+one_shot = true
 
 [node name="TimerPerfectLow" type="Timer" parent="."]
 unique_name_in_owner = true

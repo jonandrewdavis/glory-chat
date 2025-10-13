@@ -49,12 +49,13 @@ position = Vector2(538, 547)
 shape = SubResource("WorldBoundaryShape2D_6xmxd")
 
 [node name="LimitRight" type="StaticBody2D" parent="Limits"]
+position = Vector2(15, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Limits/LimitRight"]
 shape = SubResource("WorldBoundaryShape2D_tcf2h")
 
 [node name="LimitLeft" type="StaticBody2D" parent="Limits"]
-position = Vector2(960, 0)
+position = Vector2(945, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Limits/LimitLeft"]
 shape = SubResource("WorldBoundaryShape2D_4717r")

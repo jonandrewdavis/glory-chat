@@ -11,17 +11,19 @@ var player_admin_new = preload('res://player/player_admin.tscn')
 @onready var tile_maps: Node2D = $TileMaps
 @onready var target_marker = $TargetMarker
 
+@onready var window: Window = get_window()
+
 signal signal_player_death(id)
 signal signal_player_kill(id)
 
 func _ready() -> void:
 	add_to_group('World')
-	get_window().borderless = true
 	if OS.is_debug_build():
-		pass
+		window.borderless = false
+		window.always_on_top = false
 	else:
-		get_window().set_mode(Window.MODE_MAXIMIZED)
-		get_window().borderless = true
+		window.set_mode(Window.MODE_MAXIMIZED)
+		window.borderless = true
 
 	multiplayer.connected_to_server.connect(RTCServerConnected)
 	multiplayer.peer_connected.connect(RTCPeerConnected)

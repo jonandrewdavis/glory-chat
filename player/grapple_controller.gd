@@ -1,18 +1,21 @@
 extends Node2D
 
-@export var rest_length = 5.0
-@export var stiffness = 11.0
-@export var damping = 0.05
+@export var ray_length := Vector2(250, 0)
+@export var rest_length := 25.0
+@export var stiffness := 11.0
+@export var damping := 0.2
 
 @onready var player := get_parent()
 @onready var ray := $RayCast2D
 @onready var rope := $Line2D
 @onready var sprite_target = $Sprite2D
+@onready var grapple_grace_timer = $GrappleGraceTimer
 
 var launched = false
 var target: Vector2
 
 func _ready():
+	ray.target_position = ray_length
 	if not is_multiplayer_authority():
 		set_process(false)
 		set_physics_process(false)
@@ -40,7 +43,6 @@ var last_sprite_pos: Vector2
 var tween_weight = 0.1
 
 func handle_sprite_target():		
-
 	if launched:
 		sprite_target.position = lerp(sprite_target.position, target, 0.3) 
 		return
@@ -54,6 +56,7 @@ func handle_sprite_target():
 			sprite_target.position = lerp(sprite_target.position, pos, 0.05) 
 		sprite_target.modulate.a = lerp(sprite_target.modulate.a, 1.0, tween_weight) 
 		last_sprite_pos = pos
+		grapple_grace_timer.start()
 	else:
 		if get_parent().position.distance_to(sprite_target.position) > 50.0:
 			sprite_target.position = lerp(sprite_target.position, last_sprite_pos, 0.3) 
@@ -61,10 +64,10 @@ func handle_sprite_target():
 		else:
 			sprite_target.position = lerp(sprite_target.position, last_sprite_pos, 0.1) 
 			sprite_target.modulate.a = lerp(sprite_target.modulate.a, 0.0, tween_weight) 
-
+		
 	if get_parent().strength > 0.0:
 		sprite_target.modulate.a = 0.0
-	
+
 	
 func launch():
 	if get_parent().strength > 0.0:
@@ -74,7 +77,11 @@ func launch():
 		launched = true
 		target = ray.get_collision_point()
 		rope.show()
-
+	elif not grapple_grace_timer.is_stopped():
+		launched = true
+		target = last_sprite_pos
+		rope.show()
+		
 func retract():
 	launched = false
 	rope.hide()
