@@ -77,7 +77,7 @@ func launch():
 		launched = true
 		target = ray.get_collision_point()
 		rope.show()
-	elif not grapple_grace_timer.is_stopped():
+	elif not grapple_grace_timer.is_stopped() and position.distance_to(last_sprite_pos) < 400.0:
 		launched = true
 		target = last_sprite_pos
 		rope.show()

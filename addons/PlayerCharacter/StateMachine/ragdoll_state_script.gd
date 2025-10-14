@@ -22,18 +22,21 @@ func verifications():
 	
 func apply_ragdoll():
 	#set model to ragdoll mode
+	cR.set_process(false)
+	cR.set_physics_process(false)
+	
 	cR.godot_plush_skin.ragdoll = true
 	
 func update(_delta : float):
 	check_if_ragdoll()
-	
+
 func physics_update(delta : float):
-	gravity_apply(delta)
-	
-	applies()
+	#gravity_apply(delta)
+	#applies()
 	
 	input_management()
 	move(delta)
+
 func check_if_ragdoll():
 	if !cR.godot_plush_skin.ragdoll:
 		transitioned.emit(self, "IdleState")
@@ -54,17 +57,30 @@ func input_management():
 		#otherwise
 		elif !cR.ragdoll_on_floor_only:
 			cR.godot_plush_skin.ragdoll = false
+
+		cR.velocity.x = 0.0
+		cR.velocity.z = 0.0
+		cR.set_process(true)
+		cR.set_physics_process(true)
+		cR.position = cR.godot_plush_skin.center_body.global_position + Vector3(0.0, 0.6, 0.0)
 	
 
 func move(delta : float):
 	cR.move_dir = Input.get_vector(cR.moveLeftAction, cR.moveRightAction, cR.moveForwardAction, cR.moveBackwardAction).rotated(-cR.cam_holder.global_rotation.y)
-	
+	var center: PhysicalBone3D = cR.godot_plush_skin.center_body
+
 	if cR.move_dir and cR.is_on_floor():
 		#apply smooth move
-		var force_x = cR.move_dir.x * cR.move_speed * 1.2
-		var force_z = cR.move_dir.y * cR.move_speed * 1.2
+		var force_x = cR.move_dir.x * cR.move_speed * 0.4
+		var force_z = cR.move_dir.y * cR.move_speed * 0.4
 		#cR.plush
-		var center: PhysicalBone3D = cR.godot_plush_skin.center_body
-		#center.
 		center.apply_central_impulse(Vector3(force_x, 0.0, force_z ) * delta)
-		#center.linear_velocity = 
+
+#func move(delta : float):
+	#
+	#cR.move_dir = Input.get_vector(cR.moveLeftAction, cR.moveRightAction, cR.moveForwardAction, cR.moveBackwardAction).rotated(-cR.cam_holder.global_rotation.y)
+	#
+	#if cR.move_dir and cR.is_on_floor():
+		##apply smooth move
+		#cR.velocity.x = lerp(cR.velocity.x, cR.move_dir.x * cR.move_speed, cR.move_accel * delta)
+		#cR.velocity.z = lerp(cR.velocity.z, cR.move_dir.y * cR.move_speed, cR.move_accel * delta)

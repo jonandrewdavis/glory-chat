@@ -1,0 +1,40 @@
+[gd_resource type="ShaderMaterial" load_steps=6 format=3 uid="uid://c5kwrnb6huwki"]
+
+[ext_resource type="Shader" uid="uid://b0rbsqimeajeg" path="res://game3d/water.gdshader" id="1_6sfgr"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_v35na"]
+noise_type = 3
+seed = 11
+fractal_octaves = 4
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_kbs5e"]
+noise = SubResource("FastNoiseLite_v35na")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_6k5o1"]
+noise_type = 3
+seed = 4
+fractal_octaves = 6
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_xv1lr"]
+noise = SubResource("FastNoiseLite_6k5o1")
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_6sfgr")
+shader_parameter/time_speed = 0.05
+shader_parameter/surface_speed = 0.05
+shader_parameter/spin = 0.0
+shader_parameter/brightness = 0.6
+shader_parameter/color_intensity = 0.0
+shader_parameter/horizontal_frequency = 2.0
+shader_parameter/vertical_frequency = 2.0
+shader_parameter/size = 3.0
+shader_parameter/banding_bias = 0.6
+shader_parameter/wave_texture = SubResource("NoiseTexture2D_xv1lr")
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_kbs5e")
+shader_parameter/wave_height = 0.5
+shader_parameter/texture_height = 0.5
+shader_parameter/color1 = Color(0.59, 0.761, 1, 1)
+shader_parameter/color2 = Color(0.274, 0.474, 0.98, 1)
+shader_parameter/color3 = Color(0.059, 0.389, 0.85, 1)
+shader_parameter/color4 = Color(0, 0.267, 1, 1)

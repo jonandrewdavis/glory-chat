@@ -53,10 +53,11 @@ func _input(event):
 	if Input.mouse_mode != Input.MOUSE_MODE_CAPTURED: return
 	
 	#change cam mode (default, aim)
-	if event.is_action_pressed(aim_cam_action):
-		cam_aimed = true
-	if event.is_action_released(aim_cam_action):
-		cam_aimed = false
+	if cam.current:
+		if event.is_action_pressed(aim_cam_action):
+			cam_aimed = true
+		elif event.is_action_released(aim_cam_action):
+			cam_aimed = false
 		
 	#change cam side when aimed (over left shoulder, or over right shoulder)
 	#if event.is_action_pressed("aim_cam_side"):

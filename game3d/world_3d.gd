@@ -7,6 +7,6 @@ func _ready() -> void:
 	window.always_on_top = false
 	window.transparent = false
 
-	#for wall in walls.get_children():
-		#wall.set_collision_layer(2, true)
-		
+	for child in walls.get_children():
+		var wall: StaticBody3D = child
+		wall.set_collision_layer_value(2, true)
