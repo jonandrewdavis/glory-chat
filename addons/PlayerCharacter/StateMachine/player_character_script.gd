@@ -82,7 +82,21 @@ var coyote_jump_on : bool = false
 @onready var jump_particles = preload("res://addons/PlayerCharacter/Vfx/jump_particles.tscn")
 @onready var land_particles = preload("res://addons/PlayerCharacter/Vfx/land_particles.tscn")
 
+var immobile := false
+
+func _enter_tree() -> void:
+	set_multiplayer_authority(name.to_int())
+
 func _ready():
+	add_to_group('Players')
+
+	if not is_multiplayer_authority():
+		set_process(false)
+		set_physics_process(false)
+
+	LobbySystem.signal_lobby_own_info.connect(set_lobby_info)
+	LobbySystem.lobby_get_own()
+	
 	#set move variables, and value references
 	move_speed = walk_speed
 	move_accel = walk_accel
@@ -98,14 +112,47 @@ func _ready():
 		foot_step_audio.play()
 		)
 		
+	#$MultiplayerSynchronizer.add_visibility_filter(_set_visibility_for_players)
+
+func _set_visibility_for_players(id):
+	if LobbySystem.lobby_local_data == null:
+		return false
+
+	if id == LobbySystem.host_peer_id:
+		return true
+
+	var id_to_track = str(id)
+	var result := false
+	for player in LobbySystem.lobby_local_data.players:
+		if player.id == id_to_track:
+			if player.metadata.current_game == '1':
+				result = true
+
+	return result
+
+
 func _process(delta: float):
 	modify_model_orientation(delta)
-	
 	display_properties()
+	
+	if immobile: 
+		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED: 
+			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	else:
+		if Input.mouse_mode == Input.MOUSE_MODE_VISIBLE: 
+			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	
+func set_lobby_info(lobby):
+	#%Nametag.horizontal_alignment = HorizontalAlignment.HORIZONTAL_ALIGNMENT_CENTER
+	#%Nametag.set_anchors_preset(Control.PRESET_CENTER_TOP)
+	for _player in lobby.players:
+		# player id matches the node name (peer id)
+		if _player.id == name:
+			%Nametag.text = _player.username
+
 	
 func _physics_process(_delta : float):
 	modify_physics_properties()
-	
 	move_and_slide()
 	
 func display_properties():
@@ -142,13 +189,14 @@ func modify_physics_properties():
 	last_frame_position = position #get play char position every frame
 	last_frame_velocity = velocity #get play char velocity every frame
 	was_on_floor = !is_on_floor() #get if play char is on floor or not
+
 	
 func gravity_apply(delta : float):
 	#if play char goes up, apply jump gravity
 	#otherwise, apply fall gravity
 	if velocity.y >= 0.0: velocity.y -= jump_gravity * delta
 	elif velocity.y < 0.0: velocity.y -= fall_gravity * delta
-	
+
 func squash_and_strech(value : float, timing : float):
 	#create a tween that simulate a compression of the model (squash and strech ones)
 	#maily used to accentuate game feel/juice
@@ -157,6 +205,5 @@ func squash_and_strech(value : float, timing : float):
 	sasTween.set_ease(Tween.EASE_OUT)
 	sasTween.tween_property(godot_plush_skin, "squash_and_stretch", value, timing)
 	sasTween.tween_property(godot_plush_skin, "squash_and_stretch", 1.0, timing * 1.8)
-	
 	
 	

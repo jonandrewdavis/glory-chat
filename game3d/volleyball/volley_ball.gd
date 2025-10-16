@@ -8,7 +8,6 @@ extends RigidBody3D
 var is_serving := false	
 
 func _ready() -> void:
-
 	set_collision_layer_value(1, false)
 	set_collision_mask_value(1, true)
 	set_collision_mask_value(2, true) # Paddle collision
@@ -22,14 +21,15 @@ func _ready() -> void:
 	shape_cast_floor.top_level = true
 
 	torus_indicator.top_level = true
-	
+
 	#if not is_multiplayer_authority():
 		#set_process(false)
 		#set_physics_process(false)
 
+
 func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("debug1"):
-		apply_central_force(Vector3.UP * 500.0)
+	#if Input.is_action_just_pressed("debug1"):
+		#apply_central_force(Vector3.UP * 500.0)
 
 	move_ray_casts()
 	check_collision()
@@ -45,8 +45,8 @@ func check_collision():
 		#print(ray_cast_down.is_colliding())
 		#print(ray_cast_down.get_collision_point())
 		
-	if shape_cast_floor.is_colliding() and is_serving == false:
-		var collision_obj = shape_cast_floor.get_collider(0)
+	#if shape_cast_floor.is_colliding() and is_serving == false:
+		#var collision_obj = shape_cast_floor.get_collider(0)
 		#print('[Debug]: Ball on floor: ', collision_obj)
 		#serve_ball()
 
@@ -61,11 +61,11 @@ func serve_ball():
 	is_serving = false
 	freeze = false
 
-func get_random_point_in_square(position: Vector2, size: Vector2) -> Vector2:
+func get_random_point_in_square(pos: Vector2, size: Vector2) -> Vector2:
 	# Generate a random X coordinate within the square's horizontal bounds
-	var random_x = randf_range(position.x, position.x + size.x)
+	var random_x = randf_range(pos.x, pos.x + size.x)
 	# Generate a random Y coordinate within the square's vertical bounds
-	var random_y = randf_range(position.y, position.y + size.y)
+	var random_y = randf_range(pos.y, pos.y + size.y)
 
 	return Vector2(random_x, random_y)
 	

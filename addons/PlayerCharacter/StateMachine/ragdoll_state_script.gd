@@ -3,14 +3,22 @@ extends State
 class_name RagdollState
 
 var state_name : String = "Ragdoll"
-
 var cR : CharacterBody3D
+
+var ragdoll_jump_active := false
+var ragdoll_jump_cooldown = Timer.new()
+
+func _ready():
+	ragdoll_jump_cooldown.wait_time = 1.0
+	ragdoll_jump_cooldown.one_shot = true
+	#ragdoll_jump_cooldown.timeout.connect(func(): ragdoll_jump_active = false)
+	add_child(ragdoll_jump_cooldown)
+	ragdoll_jump_cooldown.start()
 
 func enter(char_ref : CharacterBody3D):
 	cR = char_ref
 	
 	apply_ragdoll()
-	
 	verifications()
 	
 func verifications():
@@ -33,7 +41,6 @@ func update(_delta : float):
 func physics_update(delta : float):
 	#gravity_apply(delta)
 	#applies()
-	
 	input_management()
 	move(delta)
 
@@ -64,6 +71,11 @@ func input_management():
 		cR.set_physics_process(true)
 		cR.position = cR.godot_plush_skin.center_body.global_position + Vector3(0.0, 0.6, 0.0)
 	
+	if Input.is_action_just_pressed(cR.jumpAction): 
+		if ragdoll_jump_active == false and ragdoll_jump_cooldown.is_stopped():
+			# only allow jump below a certain altitude.
+			if cR.godot_plush_skin.center_body.global_position.y < 2.0:
+				ragdoll_jump_active = true
 
 func move(delta : float):
 	cR.move_dir = Input.get_vector(cR.moveLeftAction, cR.moveRightAction, cR.moveForwardAction, cR.moveBackwardAction).rotated(-cR.cam_holder.global_rotation.y)
@@ -73,8 +85,14 @@ func move(delta : float):
 		#apply smooth move
 		var force_x = cR.move_dir.x * cR.move_speed * 0.4
 		var force_z = cR.move_dir.y * cR.move_speed * 0.4
+		var force_y = 0.0
 		#cR.plush
-		center.apply_central_impulse(Vector3(force_x, 0.0, force_z ) * delta)
+		if ragdoll_jump_active: 
+			force_y = 50.0
+			ragdoll_jump_active = false
+			ragdoll_jump_cooldown.start()
+
+		center.apply_central_impulse(Vector3(force_x, force_y, force_z ) * delta)
 
 #func move(delta : float):
 	#

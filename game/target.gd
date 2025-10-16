@@ -19,7 +19,7 @@ func _ready() -> void:
 
 func _on_body_entered(body: Node) -> void:
 	if body.is_in_group('Projectiles'):
-		var world: World = get_tree().get_first_node_in_group('World')
+		var world: World = get_tree().get_first_node_in_group("World")
 		world.broadcast_player_kill(body.source)		
 		queue_free()
 		body.queue_free()

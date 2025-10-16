@@ -7,6 +7,8 @@ extends Node3D
 
 @onready var center_body: PhysicalBone3D  = $"GodotPlushModel/Rig/Skeleton3D/PhysicalBoneSimulator3D/Physical Bone DEF-hips"
 
+@onready var cR: CharacterBody3D = get_parent().get_parent()
+
 var ragdoll : bool = false : set = set_ragdoll
 var squash_and_stretch = 1.0 : set = set_squash_and_stretch
 
@@ -15,15 +17,40 @@ signal waved
 
 func _ready():
 	set_ragdoll(ragdoll)
-	
-	apply_new_weights()
-	
+	if is_multiplayer_authority():
+		apply_new_weights()
+		set_process(false)
+
+	#else:
+		##apply_no_weights()
+		#set_process(true)
+
 func apply_new_weights():
 	for child in %PhysicalBoneSimulator3D.get_children():
 		var bone: PhysicalBone3D = child
 		bone.mass = 0.01
+
 	center_body.mass = 0.1
-	
+
+#func _process(delta): 
+	#for child in %PhysicalBoneSimulator3D.get_children():
+		#var bone: PhysicalBone3D = child
+		#if bone.name != 'Physical Bone DEF-hips':
+			#bone.global_position = center_body.global_position
+			#
+func apply_no_weights():
+	for child in %PhysicalBoneSimulator3D.get_children():
+		var bone: PhysicalBone3D = child
+		bone.get_node('CollisionShape3D').disabled = true
+
+		#bone.gravity_scale = 0.01
+		#bone.friction  = 0.0
+		#bone.mass = 5.0
+		##bone.angular_damp = 50.0
+		##bone.angular_damp_mode = PhysicalBone3D.DAMP_MODE_REPLACE
+		##bone.linear_damp = 50.0
+		##bone.linear_damp_mode = PhysicalBone3D.DAMP_MODE_REPLACE
+
 func set_ragdoll(value : bool) -> void:
 	#manage the ragdoll appliements to the model, to call when wanting to go in/out ragdoll mode
 	ragdoll = value
@@ -35,8 +62,34 @@ func set_ragdoll(value : bool) -> void:
 	else: 
 		physical_bone_simulator_3d.physical_bones_stop_simulation()
 	
+	if is_multiplayer_authority():
+		sync_set_ragdoll.rpc(value)
+
+@rpc('call_remote', 'authority')
+func sync_set_ragdoll(value):
+	#ragdoll = value
+	if !is_inside_tree(): return
+	physical_bone_simulator_3d.active = value
+	animation_tree.active = !value
+	if value: 
+		physical_bone_simulator_3d.physical_bones_start_simulation()
+		cR.set_physics_process(true)
+	else: 
+		physical_bone_simulator_3d.physical_bones_stop_simulation()
+		cR.set_physics_process(false)
+
+# This is a cool trick.
+# Calling an RPC to other machines but only effecting my puppet.
+# I am authority, I'm the only one calling set_state()
+# I remote out, with authority, calling on the node matching myself.
 func set_state(state_name : String) -> void:
 	#set current state of the model state machine (which manage the differents animations)
+	state_machine.travel(state_name)
+	if is_multiplayer_authority():
+		sync_set_state.rpc(state_name)
+
+@rpc('call_remote', 'authority')
+func sync_set_state(state_name):
 	state_machine.travel(state_name)
 	
 func set_squash_and_stretch(value : float) -> void:

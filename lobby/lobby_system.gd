@@ -71,6 +71,7 @@ var current_username = ''
 var use_turn_server = false
 
 var host_peer_id: int
+var lobby_local_data = null
 
 func _ready():
 	set_process(false)
@@ -84,7 +85,9 @@ func _ready():
 	signal_lobby_game_started.connect(_listen_for_connections_finished)
 	signal_lobby_game_started.connect(_listen_for_connections_finished_cancel)
 	LobbySystem.signal_lobby_joined.connect(func(lobby): if lobby: LobbySystem.host_peer_id = int(lobby.players[0].id))
-
+	
+	# NOTE: Save a local copy to decide how to mount worlds in main
+	LobbySystem.signal_lobby_changed.connect(func(lobby): lobby_local_data = lobby)
 
 func _process(_delta):
 	ws_peer.poll()
@@ -239,7 +242,6 @@ func user_disconnect():
 	signal_client_disconnected.emit()
 
 func lobby_create(customOptions: Dictionary = {}):
-	print(customOptions)
 	_ws_send_action(ACTION.CreateLobby, customOptions)
 
 func lobby_join(id: String):

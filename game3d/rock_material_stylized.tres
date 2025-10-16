@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://b8vprgkwm0pvy"]
+
+[ext_resource type="Texture2D" uid="uid://c5hphomqqc5hy" path="res://assets/environment/StylizedFreeRocks_FBX/Rocks_lp_SM_Nature_Rock_01_BaseColor.png" id="1_f2sny"]
+[ext_resource type="Texture2D" uid="uid://bmk2rleppvv2n" path="res://assets/environment/StylizedFreeRocks_FBX/Rocks_lp_SM_Rock_01_Normal.png" id="2_lou1x"]
+
+[resource]
+albedo_texture = ExtResource("1_f2sny")
+metallic_specular = 0.0
+normal_enabled = true
+normal_texture = ExtResource("2_lou1x")

@@ -9,6 +9,11 @@ var states : Dictionary = {}
 @onready var char_ref : CharacterBody3D = $".."
 
 func _ready():
+	if not is_multiplayer_authority():
+		set_process(false)
+		set_physics_process(false)
+		return
+
 	#get all the state childrens
 	for child in get_children():
 		if child is State:
@@ -23,9 +28,12 @@ func _ready():
 		curr_state_name = curr_state.state_name
 		
 func _process(delta : float):
+	# NOTE: Added
+	if get_parent().immobile: return
 	if curr_state: curr_state.update(delta)
 	
 func _physics_process(delta: float):
+	if get_parent().immobile: return
 	if curr_state: curr_state.physics_update(delta)
 	
 func on_state_child_transition(state : State, new_state_name : String):

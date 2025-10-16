@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://c4vv1dere8bc0"]
+[gd_scene load_steps=12 format=3 uid="uid://c4vv1dere8bc0"]
 
 [ext_resource type="Script" uid="uid://4lpcaea3woer" path="res://game3d/volleyball/volley_ball.gd" id="1_uvwyt"]
+[ext_resource type="Material" uid="uid://siw2mfky1otl" path="res://addons/Arts/Materials/blue_mat.tres" id="2_vfvnd"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_6kpcp"]
 radius = 1.5
@@ -17,9 +18,25 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(1, 1)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vfvnd"]
+render_priority = 1
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 1)
+grow = true
+grow_amount = 0.03
+stencil_mode = 3
+stencil_flags = 1
+stencil_compare = 5
+metadata/_stencil_owned = true
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x3xoj"]
+next_pass = SubResource("StandardMaterial3D_vfvnd")
 albedo_texture = SubResource("GradientTexture2D_c8opw")
 albedo_texture_force_srgb = true
+stencil_mode = 1
+stencil_flags = 2
+stencil_outline_thickness = 0.03
 
 [sub_resource type="SphereMesh" id="SphereMesh_6kpcp"]
 material = SubResource("StandardMaterial3D_x3xoj")
@@ -27,6 +44,7 @@ radius = 1.5
 height = 3.0
 
 [sub_resource type="TorusMesh" id="TorusMesh_uvwyt"]
+material = ExtResource("2_vfvnd")
 inner_radius = 0.8
 outer_radius = 1.2
 

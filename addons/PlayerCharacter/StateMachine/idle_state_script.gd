@@ -30,8 +30,7 @@ func physics_update(delta : float):
 	
 	cR.gravity_apply(delta)
 	
-	input_management()
-	
+	input_management()	
 	move(delta)
 	
 func check_if_floor():

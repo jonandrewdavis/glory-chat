@@ -1,6 +1,7 @@
 extends SpringArm3D
 
-var active : bool = true : set = set_active
+# AD NOTE: changed to false by default.
+var active : bool = false : set = set_active
 
 @export_group("Camera variables")
 @export_range(0.0, 0.1, 0.0001) var mouse_sens : float
@@ -42,6 +43,10 @@ func set_active(state : bool):
 	set_process(active)
 
 func _input(event):
+	# NOTE: Added for our static cam game.
+	if not cam.current:
+		return	
+
 	#free/capture mouse cursor
 	if event.is_action_pressed(mouse_mode_action):
 		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED: 
@@ -53,12 +58,11 @@ func _input(event):
 	if Input.mouse_mode != Input.MOUSE_MODE_CAPTURED: return
 	
 	#change cam mode (default, aim)
-	if cam.current:
-		if event.is_action_pressed(aim_cam_action):
-			cam_aimed = true
-		elif event.is_action_released(aim_cam_action):
-			cam_aimed = false
-		
+	if event.is_action_pressed(aim_cam_action):
+		cam_aimed = true
+	elif event.is_action_released(aim_cam_action):
+		cam_aimed = false
+	
 	#change cam side when aimed (over left shoulder, or over right shoulder)
 	#if event.is_action_pressed("aim_cam_side"):
 		#aim_cam_pos_side = !aim_cam_pos_side

@@ -2,10 +2,9 @@ extends CanvasLayer
 
 class_name PlayerUI
 
-@export var player: Node2D
+@export var player: Node
 
 var world: World 
-
 
 func _ready() -> void:
 	if not is_multiplayer_authority():
@@ -23,6 +22,8 @@ func _ready() -> void:
 	LobbySystem.signal_lobby_own_info.connect(_render_own_lobby_info)
 	multiplayer.peer_disconnected.connect(_render_remove_player_info)	
 	
+	LobbySystem.lobby_get_own()
+
 	if player.is_in_group('Players'):
 		player.health_system.hurt.connect(_on_hurt)
 
@@ -30,6 +31,16 @@ func _ready() -> void:
 	if world:
 		world.signal_player_death.connect(add_death_to_player)
 		world.signal_player_kill.connect(add_kill_to_player)
+	
+	%OptionGamePicker.item_selected.connect(update_game_picker)
+	if not OS.has_feature('admin'):
+		%OptionGamePicker.hide()
+		
+
+# BROADCAST A BIG ASS CHANGE WORLD.
+func update_game_picker(opt):
+	if LobbySystem._is_web_socket_connected():
+		get_tree().current_scene.broadcast_change_world.rpc(opt)
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed('menu') and %Menu.visible:
@@ -83,10 +94,15 @@ func _render_lobby_chat_fade():
 	tween.kill()
 
 # TODO: Would be nice to have some type saftey on this
+
+# TODO: Render what world players are in.
 func _render_own_lobby_info(lobby):
 	# TODO: We clear the scoreboard if new players join.
 	# We could make a list of not present Ids and just add those instead.
 	for _player in lobby.players:
+		if _player.id == str(multiplayer.get_unique_id()):
+			_render_game_picker(_player.metadata.current_game)
+
 		if not %LobbyScoreboard.get_node_or_null(_player.id):
 			var new_player_item = Instantiate.scene(PlayerInfoItem)
 			new_player_item.name = _player.id 
@@ -96,6 +112,9 @@ func _render_own_lobby_info(lobby):
 			# it exists. we might need to update the color though.
 			var player_to_update = %LobbyScoreboard.get_node_or_null(_player.id)
 			player_to_update.update_color(_player.metadata.color)
+
+func _render_game_picker(option: String):
+	%OptionGamePicker.selected = option.to_int()
 
 func _render_remove_player_info(id: int):
 	var player_info_item_to_remove =  %LobbyScoreboard.get_node_or_null(str(id))

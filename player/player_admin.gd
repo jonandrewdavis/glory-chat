@@ -8,7 +8,7 @@ const JUMP_VELOCITY = -400.0
 var target_scene = preload('res://game/target.tscn')
 
 @onready var window = get_window()
-@onready var world: World = get_tree().get_first_node_in_group('World')
+@onready var world: World = get_tree().get_first_node_in_group("World")
 
 var current_player_picked_up: PlayerSimple
 var is_game_focused := false
@@ -16,10 +16,11 @@ var is_game_focused := false
 var immobile := false
 
 func _enter_tree() -> void:
+	
 	set_multiplayer_authority(name.to_int())
 
 func _ready():
-	add_to_group('PlayerAdmin')
+	add_to_group("PlayerAdmin")
 
 	%PointerHitbox.body_entered.connect(proj_hit)
 	%PointerHitbox.set_collision_layer_value(2, true)
@@ -34,6 +35,22 @@ func _ready():
 		%TimerSpawnTarget.wait_time = 5.0
 		%TimerSpawnTarget.timeout.connect(_create_new_target)
 		%TimerSpawnTarget.start()
+		
+	#$MultiplayerSynchronizer.add_visibility_filter(_set_visibility_for_players)
+	#multiplayer.peer_connected.connect(func(id): $MultiplayerSynchronizer.update_visibility(id))
+
+func _set_visibility_for_players(id):
+	if LobbySystem.lobby_local_data == null:
+		return false
+
+	var id_to_track = str(id)
+	var result := false
+	for player in LobbySystem.lobby_local_data.players:
+		if player.id == id_to_track:
+			if player.metadata.current_game == '0':
+				result = true
+
+	return result
 
 func _physics_process(_delta: float) -> void:
 	var target : Vector2 = get_viewport().get_mouse_position()
@@ -53,7 +70,6 @@ func _process(_delta):
 			current_player_picked_up.get_dropped.rpc()
 			current_player_picked_up = null
 	elif Input.is_action_just_pressed('secondary'):
-		print(_get_closest_platform())
 		pass
 	elif Input.is_action_just_pressed("toggle_game") and window.mouse_passthrough:
 		world.show_all()

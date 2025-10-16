@@ -9,13 +9,15 @@ var current_lobby_code: String
 var LOBBY_CUSTOM_ID = 'glory-chat'
 var host_peer_id: int
 
+var current_game: String = '0'
+
 func _ready() -> void:
 	# Always hide code
 	if not OS.has_feature('admin'):
 		_hide_admin_features()
 	elif OS.has_feature('admin'): 
 		_hide_joiner_features()
-
+	
 	%ColumnQuickConnect.custom_minimum_size.x = 425.0
 	%ColumnLobby.hide()
 
@@ -45,13 +47,18 @@ func _ready() -> void:
 	
 	if OS.has_feature('admin'):
 		LobbySystem.signal_lobby_changed.connect(_render_current_lobby_view)
-	
+	else:
+		%OptionGamePicker.hide()
+
+	LobbySystem.signal_client_connection_confirmed.connect(_confirm_choices)
 	LobbySystem.signal_client_disconnected.connect(func(): _render_connection_light(false))
 	LobbySystem.signal_packet_parsed.connect(func(_packet): _render_connection_light(true))
 	# DEBUG:
 	#LobbySystem.signal_packet_parsed.connect(func(packet): print('DEBUG: ', packet))
 	# Admin / Host detection
 	LobbySystem.signal_lobby_joined.connect(func(lobby): if lobby == null: show_error_message())
+
+	%OptionGamePicker.item_selected.connect(update_game_picker)
 
 
 func show_error_message():
@@ -74,7 +81,7 @@ func _quick_join():
 	await get_tree().create_timer(1.0).timeout 
 	
 	if OS.is_debug_build():
-		LOBBY_CUSTOM_ID = 'glory-chat'
+		LOBBY_CUSTOM_ID = 'glory-chat-debug'
 	# NOTE: hardcoded 
 	LobbySystem.lobby_join(LOBBY_CUSTOM_ID.rstrip(" "))
 
@@ -86,7 +93,7 @@ func _quick_host():
 	await get_tree().create_timer(1.0).timeout 
 	#LobbySystem.lobby_create()
 	if OS.is_debug_build():
-		LOBBY_CUSTOM_ID = 'glory-chat'
+		LOBBY_CUSTOM_ID = 'glory-chat-debug'
 
 	LobbySystem.lobby_create({
 		'isPublic': false,
@@ -131,3 +138,11 @@ func _render_connection_light(is_user_connected: bool = false):
 		%LabelError.hide()	
 		await get_tree().create_timer(0.08).timeout
 		%ConnectionLight.modulate = Color.GREEN
+
+func update_game_picker(opt):
+	current_game = str(opt)
+	if LobbySystem._is_web_socket_connected():
+		LobbySystem.user_update_info({ "current_game": str(opt)})
+
+func _confirm_choices(_id):
+	LobbySystem.user_update_info({ "current_game": current_game})

@@ -17,7 +17,7 @@ var arrow = preload('res://player/arrow.tscn')
 @export var health_system: HealthSystem
 
 @onready var window: Window = get_window()
-@onready var world: World = get_tree().get_first_node_in_group('World')
+@onready var world: World = get_tree().get_first_node_in_group("World")
 @onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var nameplate: Label = %LabelUsername
 @onready var player_ui: PlayerUI = $PlayerUI
@@ -54,7 +54,6 @@ func _enter_tree() -> void:
 	set_multiplayer_authority(name.to_int())
 
 func _ready():
-	
 	add_to_group('Players')
 	set_process(is_multiplayer_authority())
 	set_physics_process(is_multiplayer_authority())
@@ -95,6 +94,28 @@ func _ready():
 		health_system.max_health_updated.connect(on_max_health_updated)
 		window.focus_entered.connect(_on_window_focus_enter)
 		window.focus_exited.connect(_on_window_focus_exit)
+
+	#if not OS.has_feature('admin'):
+		#multiplayer.peer_connected.connect(func(id): $MultiplayerSynchronizer.update_visibility(id))
+		#$MultiplayerSynchronizer.add_visibility_filter(_set_visibility_for_players)
+		#$MultiplayerSynchronizerWeapons.add_visibility_filter(_set_visibility_for_players)
+
+func _set_visibility_for_players(id):
+	if LobbySystem.lobby_local_data == null:
+		return false
+
+	if id == LobbySystem.host_peer_id:
+		return true
+
+	var id_to_track = str(id)
+	var result := false
+	for player in LobbySystem.lobby_local_data.players:
+		if player.id == id_to_track:
+			if player.metadata.current_game == '0':
+				result = true
+
+	return result
+
 
 func _physics_process(delta: float) -> void:
 	if is_picked_up:
