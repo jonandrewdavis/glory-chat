@@ -1507,28 +1507,28 @@ script = ExtResource("1_3jn4j")
 [node name="GodotPlushModel" parent="." instance=ExtResource("1_u1eck")]
 
 [node name="Skeleton3D" parent="GodotPlushModel/Rig" index="0"]
-bones/0/position = Vector3(0, 0.7848175, 0)
-bones/0/rotation = Quaternion(0.9963592, 0.009116219, -0.084761985, -0.0007747964)
-bones/1/position = Vector3(-1.3580028e-16, 5.96046e-08, -2.6066007e-15)
-bones/1/rotation = Quaternion(1, 1.02345085e-16, 9.920953e-10, -4.3711402e-08)
-bones/2/rotation = Quaternion(0.07915343, -0.13624501, 0.92927516, -0.3340954)
-bones/3/rotation = Quaternion(0.22076976, 0.014827522, -0.003343225, 0.97520757)
-bones/5/rotation = Quaternion(0.02658235, 0.069255404, 0.9377991, 0.33916062)
-bones/6/rotation = Quaternion(0.17901611, 0.014951378, -0.0027342555, 0.9837288)
-bones/8/rotation = Quaternion(-0.07827867, -0.0031617687, -0.0451045, 0.9959057)
-bones/9/position = Vector3(1.1839672e-08, 0.15264244, -1.0644216e-08)
-bones/9/rotation = Quaternion(0.20350291, -0.20586514, 0.043789934, 0.9561844)
-bones/10/position = Vector3(8.15124e-09, 0.20648488, 8.254755e-09)
-bones/10/rotation = Quaternion(-0.50628847, 0.07393739, 0.0405889, 0.8582294)
-bones/11/position = Vector3(-1.6055143e-08, 0.251212, 5.0849494e-09)
-bones/11/rotation = Quaternion(-0.00010226632, 0.93246746, -0.36125407, 4.6136905e-05)
-bones/12/rotation = Quaternion(0.028543252, 0.0025279028, 0.03981372, 0.99879616)
-bones/13/position = Vector3(-1.6927366e-08, 0.15299241, 7.1563795e-09)
-bones/13/rotation = Quaternion(0.17201115, 0.20384374, -0.036421135, 0.9630854)
-bones/14/position = Vector3(-6.858887e-09, 0.20684429, -3.0645744e-09)
-bones/14/rotation = Quaternion(-0.56381553, 0.09909492, -0.017871229, 0.8197396)
-bones/15/position = Vector3(-3.1691904e-08, 0.251207, -3.2568234e-08)
-bones/15/rotation = Quaternion(-3.3821183e-05, 0.932472, -0.36124238, 0.00028023226)
+bones/0/position = Vector3(0, 0.78001773, 0)
+bones/0/rotation = Quaternion(0.99996436, 0.0072336746, 0.0043557547, 2.7657818e-05)
+bones/1/position = Vector3(-1.711388e-16, 5.96046e-08, -2.6062801e-15)
+bones/1/rotation = Quaternion(1, 7.36745e-17, 9.920953e-10, -4.37114e-08)
+bones/2/rotation = Quaternion(-0.04626676, 0.107266776, 0.93330663, -0.33954674)
+bones/3/rotation = Quaternion(0.30487174, -0.019923612, 0.0063781836, 0.9521637)
+bones/5/rotation = Quaternion(-0.09842192, -0.17394029, 0.9216429, 0.33261448)
+bones/6/rotation = Quaternion(0.09261025, -0.020830058, 0.0019388633, 0.9954826)
+bones/8/rotation = Quaternion(-0.038635142, -0.0028985776, -0.04117613, 0.9984005)
+bones/9/position = Vector3(4.9358206e-09, 0.15246853, -9.78072e-09)
+bones/9/rotation = Quaternion(0.22042346, -0.20371598, 0.04710806, 0.95272994)
+bones/10/position = Vector3(4.512446e-08, 0.20630586, 1.3394093e-08)
+bones/10/rotation = Quaternion(-0.5542038, -0.014359313, 0.025631538, 0.8318624)
+bones/11/position = Vector3(-1.6836815e-08, 0.251212, 1.1964829e-10)
+bones/11/rotation = Quaternion(-9.8157994e-05, 0.9324716, -0.36124334, 4.454155e-05)
+bones/12/rotation = Quaternion(-0.07198013, 0.0052383738, 0.08027613, 0.99415654)
+bones/13/position = Vector3(-2.4817245e-08, 0.15198255, -3.431166e-09)
+bones/13/rotation = Quaternion(0.27317634, 0.19436191, -0.056471854, 0.9404302)
+bones/14/position = Vector3(-1.7215939e-08, 0.20580088, -7.95518e-09)
+bones/14/rotation = Quaternion(-0.56660175, 0.009250828, -0.036777087, 0.82311875)
+bones/15/position = Vector3(-3.4939095e-08, 0.251207, -3.3338615e-08)
+bones/15/rotation = Quaternion(-2.828547e-05, 0.93246794, -0.36125278, 0.0002781214)
 
 [node name="GodotPlushMesh" parent="GodotPlushModel/Rig/Skeleton3D" index="0"]
 surface_material_override/0 = ExtResource("3_ky0v5")
@@ -1540,11 +1540,11 @@ unique_name_in_owner = true
 active = false
 
 [node name="Physical Bone DEF-hips" type="PhysicalBone3D" parent="GodotPlushModel/Rig/Skeleton3D/PhysicalBoneSimulator3D"]
-transform = Transform3D(0.9485574, 0.018230062, -0.31607997, 0.018573971, -0.9998256, -0.0019248448, -0.31605998, -0.0040450348, -0.9487306, 0.0002980263, 0.75503945, -5.1861753e-05)
+transform = Transform3D(0.9492442, 0.023489714, -0.31366178, 0.023840116, -0.9997121, -0.0027190407, -0.31363532, -0.0048966995, -0.9495309, 0.00042059598, 0.7614998, -7.204861e-05)
 collision_mask = 2
 joint_type = 2
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00013405019, -0.023321126, 1.1079909e-07)
-body_offset = Transform3D(0.9888535, 0.005683158, -0.1487834, -0.0057478417, 0.99998343, -4.762551e-06, 0.14878097, 0.00085989316, 0.98886997, -1.8626451e-09, 0.02332151, -5.0590643e-12)
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00013405073, -0.023321189, 1.1081189e-07)
+body_offset = Transform3D(0.98885345, 0.005683165, -0.14878349, -0.00574784, 0.99998325, -4.763482e-06, 0.14878096, 0.0008598943, 0.9888696, -1.8626451e-09, 0.023321569, -1.3528734e-11)
 mass = 0.1
 bone_name = "DEF-hips"
 joint_constraints/swing_span = 45.0
@@ -1558,11 +1558,11 @@ transform = Transform3D(0.978128, -0.020045, 0.207034, 0.0205498, 0.999789, -0.0
 shape = SubResource("SphereShape3D_fqmv7")
 
 [node name="Physical Bone DEF-upper_arm_L" type="PhysicalBone3D" parent="GodotPlushModel/Rig/Skeleton3D/PhysicalBoneSimulator3D"]
-transform = Transform3D(-0.7342894, 0.6787142, 0.012891356, -0.51845664, -0.57296586, 0.63475424, 0.43820298, 0.45940965, 0.7726066, 0.46765542, 0.7554625, -0.21781473)
+transform = Transform3D(-0.76244247, 0.64415216, -0.061233968, -0.4988777, -0.5249347, 0.6896119, 0.41207123, 0.5563377, 0.72158563, 0.47954994, 0.75459796, -0.21551877)
 collision_mask = 2
 joint_type = 2
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0033007376, 0.059244797, 0.13325518)
-body_offset = Transform3D(0.9607509, -0.02555313, -0.27623385, -0.22461016, 0.51275283, -0.8286346, 0.16281399, 0.8581562, 0.48688814, 0.041494668, 0.07930054, -0.11518425)
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0033007115, 0.0592448, 0.13325527)
+body_offset = Transform3D(0.9607508, -0.02555342, -0.27623373, -0.22461021, 0.5127528, -0.8286342, 0.16281396, 0.85815585, 0.486888, 0.041494668, 0.07930057, -0.115184255)
 mass = 0.1
 bone_name = "DEF-upper_arm.L"
 joint_constraints/swing_span = 45.0
@@ -1576,11 +1576,11 @@ transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_qq6dy")
 
 [node name="Physical Bone DEF-forearm_L" type="PhysicalBone3D" parent="GodotPlushModel/Rig/Skeleton3D/PhysicalBoneSimulator3D"]
-transform = Transform3D(-0.82458645, 0.49871948, -0.26708838, -0.4502244, -0.2926106, 0.8436096, 0.34257168, 0.8158786, 0.46581835, 0.5035418, 0.631967, -0.32923865)
+transform = Transform3D(-0.84860355, 0.40229076, -0.34356105, -0.43495518, -0.16088414, 0.88596296, 0.30114117, 0.90126497, 0.3115053, 0.5335181, 0.6128953, -0.31137902)
 collision_mask = 2
 joint_type = 2
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.046674285, 0.15596944, 0.10542463)
-body_offset = Transform3D(0.9606856, -0.054916814, -0.27215344, -0.22742687, 0.40659454, -0.88484937, 0.15924926, 0.91195697, 0.37811986, 0.08209634, 0.019253597, -0.17466772)
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.046674266, 0.1559695, 0.105424665)
+body_offset = Transform3D(0.96068573, -0.054917097, -0.2721531, -0.22742692, 0.40659446, -0.88484913, 0.15924929, 0.9119567, 0.37811965, 0.08209634, 0.019253612, -0.17466773)
 mass = 0.1
 bone_name = "DEF-forearm.L"
 joint_constraints/swing_span = 45.0
@@ -1594,11 +1594,11 @@ transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, -0.08)
 shape = SubResource("CapsuleShape3D_0kgrp")
 
 [node name="Physical Bone DEF-upper_arm_R" type="PhysicalBone3D" parent="GodotPlushModel/Rig/Skeleton3D/PhysicalBoneSimulator3D"]
-transform = Transform3D(-0.7973505, 0.5967852, 0.089887016, 0.47445697, 0.5278001, 0.70449823, 0.37299174, 0.60437953, -0.7039905, -0.47658545, 0.73410517, 0.21455279)
+transform = Transform3D(-0.82613117, 0.54393274, 0.14712082, 0.44812202, 0.4759286, 0.75675535, 0.34160498, 0.6911073, -0.63692766, -0.4873383, 0.72801274, 0.21072784)
 collision_mask = 2
 joint_type = 2
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.010516128, -0.065473914, 0.12744442)
-body_offset = Transform3D(0.96115506, -0.027168527, 0.27466962, 0.22255367, -0.5123141, -0.82946014, 0.16325238, 0.85836846, -0.48636687, -0.04689157, 0.069826454, 0.116468705)
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.010516189, -0.06547396, 0.12744448)
+body_offset = Transform3D(0.961155, -0.027168877, 0.27466935, 0.22255364, -0.5123141, -0.8294601, 0.16325234, 0.8583682, -0.48636657, -0.04689163, 0.069826454, 0.116468705)
 mass = 0.1
 bone_name = "DEF-upper_arm.R"
 joint_constraints/swing_span = 45.0
@@ -1612,11 +1612,11 @@ transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_x2ohk")
 
 [node name="Physical Bone DEF-forearm_R" type="PhysicalBone3D" parent="GodotPlushModel/Rig/Skeleton3D/PhysicalBoneSimulator3D"]
-transform = Transform3D(-0.80972064, 0.495625, -0.31417897, 0.47823632, 0.8676145, 0.13614397, 0.3400626, -0.040013216, -0.9395512, -0.44884336, 0.6996255, 0.31578034)
+transform = Transform3D(-0.8411025, 0.5019715, -0.20142299, 0.44364196, 0.85330045, 0.27397114, 0.30940002, 0.14107813, -0.9404087, -0.4741584, 0.67216307, 0.31556332)
 collision_mask = 2
 joint_type = 2
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.05391854, -0.08954692, 0.20419523)
-body_offset = Transform3D(0.9611795, 0.15604758, 0.22756106, 0.2675922, -0.728323, -0.6308249, 0.067299396, 0.6672292, -0.74180603, -0.0843187, 0.049164176, 0.20759287)
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0539185, -0.08954693, 0.20419528)
+body_offset = Transform3D(0.9611794, 0.15604709, 0.227561, 0.2675922, -0.7283231, -0.6308248, 0.06729935, 0.6672291, -0.7418059, -0.0843187, 0.049164183, 0.2075929)
 mass = 0.1
 bone_name = "DEF-forearm.R"
 joint_constraints/swing_span = 45.0
@@ -1630,11 +1630,11 @@ transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, -0.08)
 shape = SubResource("CapsuleShape3D_54dw3")
 
 [node name="Physical Bone DEF-thigh_L" type="PhysicalBone3D" parent="GodotPlushModel/Rig/Skeleton3D/PhysicalBoneSimulator3D"]
-transform = Transform3D(0.87907565, -0.2530586, -0.40396446, 0.29119688, -0.3858581, 0.8753959, -0.37739938, -0.8871724, -0.2655086, 0.21404226, 0.42856354, -0.043618247)
+transform = Transform3D(0.89511955, -0.26714748, -0.35692197, 0.27095783, -0.3097694, 0.9113862, -0.35403803, -0.9125104, -0.20489493, 0.21075153, 0.43527654, -0.04971922)
 collision_mask = 2
 joint_type = 2
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00024989597, -0.032884635, 0.090779275)
-body_offset = Transform3D(0.9682957, -0.12922162, -0.21378845, -0.19477543, 0.14532617, -0.9700222, 0.1564169, 0.9809089, 0.115549445, 0.014916182, 0.09288558, 0.021728247)
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00024992065, -0.03288465, 0.09077933)
+body_offset = Transform3D(0.96829563, -0.12922166, -0.21378845, -0.19477545, 0.1453262, -0.9700219, 0.1564169, 0.98090875, 0.11554955, 0.014916167, 0.09288561, 0.02172824)
 mass = 0.1
 bone_name = "DEF-thigh.L"
 joint_constraints/swing_span = 45.0
@@ -1648,11 +1648,11 @@ transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_uk10g")
 
 [node name="Physical Bone DEF-shin_L" type="PhysicalBone3D" parent="GodotPlushModel/Rig/Skeleton3D/PhysicalBoneSimulator3D"]
-transform = Transform3D(0.37887666, -0.85241926, 0.36032477, 0.17083658, 0.44708177, 0.87802774, -0.90954244, -0.27110755, 0.31501326, 0.19450192, 0.27346674, -0.06952621)
+transform = Transform3D(0.37876034, -0.8639476, 0.3318663, 0.13580696, 0.40658402, 0.90346324, -0.9154765, -0.29712626, 0.271328, 0.19172765, 0.273723, -0.074226715)
 collision_mask = 2
 joint_type = 2
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.03142435, 0.012012707, 0.11517131)
-body_offset = Transform3D(0.8346926, -0.52979016, 0.15036869, 0.019189566, -0.24489696, -0.96935934, 0.55038196, 0.8120026, -0.19424717, 0.015275732, 0.11518729, 0.029912747)
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.03142439, 0.012012761, 0.115171395)
+body_offset = Transform3D(0.8346925, -0.52979034, 0.15036891, 0.019189566, -0.24489692, -0.9693589, 0.5503819, 0.81200236, -0.19424735, 0.015275747, 0.11518732, 0.029912759)
 mass = 0.1
 bone_name = "DEF-shin.L"
 joint_constraints/swing_span = 45.0
@@ -1666,11 +1666,11 @@ transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_j0ica")
 
 [node name="Physical Bone DEF-foot_L" type="PhysicalBone3D" parent="GodotPlushModel/Rig/Skeleton3D/PhysicalBoneSimulator3D"]
-transform = Transform3D(0.6426896, -0.51623666, -0.5660829, -0.000305891, -0.7390623, 0.67363703, -0.76612663, -0.43276638, -0.47514552, 0.23641457, 0.09287327, -0.046319798)
+transform = Transform3D(0.64268917, -0.5162142, -0.56610394, -0.00029025975, -0.73908055, 0.67361706, -0.76612705, -0.43276206, -0.47514883, 0.23641816, 0.092839, -0.046316206)
 collision_mask = 2
 joint_type = 2
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.021138886, -0.030573215, 0.09218012)
-body_offset = Transform3D(0.90631545, -0.28474814, -0.3122676, -0.31220043, 0.046869516, -0.9488596, 0.28482178, 0.95745593, -0.04641992, 0.039237693, 0.082299374, 0.039572313)
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.021138866, -0.030573227, 0.09218015)
+body_offset = Transform3D(0.9063153, -0.28474826, -0.31226772, -0.31220037, 0.046869546, -0.9488592, 0.2848217, 0.95745564, -0.04641977, 0.039237693, 0.082299374, 0.0395723)
 mass = 0.1
 bone_name = "DEF-foot.L"
 joint_constraints/swing_span = 45.0
@@ -1684,11 +1684,11 @@ transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, -0.05)
 shape = SubResource("CapsuleShape3D_vu87i")
 
 [node name="Physical Bone DEF-thigh_R" type="PhysicalBone3D" parent="GodotPlushModel/Rig/Skeleton3D/PhysicalBoneSimulator3D"]
-transform = Transform3D(0.93593156, -0.29845923, 0.1869605, -0.16792938, 0.08842773, 0.981825, -0.30956718, -0.95031714, 0.032642234, -0.1914919, 0.41246122, 0.04639657)
+transform = Transform3D(0.93882513, -0.296804, 0.17468482, -0.13843083, 0.13922529, 0.98053724, -0.31534794, -0.94473475, 0.08962137, -0.18895233, 0.4167899, 0.039688)
 collision_mask = 2
 joint_type = 2
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0013867449, 0.026216367, 0.10281285)
-body_offset = Transform3D(0.9848313, -0.14397848, 0.09683773, 0.08679893, -0.07445669, -0.99343956, 0.15024415, 0.9867758, -0.060830098, -0.0048158616, 0.104210705, -0.01940721)
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0013867384, 0.026216377, 0.10281289)
+body_offset = Transform3D(0.9848313, -0.1439786, 0.096837826, 0.086798936, -0.07445671, -0.9934394, 0.15024416, 0.9867755, -0.06083011, -0.0048158765, 0.104210734, -0.019407209)
 mass = 0.1
 bone_name = "DEF-thigh.R"
 joint_constraints/swing_span = 45.0
@@ -1702,11 +1702,11 @@ transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_xqg3o")
 
 [node name="Physical Bone DEF-shin_R" type="PhysicalBone3D" parent="GodotPlushModel/Rig/Skeleton3D/PhysicalBoneSimulator3D"]
-transform = Transform3D(0.85812986, 0.48152718, -0.17817068, -0.22723903, 0.66737664, 0.70920444, 0.46040815, -0.5681021, 0.6821176, -0.19165304, 0.26406226, -0.037502043)
+transform = Transform3D(0.85597366, 0.4899818, -0.1650059, -0.21658988, 0.62962645, 0.7460961, 0.46946558, -0.60289997, 0.64506876, -0.19025119, 0.2657677, -0.041755393)
 collision_mask = 2
 joint_type = 2
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0050228117, 0.028992962, 0.11533942)
-body_offset = Transform3D(0.9599088, 0.27407905, -0.0587866, 0.04088217, -0.3443601, -0.93794715, -0.27731547, 0.8979405, -0.34175918, -0.005987391, 0.11796096, 0.014777258)
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0050228015, 0.028993001, 0.11533948)
+body_offset = Transform3D(0.9599087, 0.2740792, -0.058786616, 0.04088217, -0.34435993, -0.93794686, -0.27731544, 0.89794016, -0.3417592, -0.005987391, 0.117960975, 0.014777251)
 mass = 0.1
 bone_name = "DEF-shin.R"
 joint_constraints/swing_span = 45.0
@@ -1720,11 +1720,11 @@ transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_7khib")
 
 [node name="Physical Bone DEF-foot_R" type="PhysicalBone3D" parent="GodotPlushModel/Rig/Skeleton3D/PhysicalBoneSimulator3D"]
-transform = Transform3D(0.6426856, 0.5161595, 0.5661578, 0.00033250454, -0.73917186, 0.6735168, 0.76613003, -0.43267128, -0.47522667, -0.23641957, 0.0928489, -0.04633408)
+transform = Transform3D(0.64268, 0.51618963, 0.56613666, 0.000328362, -0.7391373, 0.6735547, 0.7661346, -0.4326942, -0.4751983, -0.23641483, 0.092849284, -0.04633768)
 collision_mask = 2
 joint_type = 2
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.021142129, -0.030590944, 0.09218727)
-body_offset = Transform3D(0.9063113, 0.2847101, 0.3123136, 0.3122245, 0.04694459, -0.9488478, -0.28480798, 0.9574634, -0.046347022, -0.039243132, 0.082306676, 0.039583758)
+joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.02114211, -0.030590981, 0.09218726)
+body_offset = Transform3D(0.9063113, 0.2847101, 0.31231385, 0.31222445, 0.04694462, -0.9488478, -0.28480798, 0.95746326, -0.046346694, -0.039243132, 0.08230668, 0.039583758)
 mass = 0.1
 bone_name = "DEF-foot.R"
 joint_constraints/swing_span = 45.0
