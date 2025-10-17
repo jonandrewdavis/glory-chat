@@ -84,6 +84,8 @@ var coyote_jump_on : bool = false
 
 var immobile := false
 
+@onready var nametag: Label3D = %Nametag
+
 func _enter_tree() -> void:
 	set_multiplayer_authority(name.to_int())
 

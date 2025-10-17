@@ -7,6 +7,7 @@ extends Node3D
 var player_scene_new = preload("res://addons/PlayerCharacter/PlayerCharacterScene.tscn")
 
 func _ready() -> void:
+	window.borderless = true
 	window.always_on_top = false
 	window.transparent = true
 	window.mode = Window.MODE_MAXIMIZED

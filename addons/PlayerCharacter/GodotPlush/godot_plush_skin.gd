@@ -57,11 +57,15 @@ func set_ragdoll(value : bool) -> void:
 	if !is_inside_tree(): return
 	physical_bone_simulator_3d.active = ragdoll
 	animation_tree.active = !ragdoll
-	if ragdoll: 
+	
+	# hide cR
+	if cR.nametag: cR.nametag.visible = !value
+	%NametagPlush.visible = value
+	if ragdoll:
 		physical_bone_simulator_3d.physical_bones_start_simulation()
 	else: 
 		physical_bone_simulator_3d.physical_bones_stop_simulation()
-	
+
 	if is_multiplayer_authority():
 		sync_set_ragdoll.rpc(value)
 
@@ -71,6 +75,10 @@ func sync_set_ragdoll(value):
 	if !is_inside_tree(): return
 	physical_bone_simulator_3d.active = value
 	animation_tree.active = !value
+
+	# hide cR
+	if cR.nametag: cR.nametag.visible = !value
+	%NametagPlush.visible = value
 	if value: 
 		physical_bone_simulator_3d.physical_bones_start_simulation()
 		cR.set_physics_process(true)

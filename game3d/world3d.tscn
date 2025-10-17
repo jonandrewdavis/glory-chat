@@ -69,10 +69,11 @@ material = SubResource("StandardMaterial3D_kbs5e")
 radius = 80.0
 height = 160.0
 
-[sub_resource type="QuadMesh" id="QuadMesh_ynkkp"]
-size = Vector2(250, 38)
-subdivide_width = 400
-subdivide_depth = 400
+[sub_resource type="PlaneMesh" id="PlaneMesh_anjo2"]
+size = Vector2(100, 50)
+subdivide_width = 50
+subdivide_depth = 25
+orientation = 2
 
 [sub_resource type="Gradient" id="Gradient_v4ahr"]
 interpolation_mode = 2
@@ -292,7 +293,7 @@ mesh = SubResource("SphereMesh_eypcs")
 
 [node name="WaterFoam" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.0026950836, 0.029911995, -0.0072250366)
-mesh = SubResource("QuadMesh_ynkkp")
+mesh = SubResource("PlaneMesh_anjo2")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("ShaderMaterial_jritb")
 
@@ -323,6 +324,7 @@ size = Vector2i(960, 540)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.3914127, 0)
 
 [node name="SkyBox" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.009420395, -5.731905)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="SkyBox"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -60, 0, -20)

@@ -12,7 +12,7 @@ func _ready() -> void:
 		return
 
 	%Menu.hide()
-	%LabelFPSCounter.hide()
+	#%LabelFPSCounter.hide()
 		
 	LobbySystem.signal_lobby_chat.connect(_render_lobby_chat_visible)
 	LobbySystem.signal_lobby_event.connect(_render_new_event)
