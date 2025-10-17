@@ -10,6 +10,11 @@ func _ready():
 	else:
 		LobbySystem.signal_network_create_new_peer_connection.connect(new_game_connection)
 
+	if OS.is_debug_build():
+		get_window().borderless = false
+		get_window().always_on_top = false
+		get_window().transparent = false
+
 var current_world: String = ""
 
 # TODO: When a new player joins, get the host world.

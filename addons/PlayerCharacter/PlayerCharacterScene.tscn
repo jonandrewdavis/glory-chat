@@ -1,13 +1,10 @@
-[gd_scene load_steps=41 format=3 uid="uid://bgkmxyw21pc1m"]
+[gd_scene load_steps=36 format=3 uid="uid://bgkmxyw21pc1m"]
 
 [ext_resource type="Script" uid="uid://de2sqbhiahmo6" path="res://addons/PlayerCharacter/StateMachine/player_character_script.gd" id="1_ms4x1"]
 [ext_resource type="PackedScene" uid="uid://dmyrflud401tg" path="res://addons/PlayerCharacter/GodotPlush/godot_plush_skin.tscn" id="2_mtsks"]
-[ext_resource type="Shader" uid="uid://dhkgcxxo8ja7b" path="res://addons/PlayerCharacter/GodotPlush/Material/godot_plush.gdshader" id="3_debc7"]
 [ext_resource type="PackedScene" uid="uid://c0b71d2b1hdp6" path="res://addons/PlayerCharacter/OrbitControl/orbit_view.tscn" id="3_hcr6r"]
 [ext_resource type="Script" uid="uid://3h8kirrnujiv" path="res://addons/PlayerCharacter/Vfx/particles_manager_script.gd" id="3_v44tt"]
-[ext_resource type="Texture2D" uid="uid://drijhg0g7ak1n" path="res://addons/PlayerCharacter/GodotPlush/Material/godot_plush_albedo.png" id="4_8wly4"]
 [ext_resource type="Material" uid="uid://fkuklawrv3wp" path="res://addons/PlayerCharacter/Vfx/dust_mat.tres" id="4_j7qt1"]
-[ext_resource type="Texture2D" uid="uid://dts2qgujqag2b" path="res://addons/PlayerCharacter/GodotPlush/Material/godot_plush_normal.png" id="5_7kvnl"]
 [ext_resource type="AudioStream" uid="uid://b7q12qmsksbc7" path="res://addons/Arts/Sounds/footstep_concrete_000.ogg" id="5_8ixl8"]
 [ext_resource type="AudioStream" uid="uid://c6unhc5lontfn" path="res://addons/Arts/Sounds/footstep_concrete_001.ogg" id="6_nlp36"]
 [ext_resource type="AudioStream" uid="uid://byg4lkp3ws8kt" path="res://addons/Arts/Sounds/footstep_concrete_002.ogg" id="7_4283i"]
@@ -43,24 +40,6 @@ point_count = 3
 _limits = [0.0, 10.0, 0.0, 1.0]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 10), 0.0, 0.0, 0, 0]
 point_count = 2
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_1gvdm"]
-resource_local_to_scene = true
-render_priority = 0
-shader = ExtResource("3_debc7")
-shader_parameter/custom_color = Color(1, 1, 1, 1)
-shader_parameter/albedo_texture = ExtResource("4_8wly4")
-shader_parameter/normal_texture = ExtResource("5_7kvnl")
-shader_parameter/uv_offset = Vector2(0, 0)
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_qq7mp"]
-resource_local_to_scene = true
-render_priority = 0
-shader = ExtResource("3_debc7")
-shader_parameter/custom_color = Color(1, 1, 1, 1)
-shader_parameter/albedo_texture = ExtResource("4_8wly4")
-shader_parameter/normal_texture = ExtResource("5_7kvnl")
-shader_parameter/uv_offset = Vector2(0, 0)
 
 [sub_resource type="Curve" id="Curve_wrw8f"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.2, 1), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -166,89 +145,6 @@ unique_name_in_owner = true
 
 [node name="GodotPlushSkin" parent="VisualRoot" instance=ExtResource("2_mtsks")]
 unique_name_in_owner = true
-
-[node name="Skeleton3D" parent="VisualRoot/GodotPlushSkin/GodotPlushModel/Rig" index="0"]
-bones/0/position = Vector3(0, 0.7726769, 0)
-bones/0/rotation = Quaternion(0.99721235, -0.0028577233, 0.0745622, -0.00021608836)
-bones/1/position = Vector3(-1.961984e-16, 5.96046e-08, -2.6060508e-15)
-bones/1/rotation = Quaternion(1, 5.334296e-17, 9.920953e-10, -4.37114e-08)
-bones/2/rotation = Quaternion(-0.069598585, 0.15221786, 0.9254877, -0.33979154)
-bones/3/rotation = Quaternion(0.25001347, -0.026942642, 0.0069634756, 0.9678424)
-bones/5/rotation = Quaternion(-0.121089146, -0.21838905, 0.91011584, 0.33065534)
-bones/6/rotation = Quaternion(0.14922456, -0.027517237, 0.0041507883, 0.9884117)
-bones/8/rotation = Quaternion(-0.028840492, -0.003901337, -0.05614616, 0.99799836)
-bones/9/position = Vector3(7.75679e-09, 0.15198639, -1.4449521e-08)
-bones/9/rotation = Quaternion(0.27247745, -0.1966829, 0.05698786, 0.94011927)
-bones/10/position = Vector3(6.3287793e-09, 0.20580505, 2.7078949e-08)
-bones/10/rotation = Quaternion(-0.60030085, -0.086086325, 0.021816999, 0.7948284)
-bones/11/position = Vector3(-1.7391162e-08, 0.251212, -3.4014116e-09)
-bones/11/rotation = Quaternion(-9.293531e-05, 0.93246996, -0.3612477, 4.2490472e-05)
-bones/12/rotation = Quaternion(-0.13883488, 0.005570102, 0.08522154, 0.98662615)
-bones/13/position = Vector3(-1.6768364e-08, 0.15154865, 5.2900972e-09)
-bones/13/rotation = Quaternion(0.32425717, 0.19380407, -0.06806929, 0.923398)
-bones/14/position = Vector3(1.2491228e-08, 0.20534478, 2.1057346e-08)
-bones/14/rotation = Quaternion(-0.5561027, -0.064573735, -0.040269416, 0.8276222)
-bones/15/position = Vector3(-3.72418e-08, 0.251207, -3.3884913e-08)
-bones/15/rotation = Quaternion(-2.2435888e-05, 0.93245506, -0.36128595, 0.00027582815)
-
-[node name="GodotPlushMesh" parent="VisualRoot/GodotPlushSkin/GodotPlushModel/Rig/Skeleton3D" index="0"]
-surface_material_override/1 = SubResource("ShaderMaterial_1gvdm")
-surface_material_override/2 = SubResource("ShaderMaterial_qq7mp")
-
-[node name="Physical Bone DEF-hips" parent="VisualRoot/GodotPlushSkin/GodotPlushModel/Rig/Skeleton3D/PhysicalBoneSimulator3D" index="0"]
-transform = Transform3D(0.99978507, -0.013547123, 0.015693838, -0.013594476, -0.9999034, 0.002914515, 0.015652835, -0.0031272385, -0.9998726, -0.00044994213, 0.76327705, -7.491725e-05)
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00013403656, -0.023321008, 1.1116885e-07)
-body_offset = Transform3D(0.98885345, 0.0056832056, -0.14878343, -0.005747884, 0.9999833, -4.6899077e-06, 0.14878096, 0.00085982704, 0.9888697, 1.21071935e-08, 0.02332139, 1.32587274e-11)
-
-[node name="Physical Bone DEF-upper_arm_L" parent="VisualRoot/GodotPlushSkin/GodotPlushModel/Rig/Skeleton3D/PhysicalBoneSimulator3D" index="1"]
-transform = Transform3D(-0.91200626, 0.12652163, -0.3901753, -0.41002387, -0.30712605, 0.85880965, -0.011175004, 0.9432211, 0.33197775, 0.554803, 0.7015288, -0.014682598)
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.003300827, 0.059244625, 0.13325626)
-body_offset = Transform3D(0.9607515, -0.025552973, -0.2762324, -0.22460917, 0.5127533, -0.82863426, 0.16281319, 0.85815567, 0.48688892, 0.041494846, 0.07930142, -0.11518469)
-
-[node name="Physical Bone DEF-forearm_L" parent="VisualRoot/GodotPlushSkin/GodotPlushModel/Rig/Skeleton3D/PhysicalBoneSimulator3D" index="2"]
-transform = Transform3D(-0.9209685, -0.1190569, -0.3710022, -0.3809376, 0.075041614, 0.9215505, -0.08187635, 0.9900476, -0.11446421, 0.622056, 0.54926956, -0.027228393)
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.046673983, 0.15597, 0.10542372)
-body_offset = Transform3D(0.960686, -0.05491743, -0.2721526, -0.22742626, 0.4065941, -0.8848494, 0.15924938, 0.9119567, 0.37811953, 0.08209586, 0.01925274, -0.17466787)
-
-[node name="Physical Bone DEF-upper_arm_R" parent="VisualRoot/GodotPlushSkin/GodotPlushModel/Rig/Skeleton3D/PhysicalBoneSimulator3D" index="3"]
-transform = Transform3D(-0.89305735, -0.0064261598, 0.44989696, 0.43849263, 0.2117096, 0.87344337, -0.100860395, 0.97731155, -0.18625098, -0.56080467, 0.71740556, 0.0034526214)
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.010516316, -0.0654742, 0.12744516)
-body_offset = Transform3D(0.9611552, -0.027169362, 0.27466896, 0.22255313, -0.51231307, -0.82946104, 0.16325246, 0.85836875, -0.48636556, -0.046891928, 0.069827065, 0.11646912)
-
-[node name="Physical Bone DEF-forearm_R" parent="VisualRoot/GodotPlushSkin/GodotPlushModel/Rig/Skeleton3D/PhysicalBoneSimulator3D" index="4"]
-transform = Transform3D(-0.89701444, 0.33001146, 0.2940366, 0.43830344, 0.75000465, 0.4953617, -0.05705382, 0.5732238, -0.8174102, -0.5847362, 0.64523435, 0.07752438)
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.053918894, -0.0895473, 0.20419577)
-body_offset = Transform3D(0.9611794, 0.1560475, 0.22756082, 0.26759225, -0.7283229, -0.6308251, 0.067299105, 0.66722935, -0.7418058, -0.084319055, 0.049164176, 0.20759349)
-
-[node name="Physical Bone DEF-thigh_L" parent="VisualRoot/GodotPlushSkin/GodotPlushModel/Rig/Skeleton3D/PhysicalBoneSimulator3D" index="5"]
-transform = Transform3D(0.9656347, 0.036690038, -0.2573004, 0.2595358, -0.083503194, 0.9621166, 0.013814688, -0.99583185, -0.09015595, 0.20418398, 0.43283904, -0.00090173446)
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00025070622, -0.032884665, 0.09078014)
-body_offset = Transform3D(0.96829563, -0.12922113, -0.21378869, -0.19477564, 0.14532688, -0.9700221, 0.1564166, 0.9809089, 0.11555025, 0.014915615, 0.0928866, 0.02172798)
-
-[node name="Physical Bone DEF-shin_L" parent="VisualRoot/GodotPlushSkin/GodotPlushModel/Rig/Skeleton3D/PhysicalBoneSimulator3D" index="6"]
-transform = Transform3D(0.65939844, -0.72085285, 0.21345943, 0.244068, 0.47381604, 0.84612596, -0.71107286, -0.50583553, 0.48837063, 0.19489563, 0.27496582, -0.058033787)
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.03142439, 0.012012757, 0.115171075)
-body_offset = Transform3D(0.8346923, -0.5297908, 0.15036905, 0.019189432, -0.24489728, -0.969359, 0.5503824, 0.81200194, -0.19424745, 0.015275776, 0.11518702, 0.029912733)
-
-[node name="Physical Bone DEF-foot_L" parent="VisualRoot/GodotPlushSkin/GodotPlushModel/Rig/Skeleton3D/PhysicalBoneSimulator3D" index="7"]
-transform = Transform3D(0.6426929, -0.51623386, -0.5660817, -0.00033985078, -0.7390825, 0.67361486, -0.7661239, -0.43273506, -0.47517857, 0.23641299, 0.09288171, -0.046329618)
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.021138962, -0.030573513, 0.09218029)
-body_offset = Transform3D(0.9063155, -0.28474846, -0.31226742, -0.31219974, 0.04687071, -0.94885963, 0.28482234, 0.95745564, -0.046418607, 0.039237708, 0.082299575, 0.039572507)
-
-[node name="Physical Bone DEF-thigh_R" parent="VisualRoot/GodotPlushSkin/GodotPlushModel/Rig/Skeleton3D/PhysicalBoneSimulator3D" index="8"]
-transform = Transform3D(0.9793146, 0.025599748, 0.2007174, -0.19957776, -0.04123858, 0.97901386, 0.03333981, -0.9988213, -0.035276406, -0.20780726, 0.43043274, -0.0077084713)
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0013868692, 0.026216377, 0.102813154)
-body_offset = Transform3D(0.9848314, -0.14397863, 0.09683811, 0.08679931, -0.074456364, -0.9934397, 0.15024427, 0.9867759, -0.060829684, -0.004815802, 0.10421103, -0.019407228)
-
-[node name="Physical Bone DEF-shin_R" parent="VisualRoot/GodotPlushSkin/GodotPlushModel/Rig/Skeleton3D/PhysicalBoneSimulator3D" index="9"]
-transform = Transform3D(0.6433986, 0.6929182, -0.3254269, -0.13120037, 0.518619, 0.8448792, 0.7542047, -0.50089794, 0.42458987, -0.19142482, 0.267595, -0.05863578)
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.005023001, 0.028993145, 0.115339376)
-body_offset = Transform3D(0.95990884, 0.27407914, -0.058787376, 0.04088165, -0.3443606, -0.937947, -0.2773156, 0.8979402, -0.34175956, -0.00598754, 0.11796096, 0.014777178)
-
-[node name="Physical Bone DEF-foot_R" parent="VisualRoot/GodotPlushSkin/GodotPlushModel/Rig/Skeleton3D/PhysicalBoneSimulator3D" index="10"]
-transform = Transform3D(0.64267474, 0.51617527, 0.56615573, 0.00028429923, -0.7391331, 0.67355937, 0.76613903, -0.43271866, -0.4751689, -0.23641782, 0.09286234, -0.04632352)
-joint_offset = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.021142142, -0.030591043, 0.09218723)
-body_offset = Transform3D(0.9063121, 0.28470916, 0.31231332, 0.3122238, 0.04694459, -0.9488479, -0.284807, 0.95746374, -0.046346515, -0.039243132, 0.08230667, 0.039583802)
 
 [node name="ParticlesManager" type="Node3D" parent="VisualRoot"]
 unique_name_in_owner = true
@@ -456,6 +352,3 @@ text = "Username"
 font = ExtResource("20_h8602")
 font_size = 128
 outline_size = 10
-
-[editable path="VisualRoot/GodotPlushSkin"]
-[editable path="VisualRoot/GodotPlushSkin/GodotPlushModel"]

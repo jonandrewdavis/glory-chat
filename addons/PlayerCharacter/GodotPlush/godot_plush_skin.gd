@@ -124,9 +124,8 @@ func wave():
 	if is_multiplayer_authority(): sync_wave.rpc()
 
 @rpc('call_remote', 'authority')
-func sync_wave(state_name):
+func sync_wave():
 	animation_tree["parameters/WaveOneShot/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE
-	
 
 
 func set_name_tag(username_text: String):

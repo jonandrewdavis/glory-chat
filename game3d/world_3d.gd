@@ -6,11 +6,14 @@ extends Node3D
 
 var player_scene_new = preload("res://addons/PlayerCharacter/PlayerCharacterScene.tscn")
 
+var check_host_timer = Timer.new()
+
 func _ready() -> void:
 	if OS.is_debug_build():
 		window.borderless = false
 		window.always_on_top = false
-		window.transparent = true
+		window.transparent = false
+		window.set_mode(Window.MODE_WINDOWED)
 	else:
 		window.borderless = true
 		window.always_on_top = !OS.has_feature('admin')
@@ -29,6 +32,7 @@ func _ready() -> void:
 	# Local player needs no validation, Island world skips on 
 	if not OS.has_feature('admin'):
 		add_player_to_game(multiplayer.get_unique_id())
+		setup_host_timer()
 	else:
 		add_player_to_game(multiplayer.get_unique_id())
 	
@@ -85,3 +89,21 @@ func remove_player_from_game(id):
 	var player_to_remove = player_container.get_node_or_null(str(id))
 	if player_to_remove != null:
 		player_to_remove.queue_free()
+
+
+func setup_host_timer():
+	check_host_timer.wait_time = 10.0
+	check_host_timer.autostart = true
+	check_host_timer.timeout.connect(_check_server)
+	add_child(check_host_timer)
+
+func _check_server():
+	if OS.is_debug_build():
+		return
+
+	var found_host = player_container.get_children().any(func(player): return player.name == str(LobbySystem.host_peer_id))
+	if not found_host:
+		LobbySystem.user_disconnect()
+		hide()
+		await get_tree().create_timer(1.0).timeout
+		get_tree().quit()

@@ -99,6 +99,9 @@ func _render_lobby_chat_fade():
 func _render_own_lobby_info(lobby):
 	# TODO: We clear the scoreboard if new players join.
 	# We could make a list of not present Ids and just add those instead.
+	if not lobby:
+		return
+		
 	for _player in lobby.players:
 		if _player.id == str(multiplayer.get_unique_id()):
 			_render_game_picker(_player.metadata.current_game)

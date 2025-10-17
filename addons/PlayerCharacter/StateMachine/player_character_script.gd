@@ -147,6 +147,9 @@ func _process(delta: float):
 func set_lobby_info(lobby):
 	#%Nametag.horizontal_alignment = HorizontalAlignment.HORIZONTAL_ALIGNMENT_CENTER
 	#%Nametag.set_anchors_preset(Control.PRESET_CENTER_TOP)
+	if not lobby:
+		return
+		
 	for _this_player in lobby.players:
 		# player id matches the node name (peer id)
 		if _this_player.id == name:
