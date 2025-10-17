@@ -151,6 +151,7 @@ func set_lobby_info(lobby):
 		# player id matches the node name (peer id)
 		if _this_player.id == name:
 			%Nametag.text = _this_player.username
+			%GodotPlushSkin.set_name_tag(_this_player.username)
 			if _this_player.metadata.has('color'): 
 				var _color: Color = Color.from_string(_this_player.metadata.color, Color.WHITE)
 				%GodotPlushSkin.set_mesh_color(_color)

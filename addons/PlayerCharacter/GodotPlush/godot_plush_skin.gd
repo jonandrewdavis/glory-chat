@@ -127,3 +127,7 @@ func wave():
 func sync_wave(state_name):
 	animation_tree["parameters/WaveOneShot/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE
 	
+
+
+func set_name_tag(username_text: String):
+	%NametagPlush.text = username_text
