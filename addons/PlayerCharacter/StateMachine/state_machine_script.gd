@@ -29,11 +29,15 @@ func _ready():
 		
 func _process(delta : float):
 	# NOTE: Added
-	if get_parent().immobile: return
+	if char_ref.immobile: return
 	if curr_state: curr_state.update(delta)
 	
 func _physics_process(delta: float):
-	if get_parent().immobile: return
+	if char_ref.immobile:
+		char_ref.velocity.x = lerp(char_ref.velocity.x, 0.0, char_ref.move_deccel * delta) 
+		char_ref.velocity.z = lerp(char_ref.velocity.z, 0.0, char_ref.move_deccel * delta) 
+		char_ref.move_and_slide()
+		return
 	if curr_state: curr_state.physics_update(delta)
 	
 func on_state_child_transition(state : State, new_state_name : String):

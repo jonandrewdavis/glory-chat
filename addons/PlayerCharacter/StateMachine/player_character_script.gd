@@ -96,8 +96,8 @@ func _ready():
 		set_process(false)
 		set_physics_process(false)
 
-	LobbySystem.signal_lobby_own_info.connect(set_lobby_info)
-	LobbySystem.lobby_get_own()
+	if LobbySystem.lobby_local_data: set_lobby_info(LobbySystem.lobby_local_data)
+	LobbySystem.signal_lobby_changed.connect(set_lobby_info)
 	
 	#set move variables, and value references
 	move_speed = walk_speed
@@ -147,11 +147,13 @@ func _process(delta: float):
 func set_lobby_info(lobby):
 	#%Nametag.horizontal_alignment = HorizontalAlignment.HORIZONTAL_ALIGNMENT_CENTER
 	#%Nametag.set_anchors_preset(Control.PRESET_CENTER_TOP)
-	for _player in lobby.players:
+	for _this_player in lobby.players:
 		# player id matches the node name (peer id)
-		if _player.id == name:
-			%Nametag.text = _player.username
-
+		if _this_player.id == name:
+			%Nametag.text = _this_player.username
+			if _this_player.metadata.has('color'): 
+				var _color: Color = Color.from_string(_this_player.metadata.color, Color.WHITE)
+				%GodotPlushSkin.set_mesh_color(_color)
 	
 func _physics_process(_delta : float):
 	modify_physics_properties()
@@ -207,5 +209,4 @@ func squash_and_strech(value : float, timing : float):
 	sasTween.set_ease(Tween.EASE_OUT)
 	sasTween.tween_property(godot_plush_skin, "squash_and_stretch", value, timing)
 	sasTween.tween_property(godot_plush_skin, "squash_and_stretch", 1.0, timing * 1.8)
-	
 	

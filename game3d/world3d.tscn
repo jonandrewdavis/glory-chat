@@ -325,6 +325,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.3914127, 0)
 
 [node name="SkyBox" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.009420395, -5.731905)
+visible = false
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="SkyBox"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -60, 0, -20)

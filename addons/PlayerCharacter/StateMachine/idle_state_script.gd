@@ -33,6 +33,7 @@ func physics_update(delta : float):
 	input_management()	
 	move(delta)
 	
+	
 func check_if_floor():
 	#manage the appliements and state transitions that needs to be sets/checked/performed
 	#every time the play char pass through one of the following : floor-inair-onwall
@@ -56,6 +57,13 @@ func input_management():
 	if Input.is_action_just_pressed("ragdoll"):
 		if !cR.godot_plush_skin.ragdoll:
 			transitioned.emit(self, "RagdollState")
+	
+	if Input.is_action_just_pressed("debug1"):
+		if not cR.immobile:
+			cR.immobile = true
+			cR.godot_plush_skin.wave()
+			await get_tree().create_timer(2.0).timeout
+			cR.immobile = false
 		
 func move(delta : float):
 	#manage the character movement
