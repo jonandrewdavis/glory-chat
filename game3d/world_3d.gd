@@ -7,10 +7,16 @@ extends Node3D
 var player_scene_new = preload("res://addons/PlayerCharacter/PlayerCharacterScene.tscn")
 
 func _ready() -> void:
-	window.borderless = true
-	window.always_on_top = false
-	window.transparent = true
-	window.mode = Window.MODE_MAXIMIZED
+	if OS.is_debug_build():
+		window.borderless = false
+		window.always_on_top = false
+		window.transparent = true
+	else:
+		window.borderless = true
+		window.always_on_top = !OS.has_feature('admin')
+		window.transparent = true
+		window.set_mode(Window.MODE_MAXIMIZED)
+
 
 	for child in walls.get_children():
 		var wall: StaticBody3D = child
