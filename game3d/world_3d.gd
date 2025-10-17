@@ -73,7 +73,7 @@ func add_player_to_game(id: int):
 	player_to_add = player_scene_new.instantiate()
 	player_to_add.name = str(id)
 	player_to_add.position = Vector3(randf_range(-10.0, 10.0), 1.5, randf_range(-10.0, 10.0))
-	player_container.add_child(player_to_add, true)
+	player_container.add_child(player_to_add, true)	
 
 func remove_player_from_game(id):
 	var player_to_remove = player_container.get_node_or_null(str(id))
