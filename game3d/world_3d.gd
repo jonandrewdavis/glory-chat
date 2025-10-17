@@ -9,6 +9,7 @@ var player_scene_new = preload("res://addons/PlayerCharacter/PlayerCharacterScen
 func _ready() -> void:
 	window.always_on_top = false
 	window.transparent = true
+	window.mode = Window.MODE_MAXIMIZED
 
 	for child in walls.get_children():
 		var wall: StaticBody3D = child

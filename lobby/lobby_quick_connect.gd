@@ -57,9 +57,9 @@ func _ready() -> void:
 	#LobbySystem.signal_packet_parsed.connect(func(packet): print('DEBUG: ', packet))
 	# Admin / Host detection
 	LobbySystem.signal_lobby_joined.connect(func(lobby): if lobby == null: show_error_message())
-
+	
 	%OptionGamePicker.item_selected.connect(update_game_picker)
-
+	
 
 func show_error_message():
 	%LabelError.show()	

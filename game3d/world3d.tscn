@@ -298,6 +298,7 @@ surface_material_override/0 = SubResource("ShaderMaterial_jritb")
 
 [node name="Trees" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.032337, 0, 0)
+visible = false
 
 [node name="Tree Type6 04" parent="Trees" instance=ExtResource("15_eu8p7")]
 transform = Transform3D(0.7873441, 0, 0.61651385, 0, 1, 0, -0.61651385, 0, 0.7873441, -5.5366325, 0.45079648, -3.0127916)
@@ -324,12 +325,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.3914127, 0)
 [node name="SkyBox" type="Node3D" parent="."]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="SkyBox"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50, 0, -20)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -60, 0, -20)
 mesh = SubResource("QuadMesh_0x74e")
 skeleton = NodePath("../..")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="SkyBox"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 0, -20)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 0, -20)
 mesh = SubResource("QuadMesh_2myk0")
 skeleton = NodePath("../..")
 
