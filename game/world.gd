@@ -22,6 +22,7 @@ func _ready() -> void:
 		window.borderless = false
 		window.always_on_top = false
 	else:
+		window.always_on_top = true
 		window.set_mode(Window.MODE_MAXIMIZED)
 		window.borderless = true
 
