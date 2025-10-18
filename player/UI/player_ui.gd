@@ -47,10 +47,15 @@ func _process(_delta: float) -> void:
 		%LobbyChat.lobby_chat_should_focus(false)
 		%Menu.hide()
 		player.immobile = false
+		if Input.mouse_mode == Input.MOUSE_MODE_VISIBLE: 
+			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	elif Input.is_action_just_pressed('menu') and not %Menu.visible:
 		player.immobile = true
 		%Menu.show()
 		%LobbyChat.lobby_chat_should_focus(true)
+		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED: 
+			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+
 
 	%LabelFPSCounter.text = 'FPS: ' + str(Engine.get_frames_per_second())
 

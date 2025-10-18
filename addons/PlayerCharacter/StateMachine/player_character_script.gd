@@ -137,12 +137,6 @@ func _process(delta: float):
 	modify_model_orientation(delta)
 	display_properties()
 	
-	if immobile: 
-		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED: 
-			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-	else:
-		if Input.mouse_mode == Input.MOUSE_MODE_VISIBLE: 
-			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
 func set_lobby_info(lobby):
 	#%Nametag.horizontal_alignment = HorizontalAlignment.HORIZONTAL_ALIGNMENT_CENTER

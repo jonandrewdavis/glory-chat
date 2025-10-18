@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://bodmr74jwgi5g"]
+[gd_scene load_steps=11 format=3 uid="uid://bodmr74jwgi5g"]
 
 [ext_resource type="Script" uid="uid://dbkd33tkoa5no" path="res://player/UI/player_ui.gd" id="1_721h2"]
+[ext_resource type="Texture2D" uid="uid://b2m3kewnb5j7v" path="res://assets/keyboard_tab_outline.png" id="4_56i8j"]
 [ext_resource type="PackedScene" uid="uid://cr0rjm7booup1" path="res://lobby/lobby_color_grid/lobby_color_grid.tscn" id="4_crhk2"]
 [ext_resource type="FontFile" uid="uid://bnudr3myap7vs" path="res://lobby/theme/Strait-Regular.ttf" id="8_4trht"]
 [ext_resource type="Theme" uid="uid://b3kq74llqlv3x" path="res://lobby/theme/MinimalUI.tres" id="9_xyb3v"]
@@ -110,14 +111,28 @@ layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -90.0
+offset_top = -104.0
 offset_right = 200.0
 grow_vertical = 0
+scale = Vector2(0.6, 0.6)
+pivot_offset = Vector2(0, 125)
 mouse_filter = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
+
+[node name="Hb" type="HBoxContainer" parent="TopLevelControl/BottomLeft"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="TopLevelControl/BottomLeft/Hb"]
+layout_mode = 2
+texture = ExtResource("4_56i8j")
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="TopLevelControl/BottomLeft/Hb"]
+layout_mode = 2
+text = "Menu"
 
 [node name="BottomRight" type="MarginContainer" parent="TopLevelControl"]
 layout_mode = 1

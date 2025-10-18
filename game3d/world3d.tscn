@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://d1oefy32crhwe"]
+[gd_scene load_steps=45 format=3 uid="uid://d1oefy32crhwe"]
 
 [ext_resource type="Script" uid="uid://dupbw8lt0cn8e" path="res://game3d/world_3d.gd" id="1_0ox63"]
 [ext_resource type="Environment" uid="uid://b5ax28s1ra0ow" path="res://game3d/island_environment_1.tres" id="2_tdmsx"]
@@ -7,15 +7,14 @@
 [ext_resource type="Texture2D" uid="uid://ccoxg4not0f3y" path="res://assets/Ground080_1K-JPG/Ground080_1K-JPG_NormalGL.jpg" id="8_lxnqq"]
 [ext_resource type="Texture2D" uid="uid://dbnfkavey0m74" path="res://assets/Ground080_1K-JPG/Ground080_1K-JPG_Roughness.jpg" id="9_v35na"]
 [ext_resource type="Shader" uid="uid://dvqvnq3cyyaou" path="res://assets/WaterShader/shaders/antz_foam_water.gdshader" id="10_eu8p7"]
+[ext_resource type="PackedScene" uid="uid://b25ubxyavpsg5" path="res://assets/nature/Tree Type7 01.dae" id="11_0x74e"]
 [ext_resource type="Texture2D" uid="uid://tnm63yjnc81i" path="res://assets/WaterShader/textures/water_foam.png" id="11_6qhgi"]
 [ext_resource type="Texture2D" uid="uid://bv18iejdqadjt" path="res://assets/WaterShader/textures/n_noise_1.tres" id="12_anjo2"]
 [ext_resource type="Texture2D" uid="uid://u1pdrd2gf4aj" path="res://assets/WaterShader/textures/n_noise_2.tres" id="13_2myk0"]
-[ext_resource type="PackedScene" uid="uid://dk4eyoxs75d2b" path="res://assets/nature/Tree Type6 04.dae" id="15_eu8p7"]
-[ext_resource type="PackedScene" uid="uid://clpv1socjfcdk" path="res://assets/nature/Tree Type7 03.dae" id="16_eu8p7"]
+[ext_resource type="PackedScene" uid="uid://desxe5sadomxr" path="res://assets/nature/Tree Type7 02.dae" id="13_6qhgi"]
 [ext_resource type="PackedScene" uid="uid://dx3yxr06oglyu" path="res://assets/environment/StylizedFreeRocks_FBX/SM_Rocks_01.fbx" id="17_0x74e"]
 [ext_resource type="PackedScene" uid="uid://cqq0qbaa4cf0u" path="res://assets/nature/Tree Type7 04.dae" id="17_6qhgi"]
 [ext_resource type="PackedScene" uid="uid://qyc4hkeem7ts" path="res://assets/environment/StylizedFreeRocks_FBX/SM_Rocks_02.fbx" id="18_2myk0"]
-[ext_resource type="PackedScene" uid="uid://c2efluikw0sua" path="res://assets/nature/Tree Type6 03.dae" id="18_6qhgi"]
 [ext_resource type="PackedScene" uid="uid://cpd3jqubh8c2f" path="res://assets/environment/StylizedFreeRocks_FBX/SM_Rocks_03.fbx" id="19_1wmr5"]
 [ext_resource type="PackedScene" uid="uid://c4vv1dere8bc0" path="res://game3d/volleyball/volley_ball.tscn" id="20_anjo2"]
 [ext_resource type="PackedScene" uid="uid://cc8nc167e422c" path="res://assets/environment/StylizedFreeRocks_FBX/SM_Rocks_04.fbx" id="20_fn8mv"]
@@ -299,22 +298,25 @@ surface_material_override/0 = SubResource("ShaderMaterial_jritb")
 
 [node name="Trees" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.032337, 0, 0)
-visible = false
 
-[node name="Tree Type6 04" parent="Trees" instance=ExtResource("15_eu8p7")]
-transform = Transform3D(0.7873441, 0, 0.61651385, 0, 1, 0, -0.61651385, 0, 0.7873441, -5.5366325, 0.45079648, -3.0127916)
+[node name="Tree Type7 01" parent="Trees" instance=ExtResource("11_0x74e")]
+transform = Transform3D(0.34800494, 0.036756594, 0.19375634, -0.043305855, 0.39764184, 0.0023467443, -0.19239837, -0.023018701, 0.34993276, 8.26978, -0.1920824, 9.669111)
 
-[node name="Tree Type7 05" parent="Trees" instance=ExtResource("16_eu8p7")]
-transform = Transform3D(-0.9230089, 0, 0.3847786, 0, 1, 0, -0.3847786, 0, -0.9230089, 33.76407, -0.88587856, -5.2995024)
+[node name="Tree Type7 02" parent="Trees" instance=ExtResource("11_0x74e")]
+transform = Transform3D(0.75755394, 0.2456893, -0.07582098, -0.25682035, 0.71158296, -0.26017892, -0.012462914, 0.27071497, 0.75270057, 9.872776, -0.030769348, -4.924608)
+
+[node name="Tree Type7 03" parent="Trees" instance=ExtResource("11_0x74e")]
+transform = Transform3D(0.5064847, -0.043073803, -0.6177524, -0.25682032, 0.7115829, -0.2601789, 0.5634861, 0.36303508, 0.4366794, 24.476158, -0.36304998, 0.80923796)
 
 [node name="Tree Type7 04" parent="Trees" instance=ExtResource("17_6qhgi")]
-transform = Transform3D(2.7, 0, 0, 0, 2.7, 0, 0, 0, 2.7, -10.851894, -2.201108, -8.102709)
+transform = Transform3D(1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, 30.788263, -1.2921433, -7.695836)
+visible = false
 
-[node name="Tree Type7 06" parent="Trees" instance=ExtResource("17_6qhgi")]
-transform = Transform3D(2.1, 0, 0, 0, 2.1, 0, 0, 0, 2.1, -15.346132, -2.201108, -19.286314)
+[node name="Tree Type7 05" parent="Trees" instance=ExtResource("13_6qhgi")]
+transform = Transform3D(0.32197714, 0.14088686, 0.6053772, 0, 0.6817804, -0.15866782, -0.62155515, 0.072982036, 0.31359679, 9.228099, -1.2794733, -4.282818)
 
-[node name="Tree Type6 03" parent="Trees" instance=ExtResource("18_6qhgi")]
-transform = Transform3D(1.1487998, 0, 0.6084892, 0, 1.3, 0, -0.6084892, 0, 1.1487998, 30.839596, 0.016502857, -3.9247217)
+[node name="Tree Type7 06" parent="Trees" instance=ExtResource("13_6qhgi")]
+transform = Transform3D(0.7, 0, 0, 0, 0.6817804, -0.15866782, 0, 0.15866782, 0.6817804, 9.614308, -1.3117671, -4.037326)
 
 [node name="SubViewport" type="SubViewport" parent="."]
 world_3d = SubResource("World3D_eu8p7")
@@ -345,16 +347,26 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.236929, -1.5497923, -2.77
 [node name="SM_Rocks_02" parent="Rocks" instance=ExtResource("18_2myk0")]
 transform = Transform3D(-0.41607454, 0, -0.9093305, 0, 1, 0, 0.9093305, 0, -0.41607454, -6.184656, -0.23521233, 5.955383)
 
-[node name="SM_Rocks_03" parent="Rocks" instance=ExtResource("19_1wmr5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.720588, -0.97801757, -8.506601)
+[node name="SM_Rocks_07" parent="Rocks" instance=ExtResource("18_2myk0")]
+transform = Transform3D(-0.3563505, 0.6711189, -0.65008736, 0.5427628, 0.71501887, 0.44063136, 0.76054084, -0.19582403, -0.6190558, 5.127346, -0.10668659, 4.4603853)
 
 [node name="SM_Rocks_04" parent="Rocks" instance=ExtResource("20_fn8mv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.81638, -1.6994758, -3.286353)
 
 [node name="SM_Rocks_06" parent="Rocks" instance=ExtResource("20_fn8mv")]
-transform = Transform3D(-1.4692557, -1.6340913, -0.10504039, -1.6367836, 1.4696869, 0.03094417, 0.047186814, 0.09881543, -2.197274, -6.611176, -1.9178579, -1.1392567)
+transform = Transform3D(-1.4692556, -1.6340908, -0.10504041, -1.6367835, 1.4696872, 0.030944366, 0.047186647, 0.098815225, -2.197274, -6.611176, -1.9178579, -1.1392567)
+
+[node name="SM_Rocks_10" parent="Rocks" instance=ExtResource("20_fn8mv")]
+transform = Transform3D(1.416388, 1.5891197, -0.5554667, -1.636784, 1.4696875, 0.03094443, 0.39342543, 0.39334023, 2.1284986, 8.873053, -3.2824357, 8.69124)
 
 [node name="SM_Rocks_05" parent="Rocks" instance=ExtResource("21_tltiy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.015158, -2.1488757, -5.5061445)
 
+[node name="SM_Rocks_08" parent="Rocks" instance=ExtResource("19_1wmr5")]
+transform = Transform3D(1.7000003, 0, 0, 0, 1.4417607, 0.90073705, 0, -0.90073705, 1.4417607, 12.090553, -1.36692, -8.081823)
+
+[node name="SM_Rocks_09" parent="Rocks" instance=ExtResource("17_0x74e")]
+transform = Transform3D(0.7557963, 0, -0.65480673, -0.26393044, 0.91517085, -0.3046359, 0.59926003, 0.40306616, 0.69168276, 9.576755, -0.22086143, -9.24534)
+
 [node name="VolleyBall" parent="." instance=ExtResource("20_anjo2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.9514384, 4.508561, 0)
