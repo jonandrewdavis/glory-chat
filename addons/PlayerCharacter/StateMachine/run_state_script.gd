@@ -47,6 +47,8 @@ func check_if_floor():
 			transitioned.emit(self, "JumpState")
 			
 func input_management():
+	if cR.immobile: return
+
 	if Input.is_action_pressed(cR.jumpAction) if cR.auto_jump else Input.is_action_just_pressed(cR.jumpAction) :
 		transitioned.emit(self, "JumpState")
 		

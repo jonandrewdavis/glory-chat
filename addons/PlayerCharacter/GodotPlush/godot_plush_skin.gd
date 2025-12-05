@@ -118,7 +118,7 @@ func set_mesh_color(new_color: Color):
 		var new_mat = mesh_material.duplicate()
 		new_mat['shader_parameter/custom_color'] = new_color
 		plush.set_surface_override_material(i, new_mat)
-	
+		
 func wave():
 	animation_tree["parameters/WaveOneShot/request"] = AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE
 	if is_multiplayer_authority(): sync_wave.rpc()

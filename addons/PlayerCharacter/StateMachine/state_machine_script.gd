@@ -29,11 +29,13 @@ func _ready():
 		
 func _process(delta : float):
 	# NOTE: Added
-	if char_ref.immobile: return
+	if char_ref.immobile:
+		return
 	if curr_state: curr_state.update(delta)
-	
+		
 func _physics_process(delta: float):
 	if char_ref.immobile:
+		char_ref.gravity_apply(delta)
 		char_ref.velocity.x = lerp(char_ref.velocity.x, 0.0, char_ref.move_deccel * delta) 
 		char_ref.velocity.z = lerp(char_ref.velocity.z, 0.0, char_ref.move_deccel * delta) 
 		char_ref.move_and_slide()

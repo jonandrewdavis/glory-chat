@@ -1,5 +1,6 @@
-[gd_scene format=3 uid="uid://bosbplwxiu8rp"]
+[gd_scene load_steps=2 format=3 uid="uid://bosbplwxiu8rp"]
+
+[ext_resource type="Script" uid="uid://pvn8nph450gm" path="res://game3d/keeb/keeb_rect.gd" id="1_wfwst"]
 
 [node name="KeebRect" type="Node3D"]
-
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
+script = ExtResource("1_wfwst")

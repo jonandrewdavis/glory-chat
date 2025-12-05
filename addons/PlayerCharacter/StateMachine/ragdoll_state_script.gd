@@ -57,6 +57,8 @@ func applies():
 	cR.velocity.z = 0.0
 	
 func input_management():
+	if cR.immobile: return
+
 	if Input.is_action_just_pressed("ragdoll"):
 		#if ragdoll is set to be only enable on floor
 		if cR.ragdoll_on_floor_only and cR.is_on_floor():
@@ -77,22 +79,24 @@ func input_management():
 			if cR.godot_plush_skin.center_body.global_position.y < 2.0:
 				ragdoll_jump_active = true
 
+var RAGDOLL_JUMP_FORCE := 50.0
+
+# NOTE: cR.is_on_floor is always true in ragdoll since ragdoll can't be activated in air & the cR 
+# remains on the ground. # TODO: Fix.
 func move(delta : float):
 	cR.move_dir = Input.get_vector(cR.moveLeftAction, cR.moveRightAction, cR.moveForwardAction, cR.moveBackwardAction).rotated(-cR.cam_holder.global_rotation.y)
 	var center: PhysicalBone3D = cR.godot_plush_skin.center_body
-
-	if cR.move_dir and cR.is_on_floor():
 		#apply smooth move
-		var force_x = cR.move_dir.x * cR.move_speed * 0.4
-		var force_z = cR.move_dir.y * cR.move_speed * 0.4
-		var force_y = 0.0
-		#cR.plush
-		if ragdoll_jump_active: 
-			force_y = 50.0
-			ragdoll_jump_active = false
-			ragdoll_jump_cooldown.start()
+	var force_x = cR.move_dir.x * cR.move_speed * 0.4
+	var force_z = cR.move_dir.y * cR.move_speed * 0.4
+	var force_y = 0.0
+	#cR.plush
+	if ragdoll_jump_active: 
+		force_y = RAGDOLL_JUMP_FORCE
+		ragdoll_jump_active = false
+		ragdoll_jump_cooldown.start()
 
-		center.apply_central_impulse(Vector3(force_x, force_y, force_z ) * delta)
+	center.apply_central_impulse(Vector3(force_x, force_y, force_z ) * delta)
 
 #func move(delta : float):
 	#

@@ -4,12 +4,19 @@ extends Node3D
 @onready var walls: Node3D = $Walls
 @onready var player_container = $PlayerContainer3D
 
+signal signal_player_kill
+signal signal_player_death
+
 var player_scene_new = preload("res://addons/PlayerCharacter/PlayerCharacterScene.tscn")
 
 var check_host_timer = Timer.new()
 
 func _ready() -> void:
+	add_to_group("World")
+
 	if OS.is_debug_build():
+		window.initial_position = Window.WINDOW_INITIAL_POSITION_ABSOLUTE
+		window.position = Vector2(1800, 300)
 		window.borderless = false
 		window.always_on_top = false
 		window.transparent = false

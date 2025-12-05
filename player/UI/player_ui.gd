@@ -4,7 +4,7 @@ class_name PlayerUI
 
 @export var player: Node
 
-var world: World 
+var world 
 
 func _ready() -> void:
 	if not is_multiplayer_authority():

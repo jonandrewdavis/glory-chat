@@ -40,6 +40,8 @@ func applies(delta : float):
 		if cR.coyote_jump_cooldown > 0.0: cR.coyote_jump_cooldown -= delta
 		
 func input_management():
+	if cR.immobile: return
+
 	if Input.is_action_just_pressed(cR.jumpAction):
 		jump()
 		

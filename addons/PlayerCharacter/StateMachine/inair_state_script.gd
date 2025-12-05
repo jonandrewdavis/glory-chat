@@ -40,6 +40,8 @@ func gravity_apply(delta : float):
 	if cR.velocity.y >= 0.0: cR.velocity.y -= cR.jump_gravity / cR.jump_cut_multiplier * delta
 		
 func input_management():
+	if cR.immobile: return
+
 	if Input.is_action_just_pressed(cR.jumpAction) :
 		#check if can jump buffer
 		if cR.floor_check.is_colliding() and cR.last_frame_position.y > cR.position.y and cR.nb_jumps_in_air_allowed <= 0: cR.jump_buff_on = true

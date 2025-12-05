@@ -48,6 +48,8 @@ func check_if_floor():
 			transitioned.emit(self, "JumpState")
 			
 func input_management():
+	if cR.immobile: return
+
 	if Input.is_action_pressed(cR.jumpAction) if cR.auto_jump else Input.is_action_just_pressed(cR.jumpAction) :
 		transitioned.emit(self, "JumpState")
 		
@@ -60,6 +62,8 @@ func input_management():
 			transitioned.emit(self, "RagdollState")
 		
 func move(delta : float):
+	if cR.immobile: return
+
 	cR.move_dir = Input.get_vector(cR.moveLeftAction, cR.moveRightAction, cR.moveForwardAction, cR.moveBackwardAction).rotated(-cR.cam_holder.global_rotation.y)
 	
 	if cR.move_dir and cR.is_on_floor():

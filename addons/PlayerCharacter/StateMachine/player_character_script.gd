@@ -85,6 +85,7 @@ var coyote_jump_on : bool = false
 var immobile := false
 
 @onready var nametag: Label3D = %Nametag
+@onready var window: Window = get_window()
 
 func _enter_tree() -> void:
 	set_multiplayer_authority(name.to_int())
@@ -132,12 +133,11 @@ func _set_visibility_for_players(id):
 
 	return result
 
-
 func _process(delta: float):
 	modify_model_orientation(delta)
 	display_properties()
-	
-	
+	if OS.has_feature('admin'): process_admin_input()
+
 func set_lobby_info(lobby):
 	#%Nametag.horizontal_alignment = HorizontalAlignment.HORIZONTAL_ALIGNMENT_CENTER
 	#%Nametag.set_anchors_preset(Control.PRESET_CENTER_TOP)
@@ -208,3 +208,11 @@ func squash_and_strech(value : float, timing : float):
 	sasTween.tween_property(godot_plush_skin, "squash_and_stretch", value, timing)
 	sasTween.tween_property(godot_plush_skin, "squash_and_stretch", 1.0, timing * 1.8)
 	
+	
+func process_admin_input():
+	if Input.is_action_just_pressed("debug2"):
+		var cam_a: Camera3D = get_tree().get_first_node_in_group('World').get_node('CameraA')
+		cam_a.current = true
+	elif Input.is_action_just_pressed("debug3"):
+		var cam_b: Camera3D = get_tree().get_first_node_in_group('World').get_node('CameraB')
+		cam_b.current = true
