@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://c1ms5qh1e78o2"]
+[gd_scene format=3 uid="uid://c1ms5qh1e78o2"]
 
 [ext_resource type="Script" uid="uid://bo8ghv62a72yx" path="res://player/player_admin.gd" id="1_8oe48"]
 [ext_resource type="Texture2D" uid="uid://ik1f884mp351" path="res://assets/pointer_green.png" id="3_3q8dd"]
@@ -15,33 +15,33 @@ properties/1/path = NodePath("PointerHitbox/CollisionPolygon2D:disabled")
 properties/1/spawn = true
 properties/1/replication_mode = 2
 
-[node name="PlayerAdmin" type="AnimatableBody2D"]
+[node name="PlayerAdmin" type="AnimatableBody2D" unique_id=17055695]
 z_index = -1
 script = ExtResource("1_8oe48")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=312201263]
 shape = SubResource("CircleShape2D_wok4r")
 disabled = true
 
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1820720070]
 replication_config = SubResource("SceneReplicationConfig_8oe48")
 
-[node name="PointerHitbox" type="Area2D" parent="."]
+[node name="PointerHitbox" type="Area2D" parent="." unique_id=1072939810]
 unique_name_in_owner = true
 position = Vector2(14, 22)
 collision_layer = 2
 collision_mask = 2
 
-[node name="Pointer" type="Sprite2D" parent="PointerHitbox"]
+[node name="Pointer" type="Sprite2D" parent="PointerHitbox" unique_id=849500131]
 scale = Vector2(0.14, 0.14)
 texture = ExtResource("3_3q8dd")
 region_rect = Rect2(0, 0, 392, 352)
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="PointerHitbox"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="PointerHitbox" unique_id=1842233995]
 polygon = PackedVector2Array(-12, -22, -12, 17, -4, 9, 3, 22, 11, 18, 5, 6, 16, 6)
 
-[node name="PlayerUI" parent="." node_paths=PackedStringArray("player") instance=ExtResource("3_8oe48")]
+[node name="PlayerUI" parent="." unique_id=1664127994 node_paths=PackedStringArray("player") instance=ExtResource("3_8oe48")]
 player = NodePath("..")
 
-[node name="TimerSpawnTarget" type="Timer" parent="."]
+[node name="TimerSpawnTarget" type="Timer" parent="." unique_id=1722070903]
 unique_name_in_owner = true

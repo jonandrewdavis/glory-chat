@@ -4,13 +4,13 @@ extends Node3D
 @onready var physical_bone_simulator_3d = %PhysicalBoneSimulator3D
 @onready var animation_tree : AnimationTree = %AnimationTree
 @onready var state_machine : AnimationNodeStateMachinePlayback = animation_tree.get("parameters/StateMachine/playback")
-
 @onready var center_body: PhysicalBone3D  = $"GodotPlushModel/Rig/Skeleton3D/PhysicalBoneSimulator3D/Physical Bone DEF-hips"
-
 @onready var cR: CharacterBody3D = get_parent().get_parent()
+
 
 var ragdoll : bool = false : set = set_ragdoll
 var squash_and_stretch = 1.0 : set = set_squash_and_stretch
+var colors = [Color.WHITE, Color.DEEP_PINK, Color.CYAN, Color.BLUE_VIOLET, Color.ROYAL_BLUE, Color.CORAL, Color.FOREST_GREEN, Color.CRIMSON, Color.GOLD]
 
 signal footstep(intensity : float)
 signal waved
@@ -110,13 +110,14 @@ func emit_footstep(intensity : float = 1.0) -> void:
 	#call foostep signal in charge of emitting the footstep audio effects
 	footstep.emit(intensity)
 
-func set_mesh_color(new_color: Color):
+func set_mesh_color(_new_color: Color):
 	var plush = $GodotPlushModel/Rig/Skeleton3D/GodotPlushMesh
+	var random_new_color_index = cR.name.hash() % colors.size() - 1
 
 	for i in 3:
 		var mesh_material: ShaderMaterial = plush.get_active_material(i)
 		var new_mat = mesh_material.duplicate()
-		new_mat['shader_parameter/custom_color'] = new_color
+		new_mat['shader_parameter/custom_color'] = colors[random_new_color_index]
 		plush.set_surface_override_material(i, new_mat)
 		
 func wave():

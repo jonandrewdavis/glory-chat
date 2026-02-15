@@ -1,4 +1,4 @@
-[gd_resource type="ShaderMaterial" load_steps=8 format=3 uid="uid://fkuklawrv3wp"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://fkuklawrv3wp"]
 
 [ext_resource type="Shader" uid="uid://8q83aqwnx01q" path="res://addons/PlayerCharacter/Vfx/base_smoke.gdshader" id="1_vtmpj"]
 

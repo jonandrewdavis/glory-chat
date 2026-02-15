@@ -8,20 +8,24 @@
 
 config_version=5
 
+[animation]
+
+compatibility/default_parent_skeleton_in_mesh_instance_3d=true
+
 [application]
 
 config/name="GloryChat"
 run/main_scene="uid://dn8rotsa0yj5o"
-config/features=PackedStringArray("4.5", "GL Compatibility")
+config/features=PackedStringArray("4.6", "GL Compatibility")
 boot_splash/show_image=false
-boot_splash/fullsize=false
+boot_splash/stretch_mode=0
 boot_splash/use_filter=false
 boot_splash/image="uid://tqpu68t76uyk"
 config/icon="uid://tqpu68t76uyk"
 
 [autoload]
 
-VerySimpleTwitch="*res://addons/very-simple-twitch/twitch_node.gd"
+VerySimpleTwitch="*uid://d26dcloatugar"
 LobbySystem="*res://lobby/lobby_system.gd"
 
 [debug]
